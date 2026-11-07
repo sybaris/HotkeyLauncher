@@ -86,7 +86,7 @@ public sealed partial class KeyViewModel : ObservableObject
         Label = Kind switch
         {
             KeyKind.Modifier => KeyNames.ModifierNames(Modifier).First(),
-            KeyKind.Normal => KeyNames.GetKeyName(VirtualKey),
+            KeyKind.Normal => Definition.Label ?? KeyNames.GetKeyName(VirtualKey),
             _ => Definition.Label ?? string.Empty,
         };
     }

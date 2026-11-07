@@ -1,0 +1,43 @@
+{
+    "version": "x.y.z",
+    "description": "Launch applications, folders and web sites with global keyboard shortcuts.",
+    "homepage": "https://github.com/sybaris/HotkeyLauncher",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/sybaris/HotkeyLauncher/releases/download/vx.y.z/HotkeyLauncher-x.y.z-win-x64-portable.zip",
+            "hash": "SHA256_X64"
+        },
+        "arm64": {
+            "url": "https://github.com/sybaris/HotkeyLauncher/releases/download/vx.y.z/HotkeyLauncher-x.y.z-win-arm64-portable.zip",
+            "hash": "SHA256_ARM64"
+        }
+    },
+    "bin": "HotkeyLauncher.exe",
+    "shortcuts": [
+        [
+            "HotkeyLauncher.exe",
+            "HotkeyLauncher"
+        ]
+    ],
+    "persist": [
+        "HotkeyLauncher.settings.json",
+        "HotkeyLauncher.log",
+        "backups"
+    ],
+    "pre_install": "if (!(Test-Path \"$persist_dir\\HotkeyLauncher.settings.json\")) { New-Item \"$dir\\HotkeyLauncher.settings.json\" -ItemType File -Value '{}' | Out-Null }",
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/sybaris/HotkeyLauncher/releases/download/v$version/HotkeyLauncher-$version-win-x64-portable.zip"
+            },
+            "arm64": {
+                "url": "https://github.com/sybaris/HotkeyLauncher/releases/download/v$version/HotkeyLauncher-$version-win-arm64-portable.zip"
+            }
+        },
+        "hash": {
+            "url": "$baseurl/SHA256SUMS.txt"
+        }
+    }
+}

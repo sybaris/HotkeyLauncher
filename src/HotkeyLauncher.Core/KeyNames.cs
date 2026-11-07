@@ -31,15 +31,25 @@ public static class KeyNames
         [0x28] = "↓",
         [0x13] = "Pause",
         [0x2C] = "PrtSc",
+        [0x6A] = "Num *",
+        [0x6B] = "Num +",
+        [0x6D] = "Num -",
+        [0x6E] = "Num .",
+        [0x6F] = "Num /",
     };
 
-    /// <summary>Modifier names in display order.</summary>
+    static KeyNames()
+    {
+        for (uint vk = 0x60; vk <= 0x69; vk++) FixedNames[vk] = $"Num {vk - 0x60}";
+    }
+
+    /// <summary>Modifier names in display order: Win first, as in the Windows documentation ("Win + Shift + S").</summary>
     public static IEnumerable<string> ModifierNames(HotkeyModifiers modifiers)
     {
+        if (modifiers.HasFlag(HotkeyModifiers.Win)) yield return WinName;
         if (modifiers.HasFlag(HotkeyModifiers.Control)) yield return CtrlName;
         if (modifiers.HasFlag(HotkeyModifiers.Alt)) yield return AltName;
         if (modifiers.HasFlag(HotkeyModifiers.Shift)) yield return ShiftName;
-        if (modifiers.HasFlag(HotkeyModifiers.Win)) yield return WinName;
     }
 
     /// <summary>All parts of a hotkey ("Ctrl", "Alt", "N"), handy to draw key caps.</summary>

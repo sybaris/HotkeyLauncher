@@ -3,8 +3,6 @@ using HotkeyLauncher.Core.Models;
 
 namespace HotkeyLauncher.Core.Import;
 
-public sealed record RapidAppImportResult(IReadOnlyList<string> Groups, IReadOnlyList<HotkeyEntry> Entries, IReadOnlyList<string> SkippedSections);
-
 /// <summary>
 /// Reads the RapidApp.ini file of RapidApp (the Delphi ancestor of HotkeyLauncher).
 /// Format: a [MENULIST] section with one menu name per line, then one numbered section per hotkey:
@@ -15,9 +13,9 @@ public static class RapidAppImporter
 {
     public const string DefaultFileName = "RapidApp.ini";
 
-    public static RapidAppImportResult Import(string path) => Parse(ReadText(path));
+    public static ImportResult Import(string path) => Parse(ReadText(path));
 
-    public static RapidAppImportResult Parse(string content)
+    public static ImportResult Parse(string content)
     {
         var ini = IniDocument.Parse(content);
         var groups = new List<string>();
@@ -69,7 +67,7 @@ public static class RapidAppImporter
             if (entry.Group.Length > 0 && !groups.Contains(entry.Group)) groups.Add(entry.Group);
         }
 
-        return new RapidAppImportResult(groups, entries, skipped);
+        return new ImportResult(groups, entries, skipped);
     }
 
     /// <summary>RapidApp was a Delphi 7 (ANSI) program: the file is Windows-1252 unless it has a BOM.</summary>

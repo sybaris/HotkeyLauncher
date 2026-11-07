@@ -10,7 +10,8 @@ namespace HotkeyLauncher.Localization;
 /// <summary>
 /// Gives access to the translated strings (Resources/Strings*.resx) and lets the UI switch language
 /// without restarting: every binding on the indexer is refreshed when the language changes.
-/// To add a language: add Resources/Strings.xx.resx and an entry in <see cref="Languages"/>.
+/// To add a language: add a column to tools/strings.tsv, run tools/make_resx.py, add an entry in
+/// <see cref="Languages"/> and in SatelliteResourceLanguages (Directory.Build.props).
 /// </summary>
 public sealed class Localizer : INotifyPropertyChanged
 {
@@ -19,7 +20,8 @@ public sealed class Localizer : INotifyPropertyChanged
     public static Localizer Instance { get; } = new();
 
     /// <summary>Available UI languages (code, native name).</summary>
-    public static IReadOnlyList<(string Code, string Name)> Languages { get; } = [("en", "English"), ("fr", "Français")];
+    public static IReadOnlyList<(string Code, string Name)> Languages { get; } =
+        [("en", "English"), ("fr", "Français"), ("es", "Español"), ("de", "Deutsch")];
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

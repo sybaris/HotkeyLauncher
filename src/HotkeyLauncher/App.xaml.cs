@@ -1,6 +1,7 @@
 using System.Resources;
 using System.Windows;
 using System.Windows.Threading;
+using HotkeyLauncher.Core;
 using HotkeyLauncher.Core.Models;
 using HotkeyLauncher.Core.Settings;
 using HotkeyLauncher.Localization;
@@ -31,6 +32,7 @@ public partial class App : Application
 
         var store = SettingsStore.CreateDefault();
         var isFirstRun = !store.Exists;
+        Log.Initialize(store.Directory);
         var settings = LoadSettings(store);
         Localizer.Instance.SetLanguage(settings.Language);
 
@@ -50,14 +52,16 @@ public partial class App : Application
             return;
         }
 
+        Log.Info($"HotkeyLauncher {AppController.CurrentVersion} started ({Environment.ProcessPath}), settings: {store.FilePath}, {settings.Hotkeys.Count} shortcut(s)");
         var startInTray = args.Contains(AppController.TrayArgument) && !isFirstRun;
         _controller = new AppController(store, settings);
         _singleInstance.Listen(() => Dispatcher.BeginInvoke(_controller.ShowMainWindow));
-        _controller.Start(showWindow: !startInTray);
+        _controller.Start(showWindow: !startInTray, isFirstRun);
     }
 
     protected override void OnExit(ExitEventArgs e)
     {
+        if (_controller != null) Log.Info("HotkeyLauncher stopped");
         _controller?.Dispose();
         _singleInstance?.Dispose();
         base.OnExit(e);
@@ -72,6 +76,7 @@ public partial class App : Application
         catch (SettingsLoadException ex)
         {
             var backup = store.BackupCorruptedFile();
+            Log.Error($"Invalid settings file, renamed to {backup}", ex);
             Localizer.Instance.SetLanguage(string.Empty);
             MessageBox.Show(F("Error_SettingsCorrupted", ex.Message, backup), "HotkeyLauncher", MessageBoxButton.OK, MessageBoxImage.Warning);
             return new AppSettings();
@@ -80,6 +85,7 @@ public partial class App : Application
 
     private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
+        Log.Error("Unexpected error", e.Exception);
         MessageBox.Show(F("Error_Unexpected", e.Exception.Message), "HotkeyLauncher", MessageBoxButton.OK, MessageBoxImage.Error);
         e.Handled = true;
     }

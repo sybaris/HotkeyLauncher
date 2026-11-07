@@ -49,6 +49,26 @@ jobs:
           }
           Get-ChildItem artifacts | Format-Table Name, Length
 
+      - name: Checksums and Scoop manifest
+        shell: pwsh
+        run: |
+          $version = '${{ github.ref_name }}'.TrimStart('v')
+          # SHA256SUMS.txt: "<hash>  <file>" (also used by Scoop's autoupdate)
+          $hashes = @{}
+          $lines = foreach ($zip in Get-ChildItem artifacts/*.zip) {
+            $hash = (Get-FileHash $zip.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            $hashes[$zip.Name] = $hash
+            "$hash  $($zip.Name)"
+          }
+          $lines | Set-Content artifacts/SHA256SUMS.txt -Encoding utf8NoBOM
+          # Scoop manifest filled for this version (see packaging/README.md)
+          (Get-Content packaging/scoop/hotkeylauncher.json -Raw) `
+            -replace 'x\.y\.z', $version `
+            -replace 'SHA256_X64', $hashes["HotkeyLauncher-$version-win-x64-portable.zip"] `
+            -replace 'SHA256_ARM64', $hashes["HotkeyLauncher-$version-win-arm64-portable.zip"] |
+            Set-Content artifacts/hotkeylauncher.json -Encoding utf8NoBOM
+          Get-Content artifacts/SHA256SUMS.txt
+
       - name: Create the GitHub release
         shell: pwsh
         env:
@@ -68,7 +88,7 @@ jobs:
           Décompressez où vous voulez et lancez `HotkeyLauncher.exe`. Les paramètres sont enregistrés à côté de l'exécutable.
 
           '@
-          $files = (Get-ChildItem artifacts/*.zip).FullName
+          $files = (Get-ChildItem artifacts/*.zip, artifacts/SHA256SUMS.txt, artifacts/hotkeylauncher.json).FullName
           $options = @('--title', "HotkeyLauncher $tag", '--notes', $notes, '--generate-notes')
           if ($tag.Contains('-')) { $options += '--prerelease' }
           gh release create $tag @files @options

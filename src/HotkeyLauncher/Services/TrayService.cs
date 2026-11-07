@@ -20,6 +20,11 @@ public sealed class TrayService : IDisposable
     private readonly Forms.Timer _singleClickTimer;
     private readonly Drawing.Icon _enabledIcon;
     private readonly Drawing.Icon _disabledIcon;
+    private readonly Forms.ToolStripTextBox _searchBox = new() { AutoSize = false, Width = 240 };
+    private readonly Forms.ToolStripSeparator _searchSeparator = new();
+    private Action? _notificationClick;
+    private AppSettings? _settings;
+    private bool _hotkeysActive;
 
     public TrayService()
     {
@@ -51,6 +56,35 @@ public sealed class TrayService : IDisposable
             _singleClickTimer.Stop();
             OpenRequested?.Invoke(this, EventArgs.Empty);
         };
+        _notifyIcon.BalloonTipClicked += (_, _) => _notificationClick?.Invoke();
+        _notifyIcon.BalloonTipClosed += (_, _) => _notificationClick = null;
+
+        // Search box at the top of the launch menu: typing filters the shortcuts
+        _searchBox.TextBox.PlaceholderText = "🔍";
+        _searchBox.TextChanged += (_, _) => FillLaunchItems();
+        _searchBox.KeyDown += (_, e) =>
+        {
+            if (e.KeyCode == Forms.Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                var first = _launchMenu.Items.OfType<Forms.ToolStripMenuItem>().FirstOrDefault(i => i.Tag is Guid);
+                if (first?.Tag is Guid id)
+                {
+                    _launchMenu.Close();
+                    LaunchRequested?.Invoke(this, id);
+                }
+            }
+            else if (e.KeyCode == Forms.Keys.Down)
+            {
+                e.SuppressKeyPress = true;
+                _launchMenu.Items.OfType<Forms.ToolStripMenuItem>().FirstOrDefault(i => i.Enabled)?.Select();
+            }
+        };
+        _launchMenu.Opened += (_, _) => _searchBox.Focus();
+        _launchMenu.Closed += (_, _) =>
+        {
+            if (_searchBox.Text.Length > 0) _searchBox.Text = string.Empty;
+        };
     }
 
     public event EventHandler? OpenRequested;
@@ -74,8 +108,12 @@ public sealed class TrayService : IDisposable
         _appMenu.Renderer = renderer;
     }
 
-    public void ShowNotification(string title, string text, bool isError = false) =>
+    /// <param name="onClick">Action run when the user clicks the notification.</param>
+    public void ShowNotification(string title, string text, bool isError = false, Action? onClick = null)
+    {
+        _notificationClick = onClick;
         _notifyIcon.ShowBalloonTip(5000, title, text, isError ? Forms.ToolTipIcon.Error : Forms.ToolTipIcon.Info);
+    }
 
     public void Dispose()
     {
@@ -90,9 +128,51 @@ public sealed class TrayService : IDisposable
 
     private void BuildLaunchMenu(AppSettings settings, bool hotkeysActive)
     {
-        _launchMenu.Items.Clear();
+        _settings = settings;
+        _hotkeysActive = hotkeysActive;
         _launchMenu.ShowImageMargin = true;
         _launchMenu.ImageScalingSize = Forms.SystemInformation.SmallIconSize;
+        _searchBox.TextBox.PlaceholderText = T("Tray_Search");
+        FillLaunchItems();
+    }
+
+    /// <summary>Search box, then either the full menu (groups) or the search results.</summary>
+    private void FillLaunchItems()
+    {
+        if (_settings == null) return;
+        var settings = _settings;
+        var hotkeysActive = _hotkeysActive;
+
+        _launchMenu.SuspendLayout();
+
+        // Keep the search box (it has the focus while typing), replace everything else
+        for (var i = _launchMenu.Items.Count - 1; i >= 0; i--)
+        {
+            var item = _launchMenu.Items[i];
+            if (item == _searchBox || item == _searchSeparator) continue;
+            _launchMenu.Items.RemoveAt(i);
+            DisposeItem(item);
+        }
+
+        if (settings.Hotkeys.Count > 0 && !_launchMenu.Items.Contains(_searchBox))
+        {
+            _launchMenu.Items.Insert(0, _searchBox);
+            _launchMenu.Items.Insert(1, _searchSeparator);
+        }
+        else if (settings.Hotkeys.Count == 0)
+        {
+            _launchMenu.Items.Remove(_searchBox);
+            _launchMenu.Items.Remove(_searchSeparator);
+        }
+
+        if (_searchBox.Text.Trim().Length > 0)
+        {
+            var results = QuickSearch.Search(settings.Hotkeys, _searchBox.Text, 15);
+            foreach (var entry in results) _launchMenu.Items.Add(CreateEntryItem(entry, hotkeysActive));
+            if (results.Count == 0) _launchMenu.Items.Add(new Forms.ToolStripMenuItem(T("Tray_NoResult")) { Enabled = false });
+            _launchMenu.ResumeLayout();
+            return;
+        }
 
         foreach (var group in settings.Groups)
         {
@@ -107,13 +187,15 @@ public sealed class TrayService : IDisposable
         }
 
         var ungrouped = settings.Hotkeys.Where(h => h.Group.Length == 0).ToList();
-        if (ungrouped.Count > 0 && _launchMenu.Items.Count > 0) _launchMenu.Items.Add(new Forms.ToolStripSeparator());
+        if (ungrouped.Count > 0 && settings.Groups.Count > 0) _launchMenu.Items.Add(new Forms.ToolStripSeparator());
         foreach (var entry in ungrouped) _launchMenu.Items.Add(CreateEntryItem(entry, hotkeysActive));
 
-        if (_launchMenu.Items.Count == 0)
+        if (settings.Hotkeys.Count == 0)
         {
             _launchMenu.Items.Add(new Forms.ToolStripMenuItem(T("Tray_NoShortcut")) { Enabled = false });
         }
+
+        _launchMenu.ResumeLayout();
     }
 
     private Forms.ToolStripMenuItem CreateEntryItem(HotkeyEntry entry, bool hotkeysActive)
@@ -121,6 +203,7 @@ public sealed class TrayService : IDisposable
         var item = new Forms.ToolStripMenuItem(Escape(entry.Name), IconService.GetMenuBitmap(entry.Target));
         if (hotkeysActive && entry.IsEnabled && entry.Hotkey.IsComplete) item.ShortcutKeyDisplayString = KeyNames.Format(entry.Hotkey);
         var id = entry.Id;
+        item.Tag = id;
         item.Click += (_, _) => LaunchRequested?.Invoke(this, id);
         return item;
     }
@@ -162,6 +245,18 @@ public sealed class TrayService : IDisposable
         {
             _notifyIcon.ContextMenuStrip = _appMenu;
         }
+    }
+
+    /// <summary>Disposes a menu item without disposing its icon, which belongs to the <see cref="IconService"/> cache.</summary>
+    private static void DisposeItem(Forms.ToolStripItem item)
+    {
+        if (item is Forms.ToolStripMenuItem menuItem)
+        {
+            foreach (Forms.ToolStripItem child in menuItem.DropDownItems.Cast<Forms.ToolStripItem>().ToList()) DisposeItem(child);
+        }
+
+        item.Image = null;
+        item.Dispose();
     }
 
     // "&" would be interpreted as a mnemonic

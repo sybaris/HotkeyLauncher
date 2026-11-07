@@ -1,0 +1,18 @@
+# Reference winget manifest (see packaging/README.md). Replace x.y.z and the SHA256 values.
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+PackageIdentifier: Sybaris.HotkeyLauncher
+PackageVersion: x.y.z
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+  - RelativeFilePath: HotkeyLauncher.exe
+    PortableCommandAlias: hotkeylauncher
+Installers:
+  - Architecture: x64
+    InstallerUrl: https://github.com/sybaris/HotkeyLauncher/releases/download/vx.y.z/HotkeyLauncher-x.y.z-win-x64-portable.zip
+    InstallerSha256: SHA256_X64
+  - Architecture: arm64
+    InstallerUrl: https://github.com/sybaris/HotkeyLauncher/releases/download/vx.y.z/HotkeyLauncher-x.y.z-win-arm64-portable.zip
+    InstallerSha256: SHA256_ARM64
+ManifestType: installer
+ManifestVersion: 1.10.0

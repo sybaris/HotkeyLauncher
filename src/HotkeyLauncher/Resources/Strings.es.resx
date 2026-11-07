@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from tools/strings.tsv by tools/make_resx.py: edit the TSV, not this file. -->
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Key_Ctrl" xml:space="preserve"><value>Ctrl</value></data>
+  <data name="Key_Alt" xml:space="preserve"><value>Alt</value></data>
+  <data name="Key_Shift" xml:space="preserve"><value>Mayús</value></data>
+  <data name="Key_Win" xml:space="preserve"><value>Win</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Cancelar</value></data>
+  <data name="Common_Ok" xml:space="preserve"><value>Aceptar</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Guardar</value></data>
+  <data name="Common_Change" xml:space="preserve"><value>Cambiar…</value></data>
+  <data name="Tray_Disabled" xml:space="preserve"><value>atajos desactivados</value></data>
+  <data name="Tray_NoShortcut" xml:space="preserve"><value>(todavía no hay atajos)</value></data>
+  <data name="Tray_Search" xml:space="preserve"><value>Buscar…</value></data>
+  <data name="Tray_NoResult" xml:space="preserve"><value>(sin resultados)</value></data>
+  <data name="Tray_Open" xml:space="preserve"><value>Abrir HotkeyLauncher</value></data>
+  <data name="Tray_HotkeysActive" xml:space="preserve"><value>Atajos activados</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Salir</value></data>
+  <data name="Tray_RegistrationFailures" xml:space="preserve"><value>No se pudieron activar {0} atajo(s): la combinación ya la usa Windows u otro programa.</value></data>
+  <data name="Tray_StillRunning" xml:space="preserve"><value>HotkeyLauncher sigue funcionando aquí. Sus atajos siguen activos. Haga clic derecho en el icono para salir.</value></data>
+  <data name="Error_SaveTitle" xml:space="preserve"><value>No se pudo guardar la configuración</value></data>
+  <data name="Error_SettingsCorrupted" xml:space="preserve"><value>No se pudo leer el archivo de configuración:
+{0}
+
+Se ha renombrado a:
+{1}
+
+HotkeyLauncher se inicia con una configuración vacía.</value></data>
+  <data name="Error_Unexpected" xml:space="preserve"><value>Se ha producido un error inesperado:
+{0}</value></data>
+  <data name="Launch_ErrorTitle" xml:space="preserve"><value>No se puede iniciar «{0}»</value></data>
+  <data name="CommandLine_Help" xml:space="preserve"><value>HotkeyLauncher – abra aplicaciones, carpetas y sitios web con atajos de teclado.
+
+Uso: HotkeyLauncher [opciones]
+
+  (sin opción)   Abre la ventana principal
+  /setup         Abre la ventana principal (también de una instancia ya iniciada)
+  --tray         Se inicia oculto en el área de notificación
+  /?, --help     Muestra esta ayuda</value></data>
+  <data name="Header_Subtitle" xml:space="preserve"><value>Sus aplicaciones, carpetas y sitios web al alcance del teclado</value></data>
+  <data name="Header_Shortcuts" xml:space="preserve"><value>{0} atajo(s)</value></data>
+  <data name="Header_Groups" xml:space="preserve"><value>{0} grupo(s)</value></data>
+  <data name="Header_Active" xml:space="preserve"><value>Activos</value></data>
+  <data name="Header_Paused" xml:space="preserve"><value>En pausa</value></data>
+  <data name="Main_TabShortcuts" xml:space="preserve"><value>Atajos</value></data>
+  <data name="Main_TabSettings" xml:space="preserve"><value>Configuración</value></data>
+  <data name="Main_TabAbout" xml:space="preserve"><value>Acerca de</value></data>
+  <data name="Main_Add" xml:space="preserve"><value>Añadir</value></data>
+  <data name="Main_AddFirst" xml:space="preserve"><value>Añadir un atajo</value></data>
+  <data name="Main_Search" xml:space="preserve"><value>Buscar…</value></data>
+  <data name="Main_HotkeysActive" xml:space="preserve"><value>Atajos activados</value></data>
+  <data name="Main_HotkeysActiveTip" xml:space="preserve"><value>Desactiva temporalmente todos los atajos (por ejemplo, cuando un programa necesita las mismas combinaciones)</value></data>
+  <data name="Main_FailuresTitle" xml:space="preserve"><value>Algunos atajos no están activos</value></data>
+  <data name="Main_FailuresMessage" xml:space="preserve"><value>Su combinación ya la usa Windows u otro programa. Pase el ratón sobre el icono de advertencia para ver los detalles y elija otra combinación.</value></data>
+  <data name="Main_EmptyTitle" xml:space="preserve"><value>Todavía no hay atajos</value></data>
+  <data name="Main_EmptyText" xml:space="preserve"><value>Cree un atajo para iniciar una aplicación, abrir una carpeta o un sitio web con una combinación de teclas. También puede soltar un archivo o una carpeta en esta ventana.</value></data>
+  <data name="Sort_Tip" xml:space="preserve"><value>Orden de los atajos dentro de cada grupo</value></data>
+  <data name="Sort_Custom" xml:space="preserve"><value>Orden personalizado</value></data>
+  <data name="Sort_Name" xml:space="preserve"><value>Por nombre</value></data>
+  <data name="Sort_MostUsed" xml:space="preserve"><value>Los más usados</value></data>
+  <data name="Sort_Recent" xml:space="preserve"><value>Usados recientemente</value></data>
+  <data name="Undo_Deleted" xml:space="preserve"><value>«{0}» eliminado</value></data>
+  <data name="Undo_Button" xml:space="preserve"><value>Deshacer (Ctrl+Z)</value></data>
+  <data name="Usage_Never" xml:space="preserve"><value>Nunca iniciado</value></data>
+  <data name="Usage_Text" xml:space="preserve"><value>{0} inicio(s) · {1}</value></data>
+  <data name="Time_JustNow" xml:space="preserve"><value>ahora mismo</value></data>
+  <data name="Time_Minutes" xml:space="preserve"><value>hace {0} min</value></data>
+  <data name="Time_Hours" xml:space="preserve"><value>hace {0} h</value></data>
+  <data name="Time_Days" xml:space="preserve"><value>hace {0} día(s)</value></data>
+  <data name="List_NoGroup" xml:space="preserve"><value>Sin grupo</value></data>
+  <data name="Item_HotkeyTakenElsewhere" xml:space="preserve"><value>Esta combinación ya la usa Windows u otro programa: el atajo no está activo.</value></data>
+  <data name="Item_HotkeyRegistrationError" xml:space="preserve"><value>No se pudo activar el atajo: {0}</value></data>
+  <data name="Item_TargetNotFound" xml:space="preserve"><value>No se encuentra el destino.</value></data>
+  <data name="Item_CopyName" xml:space="preserve"><value>{0} (copia)</value></data>
+  <data name="Item_EnableConflictTitle" xml:space="preserve"><value>Atajo ya en uso</value></data>
+  <data name="Item_EnableConflict" xml:space="preserve"><value>Esta combinación ya la usa «{0}». Modifique primero uno de los 2 atajos.</value></data>
+  <data name="Item_RunsAsAdmin" xml:space="preserve"><value>Se ejecuta como administrador</value></data>
+  <data name="Item_MenuOnly" xml:space="preserve"><value>sin atajo</value></data>
+  <data name="Item_MenuOnlyTip" xml:space="preserve"><value>Disponible solo desde los menús</value></data>
+  <data name="Item_EnabledTip" xml:space="preserve"><value>Activar / desactivar este atajo</value></data>
+  <data name="Item_Launch" xml:space="preserve"><value>Iniciar ahora</value></data>
+  <data name="Item_Edit" xml:space="preserve"><value>Modificar</value></data>
+  <data name="Item_More" xml:space="preserve"><value>Más acciones</value></data>
+  <data name="Item_Duplicate" xml:space="preserve"><value>Duplicar</value></data>
+  <data name="Item_MoveUp" xml:space="preserve"><value>Subir</value></data>
+  <data name="Item_MoveDown" xml:space="preserve"><value>Bajar</value></data>
+  <data name="Item_Delete" xml:space="preserve"><value>Eliminar</value></data>
+  <data name="Group_Rename" xml:space="preserve"><value>Cambiar el nombre del grupo</value></data>
+  <data name="Group_MoveUp" xml:space="preserve"><value>Subir el grupo</value></data>
+  <data name="Group_MoveDown" xml:space="preserve"><value>Bajar el grupo</value></data>
+  <data name="Group_RenameTitle" xml:space="preserve"><value>Cambiar el nombre del grupo</value></data>
+  <data name="Group_RenameLabel" xml:space="preserve"><value>Nuevo nombre</value></data>
+  <data name="Group_MergeMessage" xml:space="preserve"><value>Ya existe un grupo «{1}». ¿Mover a él los atajos de «{0}»?</value></data>
+  <data name="Group_Merge" xml:space="preserve"><value>Combinar</value></data>
+  <data name="QuickLauncher_Name" xml:space="preserve"><value>Lanzador rápido</value></data>
+  <data name="QuickLauncher_Title" xml:space="preserve"><value>Lanzador rápido</value></data>
+  <data name="QuickLauncher_Description" xml:space="preserve"><value>Un cuadro de búsqueda para iniciar cualquier atajo escribiendo unas letras, sin recordar su combinación</value></data>
+  <data name="QuickLauncher_Failed" xml:space="preserve"><value>Esta combinación ya la usa Windows u otro programa: elija otra.</value></data>
+  <data name="QuickLauncher_HotkeyTitle" xml:space="preserve"><value>Atajo del lanzador rápido</value></data>
+  <data name="QuickLauncher_HotkeyHelp" xml:space="preserve"><value>Pulse la nueva combinación de teclas.</value></data>
+  <data name="QuickLauncher_Placeholder" xml:space="preserve"><value>Escriba para buscar un atajo…</value></data>
+  <data name="QuickLauncher_Recent" xml:space="preserve"><value>Usados recientemente</value></data>
+  <data name="QuickLauncher_ResultCount" xml:space="preserve"><value>{0} resultado(s)</value></data>
+  <data name="QuickLauncher_NoResult" xml:space="preserve"><value>Ningún atajo coincide con su búsqueda.</value></data>
+  <data name="QuickLauncher_Hints" xml:space="preserve"><value>↑ ↓  seleccionar     ↵  iniciar     Esc  cerrar</value></data>
+  <data name="QuickLauncher_OpenTip" xml:space="preserve"><value>Abrir el lanzador rápido</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Idioma</value></data>
+  <data name="Settings_LanguageDescription" xml:space="preserve"><value>Idioma de la aplicación</value></data>
+  <data name="Settings_LanguageSystem" xml:space="preserve"><value>Idioma de Windows</value></data>
+  <data name="Settings_Theme" xml:space="preserve"><value>Tema</value></data>
+  <data name="Settings_ThemeDescription" xml:space="preserve"><value>Apariencia clara u oscura</value></data>
+  <data name="Settings_ThemeSystem" xml:space="preserve"><value>Configuración de Windows</value></data>
+  <data name="Settings_ThemeLight" xml:space="preserve"><value>Claro</value></data>
+  <data name="Settings_ThemeDark" xml:space="preserve"><value>Oscuro</value></data>
+  <data name="Settings_StartWithWindows" xml:space="preserve"><value>Iniciar con Windows</value></data>
+  <data name="Settings_StartWithWindowsDescription" xml:space="preserve"><value>Inicia HotkeyLauncher en el área de notificación al iniciar sesión</value></data>
+  <data name="Settings_KeyboardShape" xml:space="preserve"><value>Teclado en pantalla</value></data>
+  <data name="Settings_KeyboardShapeDescription" xml:space="preserve"><value>Forma del teclado dibujado en el editor de atajos</value></data>
+  <data name="Settings_KeyboardAuto" xml:space="preserve"><value>Automática</value></data>
+  <data name="Settings_KeyboardIso" xml:space="preserve"><value>Europeo (ISO)</value></data>
+  <data name="Settings_KeyboardAnsi" xml:space="preserve"><value>Americano (ANSI)</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>Buscar actualizaciones</value></data>
+  <data name="Settings_UpdatesDescription" xml:space="preserve"><value>Una vez al día, pregunta a GitHub si hay una nueva versión (no se envía nada más)</value></data>
+  <data name="Settings_File" xml:space="preserve"><value>Archivo de configuración</value></data>
+  <data name="Settings_FileDescription" xml:space="preserve"><value>El registro y las copias de seguridad automáticas (3 últimas sesiones) están en la misma carpeta.</value></data>
+  <data name="Settings_OpenLog" xml:space="preserve"><value>Registro</value></data>
+  <data name="Settings_OpenFolder" xml:space="preserve"><value>Abrir la carpeta</value></data>
+  <data name="Settings_Advanced" xml:space="preserve"><value>Avanzado</value></data>
+  <data name="Settings_AdvancedDescription" xml:space="preserve"><value>Opciones poco utilizadas</value></data>
+  <data name="Settings_ImportRapidApp" xml:space="preserve"><value>Importar desde RapidApp</value></data>
+  <data name="Settings_ImportRapidAppDescription" xml:space="preserve"><value>Importa los atajos de RapidApp, el antecesor de HotkeyLauncher (archivo RapidApp.ini).</value></data>
+  <data name="Settings_ImportButton" xml:space="preserve"><value>Importar…</value></data>
+  <data name="Transfer_Title" xml:space="preserve"><value>Exportar / importar</value></data>
+  <data name="Transfer_Description" xml:space="preserve"><value>Guarde sus atajos en un archivo para copiarlos a otro equipo o compartirlos</value></data>
+  <data name="Transfer_Export" xml:space="preserve"><value>Exportar…</value></data>
+  <data name="Transfer_Import" xml:space="preserve"><value>Importar…</value></data>
+  <data name="Transfer_ExportTitle" xml:space="preserve"><value>Exportar los atajos</value></data>
+  <data name="Transfer_ImportTitle" xml:space="preserve"><value>Importar atajos</value></data>
+  <data name="Transfer_FileType" xml:space="preserve"><value>Atajos de HotkeyLauncher</value></data>
+  <data name="Transfer_ExportDone" xml:space="preserve"><value>{0} atajo(s) exportado(s) a:
+{1}</value></data>
+  <data name="Import_DialogTitle" xml:space="preserve"><value>Seleccione el archivo RapidApp.ini</value></data>
+  <data name="Import_Title" xml:space="preserve"><value>Importar desde RapidApp</value></data>
+  <data name="Import_ReadError" xml:space="preserve"><value>No se pudo leer el archivo:
+{0}</value></data>
+  <data name="Import_Nothing" xml:space="preserve"><value>No se encontró ningún atajo en este archivo.</value></data>
+  <data name="Import_ExistingQuestion" xml:space="preserve"><value>Se encontraron {0} atajo(s). Ya tiene {1} atajo(s): ¿añadir los importados o reemplazarlos?</value></data>
+  <data name="Import_Add" xml:space="preserve"><value>Añadir</value></data>
+  <data name="Import_Replace" xml:space="preserve"><value>Reemplazar</value></data>
+  <data name="Import_Done" xml:space="preserve"><value>{0} atajo(s) importado(s).</value></data>
+  <data name="Import_DoneConflicts" xml:space="preserve"><value>{0} de ellos usan una combinación ya ocupada por otro atajo: se han desactivado.</value></data>
+  <data name="Import_DoneIncomplete" xml:space="preserve"><value>{0} de ellos no tienen una combinación válida: se han desactivado, modifíquelos para elegir una.</value></data>
+  <data name="Update_Title" xml:space="preserve"><value>Actualizaciones</value></data>
+  <data name="Update_AvailableTitle" xml:space="preserve"><value>Nueva versión disponible</value></data>
+  <data name="Update_AvailableText" xml:space="preserve"><value>HotkeyLauncher {0} está disponible.</value></data>
+  <data name="Update_UpToDate" xml:space="preserve"><value>Está usando la última versión ({0}).</value></data>
+  <data name="Update_Error" xml:space="preserve"><value>La comprobación ha fallado:
+{0}</value></data>
+  <data name="Update_Download" xml:space="preserve"><value>Descargar</value></data>
+  <data name="Update_CheckNow" xml:space="preserve"><value>Buscar actualizaciones</value></data>
+  <data name="About_Version" xml:space="preserve"><value>Versión</value></data>
+  <data name="About_Description" xml:space="preserve"><value>Abra sus aplicaciones, carpetas y sitios web favoritos en un instante, con atajos de teclado globales.</value></data>
+  <data name="About_AuthorLabel" xml:space="preserve"><value>Creado por</value></data>
+  <data name="About_HistoryBefore" xml:space="preserve"><value>Sucesor de </value></data>
+  <data name="About_HistoryAfter" xml:space="preserve"><value> (Delphi, 2003 – 2005).</value></data>
+  <data name="About_Exit" xml:space="preserve"><value>Salir de HotkeyLauncher</value></data>
+  <data name="About_License" xml:space="preserve"><value>Software libre y de código abierto – licencia MIT</value></data>
+  <data name="Editor_TitleNew" xml:space="preserve"><value>Nuevo atajo</value></data>
+  <data name="Editor_TitleEdit" xml:space="preserve"><value>Modificar el atajo</value></data>
+  <data name="Editor_SectionTarget" xml:space="preserve"><value>Qué iniciar</value></data>
+  <data name="Editor_TargetPlaceholder" xml:space="preserve"><value>Programa, script, documento, carpeta o dirección web (https://…)</value></data>
+  <data name="Editor_BrowseFile" xml:space="preserve"><value>Archivo…</value></data>
+  <data name="Editor_BrowseFolder" xml:space="preserve"><value>Carpeta…</value></data>
+  <data name="Editor_BrowseFileTitle" xml:space="preserve"><value>Elija un programa o un documento</value></data>
+  <data name="Editor_BrowseFolderTitle" xml:space="preserve"><value>Elija una carpeta</value></data>
+  <data name="Editor_FilterPrograms" xml:space="preserve"><value>Programas, scripts y accesos directos</value></data>
+  <data name="Editor_FilterAll" xml:space="preserve"><value>Todos los archivos</value></data>
+  <data name="Target_Hint" xml:space="preserve"><value>Consejo: también puede soltar un archivo o una carpeta en esta ventana.</value></data>
+  <data name="Target_Application" xml:space="preserve"><value>Programa</value></data>
+  <data name="Target_Script" xml:space="preserve"><value>Script</value></data>
+  <data name="Target_File" xml:space="preserve"><value>Documento (se abre con su programa asociado)</value></data>
+  <data name="Target_Folder" xml:space="preserve"><value>Carpeta</value></data>
+  <data name="Target_Url" xml:space="preserve"><value>Dirección web o enlace</value></data>
+  <data name="Target_Command" xml:space="preserve"><value>Comando encontrado en este equipo</value></data>
+  <data name="Target_NotFound" xml:space="preserve"><value>No se encuentra el destino (puede estar en una unidad no conectada).</value></data>
+  <data name="Editor_Name" xml:space="preserve"><value>Nombre</value></data>
+  <data name="Editor_Group" xml:space="preserve"><value>Grupo (opcional)</value></data>
+  <data name="Editor_GroupTip" xml:space="preserve"><value>Los grupos organizan la lista y el menú del icono de notificación</value></data>
+  <data name="Editor_SectionHotkey" xml:space="preserve"><value>Atajo de teclado</value></data>
+  <data name="Editor_CapturePlaceholder" xml:space="preserve"><value>Haga clic aquí y pulse la combinación de teclas</value></data>
+  <data name="Editor_CaptureActive" xml:space="preserve"><value>Escuchando…</value></data>
+  <data name="Editor_ClearHotkey" xml:space="preserve"><value>Quitar la combinación</value></data>
+  <data name="Editor_Suggestions" xml:space="preserve"><value>Combinaciones libres:</value></data>
+  <data name="Editor_KeyboardHelp" xml:space="preserve"><value>O compóngala con el ratón: haga clic en las teclas modificadoras (Ctrl, Alt, Mayús, Win) y luego en una tecla. Los colores indican las teclas libres.</value></data>
+  <data name="Editor_ShowNumpad" xml:space="preserve"><value>Teclado numérico</value></data>
+  <data name="Editor_ShowNumpadTip" xml:space="preserve"><value>Las teclas del teclado numérico solo funcionan con Bloq Num activado</value></data>
+  <data name="Legend_Free" xml:space="preserve"><value>Libre</value></data>
+  <data name="Legend_Selected" xml:space="preserve"><value>Su elección</value></data>
+  <data name="Legend_UsedByShortcut" xml:space="preserve"><value>Usada por otro de sus atajos</value></data>
+  <data name="Legend_Taken" xml:space="preserve"><value>Usada por Windows u otro programa</value></data>
+  <data name="Editor_KeyUsedBy" xml:space="preserve"><value>Usada por «{0}»</value></data>
+  <data name="Editor_KeyReserved" xml:space="preserve"><value>Reservada por Windows</value></data>
+  <data name="Editor_KeyTaken" xml:space="preserve"><value>Usada por otro programa</value></data>
+  <data name="Editor_StatusNone" xml:space="preserve"><value>Sin combinación: el atajo solo estará disponible desde los menús y el lanzador rápido.</value></data>
+  <data name="Editor_StatusNeedsModifier" xml:space="preserve"><value>Añada al menos una tecla modificadora (Ctrl, Alt, Mayús o Win). Solo F13 a F24 pueden usarse solas.</value></data>
+  <data name="Editor_StatusUsedBy" xml:space="preserve"><value>Ya la usa «{0}».</value></data>
+  <data name="Editor_StatusReserved" xml:space="preserve"><value>Esta combinación está reservada por Windows: probablemente no funcionará.</value></data>
+  <data name="Editor_StatusTaken" xml:space="preserve"><value>Esta combinación ya la usa otro programa: no funcionará mientras ese programa esté en ejecución.</value></data>
+  <data name="Editor_StatusAvailable" xml:space="preserve"><value>Esta combinación está libre.</value></data>
+  <data name="Editor_WarningTaken" xml:space="preserve"><value>La combinación no está disponible en este momento.</value></data>
+  <data name="Editor_SectionAdvanced" xml:space="preserve"><value>Opciones avanzadas</value></data>
+  <data name="Editor_Arguments" xml:space="preserve"><value>Argumentos de la línea de comandos</value></data>
+  <data name="Editor_ArgumentsPlaceholder" xml:space="preserve"><value>Opcional</value></data>
+  <data name="Editor_WorkingDirectory" xml:space="preserve"><value>Carpeta de inicio</value></data>
+  <data name="Editor_WorkingDirectoryPlaceholder" xml:space="preserve"><value>Por defecto: la carpeta del programa</value></data>
+  <data name="Editor_WindowState" xml:space="preserve"><value>Ventana</value></data>
+  <data name="Editor_WindowNormal" xml:space="preserve"><value>Normal</value></data>
+  <data name="Editor_WindowMaximized" xml:space="preserve"><value>Maximizada</value></data>
+  <data name="Editor_WindowMinimized" xml:space="preserve"><value>Minimizada</value></data>
+  <data name="Editor_Monitor" xml:space="preserve"><value>Pantalla</value></data>
+  <data name="Editor_MonitorDefault" xml:space="preserve"><value>Lo decide Windows</value></data>
+  <data name="Editor_MonitorMain" xml:space="preserve"><value>Pantalla principal</value></data>
+  <data name="Editor_MonitorNumber" xml:space="preserve"><value>Pantalla {0}</value></data>
+  <data name="Editor_Placement" xml:space="preserve"><value>Posición</value></data>
+  <data name="Editor_PlacementDefault" xml:space="preserve"><value>Como decida el programa</value></data>
+  <data name="Editor_PlacementCenter" xml:space="preserve"><value>Centrada</value></data>
+  <data name="Editor_PlacementLeft" xml:space="preserve"><value>Mitad izquierda</value></data>
+  <data name="Editor_PlacementRight" xml:space="preserve"><value>Mitad derecha</value></data>
+  <data name="Editor_PlacementTop" xml:space="preserve"><value>Mitad superior</value></data>
+  <data name="Editor_PlacementBottom" xml:space="preserve"><value>Mitad inferior</value></data>
+  <data name="Editor_IfRunning" xml:space="preserve"><value>Si ya está en ejecución</value></data>
+  <data name="Editor_IfRunningNew" xml:space="preserve"><value>Iniciar una nueva instancia</value></data>
+  <data name="Editor_IfRunningFront" xml:space="preserve"><value>Traer su ventana al frente</value></data>
+  <data name="Editor_IfRunningTip" xml:space="preserve"><value>Disponible solo para programas</value></data>
+  <data name="Editor_RunAsAdmin" xml:space="preserve"><value>Ejecutar como administrador</value></data>
+  <data name="Editor_RunAsAdminTip" xml:space="preserve"><value>Windows pedirá confirmación (UAC) en cada inicio</value></data>
+  <data name="Editor_RunHidden" xml:space="preserve"><value>Ejecutar oculto</value></data>
+  <data name="Editor_RunHiddenTip" xml:space="preserve"><value>No se muestra ninguna ventana: útil para scripts y comandos en segundo plano</value></data>
+  <data name="Editor_Test" xml:space="preserve"><value>Probar</value></data>
+  <data name="Editor_TestTip" xml:space="preserve"><value>Iniciar ahora con esta configuración</value></data>
+  <data name="Validation_NameMissing" xml:space="preserve"><value>Escriba un nombre.</value></data>
+  <data name="Validation_TargetMissing" xml:space="preserve"><value>Elija qué iniciar.</value></data>
+  <data name="Validation_HotkeyAlreadyUsed" xml:space="preserve"><value>Esta combinación ya la usa otro de sus atajos.</value></data>
+  <data name="Validation_WorkingDirectoryNotFound" xml:space="preserve"><value>No se encuentra la carpeta de inicio.</value></data>
+  <data name="QuickLauncher_ChangeHotkeyTip" xml:space="preserve"><value>Cambiar la combinación del lanzador rápido</value></data>
+  <data name="Usage_Tip" xml:space="preserve"><value>Número de inicios y último inicio</value></data>
+  <data name="QuickLauncher_DefaultChosen" xml:space="preserve"><value>Pulse {0} para abrir el lanzador rápido (se puede cambiar en la ventana principal).</value></data>
+  <data name="Editor_BannerHint" xml:space="preserve"><value>Elija qué iniciar y luego una combinación de teclas.</value></data>
+</root>

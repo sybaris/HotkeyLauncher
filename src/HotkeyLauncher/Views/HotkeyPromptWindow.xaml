@@ -1,0 +1,42 @@
+<ui:FluentWindow x:Class="HotkeyLauncher.Views.HotkeyPromptWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:l="clr-namespace:HotkeyLauncher.Localization"
+                 Title="{l:Tr QuickLauncher_HotkeyTitle}"
+                 Width="480"
+                 SizeToContent="Height"
+                 ResizeMode="NoResize"
+                 ShowInTaskbar="False"
+                 WindowStartupLocation="CenterScreen"
+                 ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica"
+                 WindowCornerPreference="Round">
+    <StackPanel>
+        <ui:TitleBar Title="{l:Tr QuickLauncher_HotkeyTitle}" ShowMaximize="False" ShowMinimize="False" />
+        <StackPanel Margin="24,4,24,20">
+            <TextBlock Margin="0,0,0,10" Style="{StaticResource SecondaryText}" Text="{l:Tr QuickLauncher_HotkeyHelp}" />
+            <Border x:Name="CaptureBox"
+                    MinHeight="54"
+                    Padding="12,6"
+                    Focusable="True"
+                    FocusVisualStyle="{x:Null}"
+                    CornerRadius="8"
+                    BorderThickness="2"
+                    BorderBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                    PreviewKeyDown="CaptureBox_PreviewKeyDown"
+                    MouseLeftButtonDown="CaptureBox_MouseLeftButtonDown">
+                <ItemsControl x:Name="KeyCaps"
+                              VerticalAlignment="Center"
+                              ItemsPanel="{StaticResource HorizontalPanel}"
+                              ItemTemplate="{StaticResource LargeKeyCapTemplate}" />
+            </Border>
+            <TextBlock x:Name="StatusText" Margin="2,10,0,0" TextWrapping="Wrap" />
+            <StackPanel Margin="0,20,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                <ui:Button MinWidth="100" Content="{l:Tr Common_Cancel}" IsCancel="True" />
+                <ui:Button x:Name="OkButton" MinWidth="100" Margin="8,0,0,0" Appearance="Primary" Content="{l:Tr Common_Ok}" Click="Ok_Click" />
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</ui:FluentWindow>

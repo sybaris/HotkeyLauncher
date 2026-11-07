@@ -7,10 +7,31 @@ public enum AppTheme
     Dark,
 }
 
+/// <summary>Shape of the on-screen keyboard.</summary>
+public enum KeyboardShape
+{
+    /// <summary>Deduced from the Windows keyboard layout.</summary>
+    Auto,
+    /// <summary>European keyboards (AZERTY, QWERTZ, UK...): extra key next to left Shift, tall Enter.</summary>
+    Iso,
+    /// <summary>US keyboards.</summary>
+    Ansi,
+}
+
+/// <summary>Order of the shortcuts inside each group of the list.</summary>
+public enum ListSortMode
+{
+    Custom,
+    Name,
+    MostUsed,
+    RecentlyUsed,
+}
+
 /// <summary>Everything persisted in the settings file.</summary>
 public sealed class AppSettings
 {
-    public const int CurrentSchemaVersion = 1;
+    /// <summary>2: default quick launcher hotkey changed from Ctrl+Alt+Space to Win+Alt+Space.</summary>
+    public const int CurrentSchemaVersion = 2;
 
     public int SchemaVersion { get; set; } = CurrentSchemaVersion;
 
@@ -26,6 +47,50 @@ public sealed class AppSettings
 
     /// <summary>The "still running in the notification area" tip has already been shown.</summary>
     public bool TrayTipShown { get; set; }
+
+    // ---- Quick launcher (search box opened by a global hotkey) ----
+
+    public bool QuickLauncherEnabled { get; set; } = true;
+
+    /// <summary>
+    /// Default quick launcher hotkeys, by order of preference: the first one not taken by another program is used.
+    /// </summary>
+    public static readonly IReadOnlyList<Hotkey> QuickLauncherCandidates =
+    [
+        new(HotkeyModifiers.Win | HotkeyModifiers.Alt, 0x20),
+        new(HotkeyModifiers.Control | HotkeyModifiers.Alt, 0x20),
+        new(HotkeyModifiers.Control | HotkeyModifiers.Shift, 0x20),
+    ];
+
+    public HotkeyModifiers QuickLauncherModifiers { get; set; } = HotkeyModifiers.Win | HotkeyModifiers.Alt;
+
+    /// <summary>Default: Space.</summary>
+    public uint QuickLauncherKey { get; set; } = 0x20;
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    public Hotkey QuickLauncherHotkey
+    {
+        get => new(QuickLauncherModifiers, QuickLauncherKey);
+        set
+        {
+            QuickLauncherModifiers = value.Modifiers;
+            QuickLauncherKey = value.VirtualKey;
+        }
+    }
+
+    // ---- Display ----
+
+    public KeyboardShape KeyboardShape { get; set; } = KeyboardShape.Auto;
+
+    public bool ShowNumpad { get; set; }
+
+    public ListSortMode SortMode { get; set; } = ListSortMode.Custom;
+
+    // ---- Updates ----
+
+    public bool CheckForUpdates { get; set; } = true;
+
+    public DateTime? LastUpdateCheckUtc { get; set; }
 
     /// <summary>
     /// Makes the settings consistent: trims names, removes unknown/duplicate/empty groups, adds missing groups,

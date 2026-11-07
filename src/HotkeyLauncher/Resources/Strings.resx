@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from tools/strings.tsv by tools/make_resx.py: edit the TSV, not this file. -->
 <root>
   <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
   <resheader name="version"><value>2.0</value></resheader>
@@ -11,8 +12,11 @@
   <data name="Common_Cancel" xml:space="preserve"><value>Cancel</value></data>
   <data name="Common_Ok" xml:space="preserve"><value>OK</value></data>
   <data name="Common_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Common_Change" xml:space="preserve"><value>Change…</value></data>
   <data name="Tray_Disabled" xml:space="preserve"><value>shortcuts disabled</value></data>
   <data name="Tray_NoShortcut" xml:space="preserve"><value>(no shortcut yet)</value></data>
+  <data name="Tray_Search" xml:space="preserve"><value>Search…</value></data>
+  <data name="Tray_NoResult" xml:space="preserve"><value>(no result)</value></data>
   <data name="Tray_Open" xml:space="preserve"><value>Open HotkeyLauncher</value></data>
   <data name="Tray_HotkeysActive" xml:space="preserve"><value>Shortcuts enabled</value></data>
   <data name="Tray_Exit" xml:space="preserve"><value>Exit</value></data>
@@ -37,6 +41,11 @@ Usage: HotkeyLauncher [options]
   /setup         Open the main window (also for an already running instance)
   --tray         Start hidden in the notification area
   /?, --help     Display this help</value></data>
+  <data name="Header_Subtitle" xml:space="preserve"><value>Your applications, folders and web sites at your fingertips</value></data>
+  <data name="Header_Shortcuts" xml:space="preserve"><value>{0} shortcut(s)</value></data>
+  <data name="Header_Groups" xml:space="preserve"><value>{0} group(s)</value></data>
+  <data name="Header_Active" xml:space="preserve"><value>Active</value></data>
+  <data name="Header_Paused" xml:space="preserve"><value>Paused</value></data>
   <data name="Main_TabShortcuts" xml:space="preserve"><value>Shortcuts</value></data>
   <data name="Main_TabSettings" xml:space="preserve"><value>Settings</value></data>
   <data name="Main_TabAbout" xml:space="preserve"><value>About</value></data>
@@ -49,6 +58,19 @@ Usage: HotkeyLauncher [options]
   <data name="Main_FailuresMessage" xml:space="preserve"><value>Their key combination is already used by Windows or another program. Hover the warning icon for details, then choose another combination.</value></data>
   <data name="Main_EmptyTitle" xml:space="preserve"><value>No shortcut yet</value></data>
   <data name="Main_EmptyText" xml:space="preserve"><value>Create a shortcut to launch an application, open a folder or a web site with a key combination. You can also drop a file or a folder on this window.</value></data>
+  <data name="Sort_Tip" xml:space="preserve"><value>Order of the shortcuts inside each group</value></data>
+  <data name="Sort_Custom" xml:space="preserve"><value>Custom order</value></data>
+  <data name="Sort_Name" xml:space="preserve"><value>By name</value></data>
+  <data name="Sort_MostUsed" xml:space="preserve"><value>Most used</value></data>
+  <data name="Sort_Recent" xml:space="preserve"><value>Recently used</value></data>
+  <data name="Undo_Deleted" xml:space="preserve"><value>"{0}" deleted</value></data>
+  <data name="Undo_Button" xml:space="preserve"><value>Undo (Ctrl+Z)</value></data>
+  <data name="Usage_Never" xml:space="preserve"><value>Never launched</value></data>
+  <data name="Usage_Text" xml:space="preserve"><value>{0} launch(es) · {1}</value></data>
+  <data name="Time_JustNow" xml:space="preserve"><value>just now</value></data>
+  <data name="Time_Minutes" xml:space="preserve"><value>{0} min ago</value></data>
+  <data name="Time_Hours" xml:space="preserve"><value>{0} h ago</value></data>
+  <data name="Time_Days" xml:space="preserve"><value>{0} day(s) ago</value></data>
   <data name="List_NoGroup" xml:space="preserve"><value>No group</value></data>
   <data name="Item_HotkeyTakenElsewhere" xml:space="preserve"><value>This key combination is already used by Windows or another program: the shortcut is not active.</value></data>
   <data name="Item_HotkeyRegistrationError" xml:space="preserve"><value>The shortcut could not be enabled: {0}</value></data>
@@ -58,7 +80,7 @@ Usage: HotkeyLauncher [options]
   <data name="Item_EnableConflict" xml:space="preserve"><value>This key combination is already used by "{0}". Change one of the two shortcuts first.</value></data>
   <data name="Item_RunsAsAdmin" xml:space="preserve"><value>Runs as administrator</value></data>
   <data name="Item_MenuOnly" xml:space="preserve"><value>no shortcut</value></data>
-  <data name="Item_MenuOnlyTip" xml:space="preserve"><value>Available from the notification-area menu only</value></data>
+  <data name="Item_MenuOnlyTip" xml:space="preserve"><value>Available from the menus only</value></data>
   <data name="Item_EnabledTip" xml:space="preserve"><value>Enable / disable this shortcut</value></data>
   <data name="Item_Launch" xml:space="preserve"><value>Launch now</value></data>
   <data name="Item_Edit" xml:space="preserve"><value>Edit</value></data>
@@ -67,9 +89,6 @@ Usage: HotkeyLauncher [options]
   <data name="Item_MoveUp" xml:space="preserve"><value>Move up</value></data>
   <data name="Item_MoveDown" xml:space="preserve"><value>Move down</value></data>
   <data name="Item_Delete" xml:space="preserve"><value>Delete</value></data>
-  <data name="Delete_Title" xml:space="preserve"><value>Delete the shortcut</value></data>
-  <data name="Delete_Message" xml:space="preserve"><value>Delete "{0}"?</value></data>
-  <data name="Delete_Confirm" xml:space="preserve"><value>Delete</value></data>
   <data name="Group_Rename" xml:space="preserve"><value>Rename the group</value></data>
   <data name="Group_MoveUp" xml:space="preserve"><value>Move the group up</value></data>
   <data name="Group_MoveDown" xml:space="preserve"><value>Move the group down</value></data>
@@ -77,6 +96,18 @@ Usage: HotkeyLauncher [options]
   <data name="Group_RenameLabel" xml:space="preserve"><value>New name</value></data>
   <data name="Group_MergeMessage" xml:space="preserve"><value>A group named "{1}" already exists. Move the shortcuts of "{0}" into it?</value></data>
   <data name="Group_Merge" xml:space="preserve"><value>Merge</value></data>
+  <data name="QuickLauncher_Name" xml:space="preserve"><value>Quick launcher</value></data>
+  <data name="QuickLauncher_Title" xml:space="preserve"><value>Quick launcher</value></data>
+  <data name="QuickLauncher_Description" xml:space="preserve"><value>A search box to launch any shortcut by typing a few letters, without remembering its key combination</value></data>
+  <data name="QuickLauncher_Failed" xml:space="preserve"><value>This key combination is already used by Windows or another program: choose another one.</value></data>
+  <data name="QuickLauncher_HotkeyTitle" xml:space="preserve"><value>Quick launcher shortcut</value></data>
+  <data name="QuickLauncher_HotkeyHelp" xml:space="preserve"><value>Press the new key combination.</value></data>
+  <data name="QuickLauncher_Placeholder" xml:space="preserve"><value>Type to search a shortcut…</value></data>
+  <data name="QuickLauncher_Recent" xml:space="preserve"><value>Recently used</value></data>
+  <data name="QuickLauncher_ResultCount" xml:space="preserve"><value>{0} result(s)</value></data>
+  <data name="QuickLauncher_NoResult" xml:space="preserve"><value>No shortcut matches your search.</value></data>
+  <data name="QuickLauncher_Hints" xml:space="preserve"><value>↑ ↓  select     ↵  launch     Esc  close</value></data>
+  <data name="QuickLauncher_OpenTip" xml:space="preserve"><value>Open the quick launcher</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Language</value></data>
   <data name="Settings_LanguageDescription" xml:space="preserve"><value>Language of the application</value></data>
   <data name="Settings_LanguageSystem" xml:space="preserve"><value>Windows language</value></data>
@@ -87,13 +118,31 @@ Usage: HotkeyLauncher [options]
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Dark</value></data>
   <data name="Settings_StartWithWindows" xml:space="preserve"><value>Start with Windows</value></data>
   <data name="Settings_StartWithWindowsDescription" xml:space="preserve"><value>Start HotkeyLauncher in the notification area when you sign in</value></data>
+  <data name="Settings_KeyboardShape" xml:space="preserve"><value>On-screen keyboard</value></data>
+  <data name="Settings_KeyboardShapeDescription" xml:space="preserve"><value>Shape of the keyboard drawn in the shortcut editor</value></data>
+  <data name="Settings_KeyboardAuto" xml:space="preserve"><value>Automatic</value></data>
+  <data name="Settings_KeyboardIso" xml:space="preserve"><value>European (ISO)</value></data>
+  <data name="Settings_KeyboardAnsi" xml:space="preserve"><value>American (ANSI)</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>Check for updates</value></data>
+  <data name="Settings_UpdatesDescription" xml:space="preserve"><value>Once a day, asks GitHub whether a new version is available (nothing else is sent)</value></data>
   <data name="Settings_File" xml:space="preserve"><value>Settings file</value></data>
+  <data name="Settings_FileDescription" xml:space="preserve"><value>The log and the automatic backups (last 3 sessions) are in the same folder.</value></data>
+  <data name="Settings_OpenLog" xml:space="preserve"><value>Log</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Open the folder</value></data>
   <data name="Settings_Advanced" xml:space="preserve"><value>Advanced</value></data>
   <data name="Settings_AdvancedDescription" xml:space="preserve"><value>Rarely used options</value></data>
   <data name="Settings_ImportRapidApp" xml:space="preserve"><value>Import from RapidApp</value></data>
   <data name="Settings_ImportRapidAppDescription" xml:space="preserve"><value>Imports the shortcuts of RapidApp, the ancestor of HotkeyLauncher (RapidApp.ini file).</value></data>
   <data name="Settings_ImportButton" xml:space="preserve"><value>Import…</value></data>
+  <data name="Transfer_Title" xml:space="preserve"><value>Export / import</value></data>
+  <data name="Transfer_Description" xml:space="preserve"><value>Save your shortcuts in a file to copy them to another computer or share them</value></data>
+  <data name="Transfer_Export" xml:space="preserve"><value>Export…</value></data>
+  <data name="Transfer_Import" xml:space="preserve"><value>Import…</value></data>
+  <data name="Transfer_ExportTitle" xml:space="preserve"><value>Export the shortcuts</value></data>
+  <data name="Transfer_ImportTitle" xml:space="preserve"><value>Import shortcuts</value></data>
+  <data name="Transfer_FileType" xml:space="preserve"><value>HotkeyLauncher shortcuts</value></data>
+  <data name="Transfer_ExportDone" xml:space="preserve"><value>{0} shortcut(s) exported to:
+{1}</value></data>
   <data name="Import_DialogTitle" xml:space="preserve"><value>Select the RapidApp.ini file</value></data>
   <data name="Import_Title" xml:space="preserve"><value>Import from RapidApp</value></data>
   <data name="Import_ReadError" xml:space="preserve"><value>The file could not be read:
@@ -105,22 +154,34 @@ Usage: HotkeyLauncher [options]
   <data name="Import_Done" xml:space="preserve"><value>{0} shortcut(s) imported.</value></data>
   <data name="Import_DoneConflicts" xml:space="preserve"><value>{0} of them use a key combination already taken by another shortcut: they have been disabled.</value></data>
   <data name="Import_DoneIncomplete" xml:space="preserve"><value>{0} of them have no valid key combination: they have been disabled, edit them to choose one.</value></data>
+  <data name="Update_Title" xml:space="preserve"><value>Updates</value></data>
+  <data name="Update_AvailableTitle" xml:space="preserve"><value>New version available</value></data>
+  <data name="Update_AvailableText" xml:space="preserve"><value>HotkeyLauncher {0} is available.</value></data>
+  <data name="Update_UpToDate" xml:space="preserve"><value>You are using the latest version ({0}).</value></data>
+  <data name="Update_Error" xml:space="preserve"><value>The check failed:
+{0}</value></data>
+  <data name="Update_Download" xml:space="preserve"><value>Download</value></data>
+  <data name="Update_CheckNow" xml:space="preserve"><value>Check for updates</value></data>
   <data name="About_Version" xml:space="preserve"><value>Version</value></data>
   <data name="About_Description" xml:space="preserve"><value>Launch your applications, folders and favorite web sites in a blink, with global keyboard shortcuts.</value></data>
+  <data name="About_AuthorLabel" xml:space="preserve"><value>Created by</value></data>
+  <data name="About_HistoryBefore" xml:space="preserve"><value>Successor of </value></data>
+  <data name="About_HistoryAfter" xml:space="preserve"><value> (Delphi, 2003 – 2005).</value></data>
   <data name="About_Exit" xml:space="preserve"><value>Exit HotkeyLauncher</value></data>
   <data name="About_License" xml:space="preserve"><value>Free and open source software – MIT license</value></data>
   <data name="Editor_TitleNew" xml:space="preserve"><value>New shortcut</value></data>
   <data name="Editor_TitleEdit" xml:space="preserve"><value>Edit the shortcut</value></data>
   <data name="Editor_SectionTarget" xml:space="preserve"><value>What to launch</value></data>
-  <data name="Editor_TargetPlaceholder" xml:space="preserve"><value>Program, document, folder or web address (https://…)</value></data>
+  <data name="Editor_TargetPlaceholder" xml:space="preserve"><value>Program, script, document, folder or web address (https://…)</value></data>
   <data name="Editor_BrowseFile" xml:space="preserve"><value>File…</value></data>
   <data name="Editor_BrowseFolder" xml:space="preserve"><value>Folder…</value></data>
   <data name="Editor_BrowseFileTitle" xml:space="preserve"><value>Choose a program or a document</value></data>
   <data name="Editor_BrowseFolderTitle" xml:space="preserve"><value>Choose a folder</value></data>
-  <data name="Editor_FilterPrograms" xml:space="preserve"><value>Programs and shortcuts</value></data>
+  <data name="Editor_FilterPrograms" xml:space="preserve"><value>Programs, scripts and shortcuts</value></data>
   <data name="Editor_FilterAll" xml:space="preserve"><value>All files</value></data>
   <data name="Target_Hint" xml:space="preserve"><value>Tip: you can also drop a file or a folder on this window.</value></data>
   <data name="Target_Application" xml:space="preserve"><value>Program</value></data>
+  <data name="Target_Script" xml:space="preserve"><value>Script</value></data>
   <data name="Target_File" xml:space="preserve"><value>Document (opened with its associated program)</value></data>
   <data name="Target_Folder" xml:space="preserve"><value>Folder</value></data>
   <data name="Target_Url" xml:space="preserve"><value>Web address or link</value></data>
@@ -135,6 +196,8 @@ Usage: HotkeyLauncher [options]
   <data name="Editor_ClearHotkey" xml:space="preserve"><value>Remove the key combination</value></data>
   <data name="Editor_Suggestions" xml:space="preserve"><value>Free combinations:</value></data>
   <data name="Editor_KeyboardHelp" xml:space="preserve"><value>Or build it with the mouse: click the modifier keys (Ctrl, Alt, Shift, Win), then a key. Colors show which keys are free.</value></data>
+  <data name="Editor_ShowNumpad" xml:space="preserve"><value>Numeric keypad</value></data>
+  <data name="Editor_ShowNumpadTip" xml:space="preserve"><value>Numeric keypad keys work only while Num Lock is on</value></data>
   <data name="Legend_Free" xml:space="preserve"><value>Free</value></data>
   <data name="Legend_Selected" xml:space="preserve"><value>Your choice</value></data>
   <data name="Legend_UsedByShortcut" xml:space="preserve"><value>Used by another of your shortcuts</value></data>
@@ -142,9 +205,9 @@ Usage: HotkeyLauncher [options]
   <data name="Editor_KeyUsedBy" xml:space="preserve"><value>Used by "{0}"</value></data>
   <data name="Editor_KeyReserved" xml:space="preserve"><value>Reserved by Windows</value></data>
   <data name="Editor_KeyTaken" xml:space="preserve"><value>Used by another program</value></data>
-  <data name="Editor_StatusNone" xml:space="preserve"><value>No key combination: the shortcut will only be available from the notification-area menu.</value></data>
+  <data name="Editor_StatusNone" xml:space="preserve"><value>No key combination: the shortcut will only be available from the menus and the quick launcher.</value></data>
   <data name="Editor_StatusNeedsModifier" xml:space="preserve"><value>Add at least one modifier key (Ctrl, Alt, Shift or Win). Only F13 to F24 can be used alone.</value></data>
-  <data name="Editor_StatusUsedBy" xml:space="preserve"><value>Already used by your shortcut "{0}".</value></data>
+  <data name="Editor_StatusUsedBy" xml:space="preserve"><value>Already used by "{0}".</value></data>
   <data name="Editor_StatusReserved" xml:space="preserve"><value>This combination is reserved by Windows: it will probably not work.</value></data>
   <data name="Editor_StatusTaken" xml:space="preserve"><value>This combination is already used by another program: it will not work while that program is running.</value></data>
   <data name="Editor_StatusAvailable" xml:space="preserve"><value>This combination is free.</value></data>
@@ -158,20 +221,33 @@ Usage: HotkeyLauncher [options]
   <data name="Editor_WindowNormal" xml:space="preserve"><value>Normal</value></data>
   <data name="Editor_WindowMaximized" xml:space="preserve"><value>Maximized</value></data>
   <data name="Editor_WindowMinimized" xml:space="preserve"><value>Minimized</value></data>
+  <data name="Editor_Monitor" xml:space="preserve"><value>Screen</value></data>
+  <data name="Editor_MonitorDefault" xml:space="preserve"><value>Windows decides</value></data>
+  <data name="Editor_MonitorMain" xml:space="preserve"><value>Main screen</value></data>
+  <data name="Editor_MonitorNumber" xml:space="preserve"><value>Screen {0}</value></data>
+  <data name="Editor_Placement" xml:space="preserve"><value>Position</value></data>
+  <data name="Editor_PlacementDefault" xml:space="preserve"><value>As the program wishes</value></data>
+  <data name="Editor_PlacementCenter" xml:space="preserve"><value>Centered</value></data>
+  <data name="Editor_PlacementLeft" xml:space="preserve"><value>Left half</value></data>
+  <data name="Editor_PlacementRight" xml:space="preserve"><value>Right half</value></data>
+  <data name="Editor_PlacementTop" xml:space="preserve"><value>Top half</value></data>
+  <data name="Editor_PlacementBottom" xml:space="preserve"><value>Bottom half</value></data>
+  <data name="Editor_IfRunning" xml:space="preserve"><value>If already running</value></data>
+  <data name="Editor_IfRunningNew" xml:space="preserve"><value>Launch a new instance</value></data>
+  <data name="Editor_IfRunningFront" xml:space="preserve"><value>Bring its window to the front</value></data>
+  <data name="Editor_IfRunningTip" xml:space="preserve"><value>Available for programs only</value></data>
   <data name="Editor_RunAsAdmin" xml:space="preserve"><value>Run as administrator</value></data>
   <data name="Editor_RunAsAdminTip" xml:space="preserve"><value>Windows will ask for confirmation (UAC) at each launch</value></data>
+  <data name="Editor_RunHidden" xml:space="preserve"><value>Run hidden</value></data>
+  <data name="Editor_RunHiddenTip" xml:space="preserve"><value>No window is shown: useful for scripts and background commands</value></data>
   <data name="Editor_Test" xml:space="preserve"><value>Test</value></data>
   <data name="Editor_TestTip" xml:space="preserve"><value>Launch now with these settings</value></data>
   <data name="Validation_NameMissing" xml:space="preserve"><value>Enter a name.</value></data>
   <data name="Validation_TargetMissing" xml:space="preserve"><value>Choose what to launch.</value></data>
   <data name="Validation_HotkeyAlreadyUsed" xml:space="preserve"><value>This key combination is already used by another of your shortcuts.</value></data>
   <data name="Validation_WorkingDirectoryNotFound" xml:space="preserve"><value>The start-in folder cannot be found.</value></data>
-  <data name="Header_Subtitle" xml:space="preserve"><value>Your applications, folders and web sites at your fingertips</value></data>
-  <data name="Header_Shortcuts" xml:space="preserve"><value>{0} shortcut(s)</value></data>
-  <data name="Header_Groups" xml:space="preserve"><value>{0} group(s)</value></data>
-  <data name="Header_Active" xml:space="preserve"><value>Active</value></data>
-  <data name="Header_Paused" xml:space="preserve"><value>Paused</value></data>
-  <data name="About_AuthorLabel" xml:space="preserve"><value>Created by</value></data>
-  <data name="About_HistoryBefore" xml:space="preserve"><value>Successor of </value></data>
-  <data name="About_HistoryAfter" xml:space="preserve"><value> (Delphi, 2003 – 2005).</value></data>
+  <data name="QuickLauncher_ChangeHotkeyTip" xml:space="preserve"><value>Change the quick launcher key combination</value></data>
+  <data name="Usage_Tip" xml:space="preserve"><value>Number of launches and last launch</value></data>
+  <data name="QuickLauncher_DefaultChosen" xml:space="preserve"><value>Press {0} to open the quick launcher (can be changed in the main window).</value></data>
+  <data name="Editor_BannerHint" xml:space="preserve"><value>Choose what to launch, then a key combination.</value></data>
 </root>

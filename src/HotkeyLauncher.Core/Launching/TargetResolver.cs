@@ -6,8 +6,10 @@ public enum TargetKind
 {
     /// <summary>Nothing entered.</summary>
     Empty,
-    /// <summary>Executable program (.exe, .bat, shortcut...).</summary>
+    /// <summary>Executable program (.exe, shortcut...).</summary>
     Application,
+    /// <summary>Script (.ps1, .bat, .cmd, .vbs...).</summary>
+    Script,
     /// <summary>Document opened with its associated program.</summary>
     File,
     Folder,
@@ -21,7 +23,8 @@ public enum TargetKind
 
 public static class TargetResolver
 {
-    private static readonly string[] ExecutableExtensions = [".exe", ".com", ".bat", ".cmd", ".lnk", ".msc", ".cpl", ".appref-ms"];
+    private static readonly string[] ExecutableExtensions = [".exe", ".com", ".lnk", ".msc", ".cpl", ".appref-ms"];
+    private static readonly string[] ScriptExtensions = [".ps1", ".bat", ".cmd", ".vbs", ".js", ".wsf"];
 
     /// <summary>Expands %VARIABLES% and removes surrounding quotes.</summary>
     public static string Expand(string value) => Environment.ExpandEnvironmentVariables(value.Trim().Trim('"'));
@@ -43,7 +46,7 @@ public static class TargetResolver
 
         var path = Expand(target);
         if (Directory.Exists(path)) return TargetKind.Folder;
-        if (File.Exists(path)) return IsExecutable(path) ? TargetKind.Application : TargetKind.File;
+        if (File.Exists(path)) return IsScript(path) ? TargetKind.Script : IsExecutable(path) ? TargetKind.Application : TargetKind.File;
         if (!Path.IsPathRooted(path) && FindCommand(path) != null) return TargetKind.Command;
         return TargetKind.NotFound;
     }
@@ -59,6 +62,12 @@ public static class TargetResolver
 
     public static bool IsExecutable(string path) =>
         ExecutableExtensions.Contains(Path.GetExtension(path), StringComparer.OrdinalIgnoreCase);
+
+    public static bool IsScript(string path) =>
+        ScriptExtensions.Contains(Path.GetExtension(path), StringComparer.OrdinalIgnoreCase);
+
+    public static bool IsPowerShellScript(string path) =>
+        Path.GetExtension(path).Equals(".ps1", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>Looks for a command the same way the Run dialog does: App Paths registry, then PATH with PATHEXT.</summary>
     public static string? FindCommand(string command)

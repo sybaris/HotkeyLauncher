@@ -21,6 +21,9 @@
                  AllowDrop="True"
                  DragOver="Window_DragOver"
                  Drop="Window_Drop">
+    <ui:FluentWindow.InputBindings>
+        <KeyBinding Command="{Binding UndoCommand}" Gesture="Ctrl+Z" />
+    </ui:FluentWindow.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -128,6 +131,27 @@
                                     PlaceholderText="{l:Tr Main_Search}"
                                     ClearButtonEnabled="True"
                                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox MinWidth="190"
+                                  Margin="12,0,0,0"
+                                  DockPanel.Dock="Left"
+                                  DisplayMemberPath="Label"
+                                  ItemsSource="{Binding SortOptions}"
+                                  SelectedValue="{Binding SelectedSort}"
+                                  SelectedValuePath="Value"
+                                  ToolTip="{l:Tr Sort_Tip}" />
+                        <ui:Button Margin="8,0,0,0"
+                                   DockPanel.Dock="Left"
+                                   Command="{Binding OpenQuickLauncherCommand}"
+                                   Content="{Binding QuickLauncherHotkeyText}"
+                                   Icon="{ui:SymbolIcon Flash24}"
+                                   ToolTip="{l:Tr QuickLauncher_OpenTip}" />
+                        <ui:Button Margin="2,0,0,0"
+                                   Padding="6"
+                                   DockPanel.Dock="Left"
+                                   Appearance="Transparent"
+                                   Command="{Binding ChangeQuickLauncherHotkeyCommand}"
+                                   Icon="{ui:SymbolIcon Edit24}"
+                                   ToolTip="{l:Tr QuickLauncher_ChangeHotkeyTip}" />
                         <ui:ToggleSwitch DockPanel.Dock="Right"
                                          VerticalAlignment="Center"
                                          Content="{l:Tr Main_HotkeysActive}"
@@ -183,7 +207,12 @@
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>
                                     <DataTemplate>
-                                        <DockPanel Margin="8,16,8,4">
+                                        <!-- A shortcut dropped on a group header goes at the end of that group -->
+                                        <DockPanel Margin="8,10,8,2"
+                                                   Background="Transparent"
+                                                   AllowDrop="True"
+                                                   DragOver="GroupHeader_DragOver"
+                                                   Drop="GroupHeader_Drop">
                                             <StackPanel DockPanel.Dock="Right"
                                                         Orientation="Horizontal"
                                                         Visibility="{Binding Name, Converter={StaticResource VisibleWhen}}">
@@ -224,7 +253,15 @@
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type vm:HotkeyItemViewModel}">
-                                <Border Margin="0,3,6,3" Padding="12,10" CornerRadius="10" BorderThickness="1">
+                                <!-- Drag a card to reorder it (custom order only) -->
+                                <Grid Margin="0,2,6,2"
+                                      AllowDrop="True"
+                                      PreviewMouseLeftButtonDown="Card_PreviewMouseLeftButtonDown"
+                                      MouseMove="Card_MouseMove"
+                                      DragOver="Card_DragOver"
+                                      DragLeave="Card_DragLeave"
+                                      Drop="Card_Drop">
+                                <Border Padding="10,5" CornerRadius="8" BorderThickness="1">
                                     <Border.Style>
                                         <Style TargetType="Border">
                                             <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
@@ -242,7 +279,7 @@
                                     </Border.InputBindings>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="60" />
+                                            <ColumnDefinition Width="46" />
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="32" />
@@ -252,12 +289,12 @@
 
                                         <!-- Program icon on a tinted tile -->
                                         <Border Grid.Column="0"
-                                                Width="46"
-                                                Height="46"
+                                                Width="36"
+                                                Height="36"
                                                 HorizontalAlignment="Left"
-                                                CornerRadius="10"
+                                                CornerRadius="8"
                                                 Background="{StaticResource BrandSoftBrush}">
-                                            <Image Width="32" Height="32" Source="{Binding Icon}" />
+                                            <Image Width="24" Height="24" Source="{Binding Icon}" />
                                         </Border>
 
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
@@ -271,8 +308,20 @@
                                                                Symbol="Shield24"
                                                                ToolTip="{l:Tr Item_RunsAsAdmin}"
                                                                Visibility="{Binding RunsAsAdministrator, Converter={StaticResource VisibleWhen}}" />
+                                                <!-- Usage statistics -->
+                                                <Border Margin="10,0,0,0"
+                                                        Padding="6,1,8,1"
+                                                        VerticalAlignment="Center"
+                                                        CornerRadius="8"
+                                                        Background="{StaticResource BrandSoftBrush}"
+                                                        ToolTip="{l:Tr Usage_Tip}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:SymbolIcon Margin="0,0,4,0" FontSize="12" Symbol="History24" />
+                                                        <TextBlock FontSize="11" Text="{Binding UsageText}" />
+                                                    </StackPanel>
+                                                </Border>
                                             </StackPanel>
-                                            <TextBlock Margin="0,2,0,0"
+                                            <TextBlock Margin="0,1,0,0"
                                                        Style="{StaticResource SecondaryText}"
                                                        Text="{Binding Target}"
                                                        TextTrimming="CharacterEllipsis"
@@ -307,17 +356,22 @@
 
                                         <StackPanel Grid.Column="5" Orientation="Horizontal">
                                             <ui:Button Appearance="Transparent"
-                                                       Padding="8"
+                                                       Padding="6"
                                                        Command="{Binding LaunchCommand}"
                                                        Icon="{ui:SymbolIcon Play24}"
                                                        ToolTip="{l:Tr Item_Launch}" />
                                             <ui:Button Appearance="Transparent"
-                                                       Padding="8"
+                                                       Padding="6"
                                                        Command="{Binding EditCommand}"
                                                        Icon="{ui:SymbolIcon Edit24}"
                                                        ToolTip="{l:Tr Item_Edit}" />
                                             <ui:Button Appearance="Transparent"
-                                                       Padding="8"
+                                                       Padding="6"
+                                                       Command="{Binding DeleteCommand}"
+                                                       Icon="{ui:SymbolIcon Delete24}"
+                                                       ToolTip="{l:Tr Item_Delete}" />
+                                            <ui:Button Appearance="Transparent"
+                                                       Padding="6"
                                                        Click="MoreButton_Click"
                                                        Icon="{ui:SymbolIcon MoreHorizontal24}"
                                                        ToolTip="{l:Tr Item_More}">
@@ -326,18 +380,68 @@
                                                         <MenuItem Command="{Binding DuplicateCommand}" Header="{l:Tr Item_Duplicate}" Icon="{ui:SymbolIcon Copy24}" />
                                                         <MenuItem Command="{Binding MoveUpCommand}" Header="{l:Tr Item_MoveUp}" Icon="{ui:SymbolIcon ArrowUp24}" />
                                                         <MenuItem Command="{Binding MoveDownCommand}" Header="{l:Tr Item_MoveDown}" Icon="{ui:SymbolIcon ArrowDown24}" />
-                                                        <Separator />
-                                                        <MenuItem Command="{Binding DeleteCommand}" Header="{l:Tr Item_Delete}" Icon="{ui:SymbolIcon Delete24}" />
                                                     </ContextMenu>
                                                 </ui:Button.ContextMenu>
                                             </ui:Button>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
+                                <!-- Insertion markers -->
+                                <Border Height="3" Margin="8,-3,8,0" VerticalAlignment="Top" CornerRadius="2"
+                                        Background="{StaticResource BrandGradientBrush}" IsHitTestVisible="False">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DropIndicator}" Value="Before">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                                <Border Height="3" Margin="8,0,8,-3" VerticalAlignment="Bottom" CornerRadius="2"
+                                        Background="{StaticResource BrandGradientBrush}" IsHitTestVisible="False">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DropIndicator}" Value="After">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                                </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                     </ScrollViewer>
+
+                    <!-- Undo bar after a deletion -->
+                    <Border Grid.Row="2"
+                            Margin="0,0,0,16"
+                            Padding="16,8,8,8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            CornerRadius="10"
+                            BorderThickness="1"
+                            Background="{DynamicResource SolidBackgroundFillColorTertiaryBrush}"
+                            BorderBrush="{DynamicResource ControlStrongStrokeColorDefaultBrush}"
+                            Visibility="{Binding UndoMessage, Converter={StaticResource VisibleWhen}}">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="16" Direction="270" Opacity="0.3" ShadowDepth="3" />
+                        </Border.Effect>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Margin="0,0,10,0" Style="{StaticResource SectionIconBadge}">
+                                <ui:SymbolIcon Foreground="White" FontSize="16" Symbol="Delete24" />
+                            </Border>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding UndoMessage}" />
+                            <ui:Button Margin="16,0,0,0" Appearance="Primary" Command="{Binding UndoCommand}" Content="{l:Tr Undo_Button}" Icon="{ui:SymbolIcon ArrowUndo24}" />
+                            <ui:Button Margin="4,0,0,0" Appearance="Transparent" Command="{Binding DismissUndoCommand}" Icon="{ui:SymbolIcon Dismiss24}" />
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </TabItem>
 
@@ -352,6 +456,27 @@
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel MaxWidth="820" Margin="4,12,4,12">
+                        <!-- Quick launcher -->
+                        <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon Flash24}">
+                            <ui:CardControl.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr QuickLauncher_Title}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr QuickLauncher_Description}" />
+                                    <TextBlock Margin="0,4,0,0" Foreground="{DynamicResource SystemFillColorCautionBrush}" FontSize="12" TextWrapping="Wrap"
+                                               Text="{l:Tr QuickLauncher_Failed}"
+                                               Visibility="{Binding QuickLauncherFailed, Converter={StaticResource VisibleWhen}}" />
+                                </StackPanel>
+                            </ui:CardControl.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ItemsControl VerticalAlignment="Center"
+                                              ItemsPanel="{StaticResource HorizontalPanel}"
+                                              ItemTemplate="{StaticResource KeyCapTemplate}"
+                                              ItemsSource="{Binding QuickLauncherHotkeyParts}" />
+                                <ui:Button Margin="8,0,12,0" Command="{Binding ChangeQuickLauncherHotkeyCommand}" Content="{l:Tr Common_Change}" />
+                                <ui:ToggleSwitch IsChecked="{Binding QuickLauncherEnabled}" />
+                            </StackPanel>
+                        </ui:CardControl>
+
                         <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon LocalLanguage24}">
                             <ui:CardControl.Header>
                                 <StackPanel>
@@ -390,14 +515,56 @@
                             <ui:ToggleSwitch IsChecked="{Binding StartWithWindows}" />
                         </ui:CardControl>
 
+                        <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon Keyboard24}">
+                            <ui:CardControl.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr Settings_KeyboardShape}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Settings_KeyboardShapeDescription}" />
+                                </StackPanel>
+                            </ui:CardControl.Header>
+                            <ComboBox MinWidth="200"
+                                      DisplayMemberPath="Label"
+                                      ItemsSource="{Binding KeyboardShapeOptions}"
+                                      SelectedValue="{Binding SelectedKeyboardShape}"
+                                      SelectedValuePath="Value" />
+                        </ui:CardControl>
+
+                        <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon ArrowSync24}">
+                            <ui:CardControl.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr Settings_Updates}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Settings_UpdatesDescription}" />
+                                </StackPanel>
+                            </ui:CardControl.Header>
+                            <ui:ToggleSwitch IsChecked="{Binding CheckForUpdates}" />
+                        </ui:CardControl>
+
+                        <!-- Export / import -->
+                        <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon ArrowSwap24}">
+                            <ui:CardControl.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr Transfer_Title}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Transfer_Description}" />
+                                </StackPanel>
+                            </ui:CardControl.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:Button Command="{Binding ExportCommand}" Content="{l:Tr Transfer_Export}" Icon="{ui:SymbolIcon ArrowExportLtr24}" />
+                                <ui:Button Margin="8,0,0,0" Command="{Binding ImportCommand}" Content="{l:Tr Transfer_Import}" Icon="{ui:SymbolIcon ArrowImport24}" />
+                            </StackPanel>
+                        </ui:CardControl>
+
                         <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon DocumentSettings20}">
                             <ui:CardControl.Header>
                                 <StackPanel>
                                     <TextBlock FontWeight="SemiBold" Text="{l:Tr Settings_File}" />
                                     <TextBlock Style="{StaticResource SecondaryText}" Text="{Binding SettingsFilePath}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Settings_FileDescription}" />
                                 </StackPanel>
                             </ui:CardControl.Header>
-                            <ui:Button Command="{Binding OpenSettingsFolderCommand}" Content="{l:Tr Settings_OpenFolder}" Icon="{ui:SymbolIcon FolderOpen24}" />
+                            <StackPanel Orientation="Horizontal">
+                                <ui:Button Command="{Binding OpenLogCommand}" Content="{l:Tr Settings_OpenLog}" Icon="{ui:SymbolIcon DocumentText24}" />
+                                <ui:Button Margin="8,0,0,0" Command="{Binding OpenSettingsFolderCommand}" Content="{l:Tr Settings_OpenFolder}" Icon="{ui:SymbolIcon FolderOpen24}" />
+                            </StackPanel>
                         </ui:CardControl>
 
                         <!-- Advanced: discreet on purpose (rarely used) -->
@@ -480,8 +647,25 @@
                             </StackPanel>
                         </Border>
 
+                        <!-- New version available -->
+                        <Border Margin="0,16,0,0" Padding="16,12" CornerRadius="10" Background="{StaticResource BrandGradientBrush}"
+                                Visibility="{Binding UpdateText, Converter={StaticResource VisibleWhen}}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon Margin="0,0,10,0" FontSize="20" Foreground="White" Symbol="ArrowDownload24" />
+                                    <TextBlock VerticalAlignment="Center" FontWeight="SemiBold" Foreground="White" Text="{Binding UpdateText}" TextWrapping="Wrap" />
+                                </StackPanel>
+                                <ui:Button Grid.Column="1" Command="{Binding DownloadUpdateCommand}" Content="{l:Tr Update_Download}" />
+                            </Grid>
+                        </Border>
+
                         <StackPanel Margin="0,24,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
                             <ui:Button Appearance="Primary" Command="{Binding OpenWebsiteCommand}" Content="GitHub" Icon="{ui:SymbolIcon Open24}" />
+                            <ui:Button Margin="8,0,0,0" Command="{Binding CheckUpdatesNowCommand}" Content="{l:Tr Update_CheckNow}" Icon="{ui:SymbolIcon ArrowSync24}" />
                             <ui:Button Margin="8,0,0,0" Command="{Binding ExitCommand}" Content="{l:Tr About_Exit}" Icon="{ui:SymbolIcon Power24}" />
                         </StackPanel>
                     </StackPanel>

@@ -31,22 +31,54 @@ public sealed partial class EditorViewModel : ObservableObject
     private readonly Dictionary<Hotkey, bool> _availabilityCache = [];
     private string _autoName = string.Empty;
 
-    public EditorViewModel(HotkeyEntry entry, IReadOnlyList<HotkeyEntry> others, IReadOnlyList<string> groups, Func<Hotkey, bool> isAvailable, bool isNew)
+    private readonly KeyboardShape _keyboardShape;
+
+    public EditorViewModel(
+        HotkeyEntry entry,
+        IReadOnlyList<HotkeyEntry> others,
+        IReadOnlyList<string> groups,
+        Func<Hotkey, bool> isAvailable,
+        bool isNew,
+        KeyboardShape keyboardShape = KeyboardShape.Auto,
+        bool showNumpad = false)
     {
         _original = entry;
         _others = others;
         _isAvailable = isAvailable;
+        _keyboardShape = keyboardShape;
         IsNew = isNew;
         Groups = groups;
 
-        MainKeyboard = [.. KeyboardLayout.MainBlock.Select(row => row.Select(k => new KeyViewModel(k)).ToList())];
-        NavigationKeyboard = [.. KeyboardLayout.NavigationBlock.Select(row => row.Select(k => new KeyViewModel(k)).ToList())];
+        MainKeyboard = BuildKeys(KeyboardLayout.MainBlock(keyboardShape));
+        NavigationKeyboard = BuildKeys(KeyboardLayout.NavigationBlock);
+        NumpadKeyboard = BuildKeys(KeyboardLayout.NumpadBlock);
+        ShowNumpad = showNumpad;
 
         WindowStates =
         [
             new(LaunchWindowState.Normal, T("Editor_WindowNormal")),
             new(LaunchWindowState.Maximized, T("Editor_WindowMaximized")),
             new(LaunchWindowState.Minimized, T("Editor_WindowMinimized")),
+        ];
+        RunningOptions =
+        [
+            new(RunningBehavior.LaunchNew, T("Editor_IfRunningNew")),
+            new(RunningBehavior.BringToFront, T("Editor_IfRunningFront")),
+        ];
+        PlacementOptions =
+        [
+            new(WindowPlacement.Default, T("Editor_PlacementDefault")),
+            new(WindowPlacement.Center, T("Editor_PlacementCenter")),
+            new(WindowPlacement.LeftHalf, T("Editor_PlacementLeft")),
+            new(WindowPlacement.RightHalf, T("Editor_PlacementRight")),
+            new(WindowPlacement.TopHalf, T("Editor_PlacementTop")),
+            new(WindowPlacement.BottomHalf, T("Editor_PlacementBottom")),
+        ];
+        var screenCount = Math.Max(Screens.GetAll().Count, entry.Monitor);
+        MonitorOptions =
+        [
+            new(0, T("Editor_MonitorDefault")),
+            .. Enumerable.Range(1, screenCount).Select(n => new Option<int>(n, n == 1 ? T("Editor_MonitorMain") : F("Editor_MonitorNumber", n))),
         ];
 
         Name = entry.Name;
@@ -56,10 +88,12 @@ public sealed partial class EditorViewModel : ObservableObject
         WorkingDirectory = entry.WorkingDirectory;
         WindowState = entry.WindowState;
         RunAsAdministrator = entry.RunAsAdministrator;
+        RunHidden = entry.RunHidden;
+        IfRunning = entry.IfRunning;
+        Placement = entry.Placement;
+        Monitor = entry.Monitor;
         Modifiers = entry.Modifiers;
         VirtualKey = entry.VirtualKey;
-        ShowAdvanced = !string.IsNullOrEmpty(entry.Arguments) || !string.IsNullOrEmpty(entry.WorkingDirectory)
-            || entry.WindowState != LaunchWindowState.Normal || entry.RunAsAdministrator;
 
         if (isNew && Name.Length == 0) ApplyAutoName();
         Refresh();
@@ -76,11 +110,39 @@ public sealed partial class EditorViewModel : ObservableObject
 
     public IReadOnlyList<Option<LaunchWindowState>> WindowStates { get; }
 
-    public IReadOnlyList<IReadOnlyList<KeyViewModel>> MainKeyboard { get; }
+    public IReadOnlyList<Option<RunningBehavior>> RunningOptions { get; }
+
+    public IReadOnlyList<Option<WindowPlacement>> PlacementOptions { get; }
+
+    public IReadOnlyList<Option<int>> MonitorOptions { get; }
+
+    [ObservableProperty]
+    public partial IReadOnlyList<IReadOnlyList<KeyViewModel>> MainKeyboard { get; private set; }
 
     public IReadOnlyList<IReadOnlyList<KeyViewModel>> NavigationKeyboard { get; }
 
-    private IEnumerable<KeyViewModel> AllKeys => MainKeyboard.Concat(NavigationKeyboard).SelectMany(row => row);
+    public IReadOnlyList<IReadOnlyList<KeyViewModel>> NumpadKeyboard { get; }
+
+    /// <summary>Numeric keypad displayed (preference remembered by the caller).</summary>
+    [ObservableProperty]
+    public partial bool ShowNumpad { get; set; }
+
+    private IEnumerable<KeyViewModel> AllKeys => MainKeyboard.Concat(NavigationKeyboard).Concat(NumpadKeyboard).SelectMany(row => row);
+
+    [ObservableProperty]
+    public partial bool RunHidden { get; set; }
+
+    [ObservableProperty]
+    public partial RunningBehavior IfRunning { get; set; }
+
+    [ObservableProperty]
+    public partial WindowPlacement Placement { get; set; }
+
+    [ObservableProperty]
+    public partial int Monitor { get; set; }
+
+    /// <summary>"Bring to front" only makes sense for programs.</summary>
+    public bool CanBringToFront => Launcher.CanBringToFront(Target ?? string.Empty);
 
     [ObservableProperty]
     public partial string Name { get; set; }
@@ -102,9 +164,6 @@ public sealed partial class EditorViewModel : ObservableObject
 
     [ObservableProperty]
     public partial bool RunAsAdministrator { get; set; }
-
-    [ObservableProperty]
-    public partial bool ShowAdvanced { get; set; }
 
     [ObservableProperty]
     public partial HotkeyModifiers Modifiers { get; set; }
@@ -130,6 +189,7 @@ public sealed partial class EditorViewModel : ObservableObject
     public string TargetKindText => TargetKind switch
     {
         TargetKind.Application => T("Target_Application"),
+        TargetKind.Script => T("Target_Script"),
         TargetKind.File => T("Target_File"),
         TargetKind.Folder => T("Target_Folder"),
         TargetKind.Url => T("Target_Url"),
@@ -139,6 +199,9 @@ public sealed partial class EditorViewModel : ObservableObject
     };
 
     public bool IsTargetWarning => TargetKind == TargetKind.NotFound;
+
+    /// <summary>Banner subtitle: what to do while the target is empty, then the target itself.</summary>
+    public string BannerSubtitle => string.IsNullOrWhiteSpace(Target) ? T("Editor_BannerHint") : Target.Trim();
 
     [ObservableProperty]
     public partial HotkeyStatus HotkeyStatus { get; private set; }
@@ -178,9 +241,14 @@ public sealed partial class EditorViewModel : ObservableObject
     /// <summary>The Windows keyboard layout changed (Win+Space): relabel the on-screen keyboard.</summary>
     public void RefreshKeyboardLayout()
     {
+        // The shape may change too (e.g. French AZERTY ISO -> English US ANSI)
+        if (_keyboardShape == KeyboardShape.Auto) MainKeyboard = BuildKeys(KeyboardLayout.MainBlock(KeyboardShape.Auto));
         foreach (var key in AllKeys) key.RefreshLayout();
         Refresh();
     }
+
+    private static IReadOnlyList<IReadOnlyList<KeyViewModel>> BuildKeys(IReadOnlyList<IReadOnlyList<KeyDefinition>> block) =>
+        [.. block.Select(row => (IReadOnlyList<KeyViewModel>)[.. row.Select(k => new KeyViewModel(k))])];
 
     public HotkeyEntry ToEntry()
     {
@@ -193,6 +261,10 @@ public sealed partial class EditorViewModel : ObservableObject
         entry.WorkingDirectory = WorkingDirectory?.Trim() ?? string.Empty;
         entry.WindowState = WindowState;
         entry.RunAsAdministrator = RunAsAdministrator;
+        entry.RunHidden = RunHidden;
+        entry.IfRunning = IfRunning;
+        entry.Placement = Placement;
+        entry.Monitor = Monitor;
         entry.Hotkey = Hotkey;
         if (IsNew) entry.IsEnabled = true;
         return entry;
@@ -231,7 +303,7 @@ public sealed partial class EditorViewModel : ObservableObject
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Title = T("Editor_BrowseFileTitle"),
-            Filter = $"{T("Editor_FilterPrograms")}|*.exe;*.bat;*.cmd;*.com;*.lnk;*.msc;*.ps1|{T("Editor_FilterAll")}|*.*",
+            Filter = $"{T("Editor_FilterPrograms")}|*.exe;*.bat;*.cmd;*.com;*.lnk;*.msc;*.ps1;*.vbs|{T("Editor_FilterAll")}|*.*",
             DereferenceLinks = false,
         };
         if (TargetResolver.ResolvePath(Target) is { } current && File.Exists(current)) dialog.InitialDirectory = Path.GetDirectoryName(current);
@@ -277,7 +349,9 @@ public sealed partial class EditorViewModel : ObservableObject
         OnPropertyChanged(nameof(TargetIcon));
         OnPropertyChanged(nameof(TargetKind));
         OnPropertyChanged(nameof(TargetKindText));
+        OnPropertyChanged(nameof(BannerSubtitle));
         OnPropertyChanged(nameof(IsTargetWarning));
+        OnPropertyChanged(nameof(CanBringToFront));
         Validate();
     }
 

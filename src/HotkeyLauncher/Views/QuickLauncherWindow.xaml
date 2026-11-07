@@ -1,0 +1,153 @@
+<Window x:Class="HotkeyLauncher.Views.QuickLauncherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:l="clr-namespace:HotkeyLauncher.Localization"
+        xmlns:vm="clr-namespace:HotkeyLauncher.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance vm:QuickLauncherViewModel}"
+        Title="HotkeyLauncher"
+        Width="720"
+        SizeToContent="Height"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Topmost="True"
+        Deactivated="Window_Deactivated"
+        PreviewKeyDown="Window_PreviewKeyDown">
+    <!-- Margin: room for the shadow -->
+    <Border Margin="24"
+            CornerRadius="16"
+            BorderThickness="1"
+            Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+            BorderBrush="{DynamicResource ControlStrongStrokeColorDefaultBrush}">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="24" Direction="270" Opacity="0.35" ShadowDepth="6" />
+        </Border.Effect>
+        <StackPanel>
+            <!-- Search line -->
+            <Grid Margin="16,14,16,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Width="40" Height="40">
+                    <Ellipse Fill="{StaticResource BrandGradientBrush}" />
+                    <Path Margin="11" Data="{StaticResource BoltGeometry}" Fill="White" Stretch="Uniform" />
+                </Grid>
+                <!-- Search field: own template (no WPF-UI style) so the text gets a comfortable inner margin -->
+                <Border Grid.Column="1"
+                        Margin="14,0,0,0"
+                        Padding="14,0"
+                        Height="44"
+                        CornerRadius="10"
+                        BorderThickness="1"
+                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}">
+                    <Grid VerticalAlignment="Center">
+                        <TextBox x:Name="SearchBox"
+                                 Style="{x:Null}"
+                                 Padding="0"
+                                 BorderThickness="0"
+                                 Background="Transparent"
+                                 FontSize="17"
+                                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                 CaretBrush="{DynamicResource TextFillColorPrimaryBrush}"
+                                 Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Template>
+                                <ControlTemplate TargetType="TextBox">
+                                    <ScrollViewer x:Name="PART_ContentHost" Style="{x:Null}" Focusable="False" />
+                                </ControlTemplate>
+                            </TextBox.Template>
+                        </TextBox>
+                        <TextBlock Margin="2,0,0,0"
+                                   IsHitTestVisible="False"
+                                   FontSize="17"
+                                   Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                   Text="{l:Tr QuickLauncher_Placeholder}"
+                                   Visibility="{Binding Query, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Height="1" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
+
+            <TextBlock Margin="20,8,20,2" Style="{StaticResource SecondaryText}" Text="{Binding Header}" />
+
+            <!-- Results -->
+            <ItemsControl Margin="10,0,10,8" ItemsSource="{Binding Results}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:QuickResultViewModel}">
+                        <Border Margin="0,1" Padding="8,5" CornerRadius="8" Cursor="Hand">
+                            <Border.InputBindings>
+                                <MouseBinding Command="{Binding DataContext.LaunchCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                              CommandParameter="{Binding}"
+                                              MouseAction="LeftClick" />
+                            </Border.InputBindings>
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource BrandSoftBrush}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border Width="34" Height="34" CornerRadius="8" Background="{DynamicResource ControlFillColorDefaultBrush}">
+                                    <Image Width="24" Height="24" Source="{Binding Icon}" />
+                                </Border>
+                                <StackPanel Grid.Column="1" Margin="12,0" VerticalAlignment="Center">
+                                    <TextBlock FontSize="14" FontWeight="SemiBold" Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{Binding Subtitle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                </StackPanel>
+                                <ItemsControl Grid.Column="2"
+                                              VerticalAlignment="Center"
+                                              ItemsPanel="{StaticResource HorizontalPanel}"
+                                              ItemTemplate="{StaticResource KeyCapTemplate}"
+                                              ItemsSource="{Binding HotkeyParts}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <TextBlock Margin="20,4,20,16"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource SecondaryText}"
+                       Text="{l:Tr QuickLauncher_NoResult}"
+                       Visibility="{Binding HasResults, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}" />
+
+            <!-- Footer: keyboard hints -->
+            <Border Padding="18,4,8,4" CornerRadius="0,0,16,16" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+                <DockPanel>
+                    <ui:Button DockPanel.Dock="Right"
+                               Padding="8,4"
+                               Appearance="Transparent"
+                               Command="{Binding ChangeHotkeyCommand}"
+                               ToolTip="{l:Tr QuickLauncher_ChangeHotkeyTip}">
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Margin="0,0,6,0" FontSize="14" Symbol="Keyboard24" />
+                            <TextBlock Style="{StaticResource SecondaryText}" Text="{Binding HotkeyText}" />
+                            <ui:SymbolIcon Margin="6,0,0,0" FontSize="12" Symbol="Edit24" />
+                        </StackPanel>
+                    </ui:Button>
+                    <TextBlock VerticalAlignment="Center" Style="{StaticResource SecondaryText}" Text="{l:Tr QuickLauncher_Hints}" />
+                </DockPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+</Window>

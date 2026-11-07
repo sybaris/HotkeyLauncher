@@ -486,3 +486,5 @@ $RECYCLE.BIN/
 *.settings.json.tmp
 *.settings.json.corrupted-*
 /artifacts/
+/src/**/backups/
+HotkeyLauncher.log*

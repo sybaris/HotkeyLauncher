@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Input;
 using HotkeyLauncher.Core.Launching;
-using HotkeyLauncher.Core.Models;
 using HotkeyLauncher.ViewModels;
 using Wpf.Ui.Controls;
 
@@ -9,12 +8,6 @@ namespace HotkeyLauncher.Views;
 
 public partial class HotkeyEditorWindow : FluentWindow
 {
-    private static readonly Key[] ModifierKeys =
-    [
-        Key.LeftCtrl, Key.RightCtrl, Key.LeftAlt, Key.RightAlt, Key.LeftShift, Key.RightShift, Key.LWin, Key.RWin,
-        Key.ImeProcessed, Key.DeadCharProcessed, Key.None,
-    ];
-
     public HotkeyEditorWindow(EditorViewModel viewModel)
     {
         InitializeComponent();
@@ -52,42 +45,22 @@ public partial class HotkeyEditorWindow : FluentWindow
     /// <summary>Records the combination typed while the capture box has the focus.</summary>
     private void CaptureBox_PreviewKeyDown(object sender, KeyEventArgs e)
     {
-        var key = e.Key switch
+        switch (KeyCapture.Read(e, out var modifiers, out var virtualKey))
         {
-            Key.System => e.SystemKey,         // keys pressed with Alt
-            Key.ImeProcessed => e.ImeProcessedKey,
-            _ => e.Key,
-        };
-
-        var modifiers = HotkeyModifiers.None;
-        var pressed = Keyboard.Modifiers;
-        if (pressed.HasFlag(System.Windows.Input.ModifierKeys.Control)) modifiers |= HotkeyModifiers.Control;
-        if (pressed.HasFlag(System.Windows.Input.ModifierKeys.Alt)) modifiers |= HotkeyModifiers.Alt;
-        if (pressed.HasFlag(System.Windows.Input.ModifierKeys.Shift)) modifiers |= HotkeyModifiers.Shift;
-        if (pressed.HasFlag(System.Windows.Input.ModifierKeys.Windows) || Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin)) modifiers |= HotkeyModifiers.Win;
-
-        // Keep the usual keyboard navigation when no modifier is pressed
-        if (modifiers == HotkeyModifiers.None && key is Key.Tab or Key.Escape)
-        {
-            if (key == Key.Escape)
-            {
+            case CaptureAction.PassThrough:
+                return;
+            case CaptureAction.Leave:
                 Keyboard.ClearFocus();
-                e.Handled = true;
-            }
-
-            return;
+                break;
+            case CaptureAction.Clear:
+                ViewModel.ClearHotkeyCommand.Execute(null);
+                break;
+            case CaptureAction.Capture:
+                ViewModel.Capture(modifiers, virtualKey);
+                break;
         }
 
         e.Handled = true;
-        if (ModifierKeys.Contains(key)) return;
-
-        if (modifiers == HotkeyModifiers.None && key is Key.Back or Key.Delete)
-        {
-            ViewModel.ClearHotkeyCommand.Execute(null);
-            return;
-        }
-
-        ViewModel.Capture(modifiers, (uint)KeyInterop.VirtualKeyFromKey(key));
     }
 
     // A file or folder dropped anywhere on the window becomes the target

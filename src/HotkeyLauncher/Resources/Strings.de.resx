@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from tools/strings.tsv by tools/make_resx.py: edit the TSV, not this file. -->
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Key_Ctrl" xml:space="preserve"><value>Strg</value></data>
+  <data name="Key_Alt" xml:space="preserve"><value>Alt</value></data>
+  <data name="Key_Shift" xml:space="preserve"><value>Umschalt</value></data>
+  <data name="Key_Win" xml:space="preserve"><value>Win</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Common_Ok" xml:space="preserve"><value>OK</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Speichern</value></data>
+  <data name="Common_Change" xml:space="preserve"><value>Ändern…</value></data>
+  <data name="Tray_Disabled" xml:space="preserve"><value>Tastenkürzel deaktiviert</value></data>
+  <data name="Tray_NoShortcut" xml:space="preserve"><value>(noch keine Tastenkürzel)</value></data>
+  <data name="Tray_Search" xml:space="preserve"><value>Suchen…</value></data>
+  <data name="Tray_NoResult" xml:space="preserve"><value>(keine Treffer)</value></data>
+  <data name="Tray_Open" xml:space="preserve"><value>HotkeyLauncher öffnen</value></data>
+  <data name="Tray_HotkeysActive" xml:space="preserve"><value>Tastenkürzel aktiv</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Beenden</value></data>
+  <data name="Tray_RegistrationFailures" xml:space="preserve"><value>{0} Tastenkürzel konnten nicht aktiviert werden: Die Tastenkombination wird bereits von Windows oder einem anderen Programm verwendet.</value></data>
+  <data name="Tray_StillRunning" xml:space="preserve"><value>HotkeyLauncher läuft hier weiter. Ihre Tastenkürzel bleiben aktiv. Zum Beenden mit der rechten Maustaste auf das Symbol klicken.</value></data>
+  <data name="Error_SaveTitle" xml:space="preserve"><value>Die Einstellungen konnten nicht gespeichert werden</value></data>
+  <data name="Error_SettingsCorrupted" xml:space="preserve"><value>Die Einstellungsdatei konnte nicht gelesen werden:
+{0}
+
+Sie wurde umbenannt in:
+{1}
+
+HotkeyLauncher startet mit leeren Einstellungen.</value></data>
+  <data name="Error_Unexpected" xml:space="preserve"><value>Ein unerwarteter Fehler ist aufgetreten:
+{0}</value></data>
+  <data name="Launch_ErrorTitle" xml:space="preserve"><value>„{0}“ kann nicht gestartet werden</value></data>
+  <data name="CommandLine_Help" xml:space="preserve"><value>HotkeyLauncher – Anwendungen, Ordner und Websites per Tastenkürzel starten.
+
+Verwendung: HotkeyLauncher [Optionen]
+
+  (keine Option) Öffnet das Hauptfenster
+  /setup         Öffnet das Hauptfenster (auch einer bereits laufenden Instanz)
+  --tray         Startet ausgeblendet im Infobereich
+  /?, --help     Zeigt diese Hilfe an</value></data>
+  <data name="Header_Subtitle" xml:space="preserve"><value>Ihre Anwendungen, Ordner und Websites auf Tastendruck</value></data>
+  <data name="Header_Shortcuts" xml:space="preserve"><value>{0} Tastenkürzel</value></data>
+  <data name="Header_Groups" xml:space="preserve"><value>{0} Gruppe(n)</value></data>
+  <data name="Header_Active" xml:space="preserve"><value>Aktiv</value></data>
+  <data name="Header_Paused" xml:space="preserve"><value>Pausiert</value></data>
+  <data name="Main_TabShortcuts" xml:space="preserve"><value>Tastenkürzel</value></data>
+  <data name="Main_TabSettings" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Main_TabAbout" xml:space="preserve"><value>Info</value></data>
+  <data name="Main_Add" xml:space="preserve"><value>Hinzufügen</value></data>
+  <data name="Main_AddFirst" xml:space="preserve"><value>Tastenkürzel hinzufügen</value></data>
+  <data name="Main_Search" xml:space="preserve"><value>Suchen…</value></data>
+  <data name="Main_HotkeysActive" xml:space="preserve"><value>Tastenkürzel aktiv</value></data>
+  <data name="Main_HotkeysActiveTip" xml:space="preserve"><value>Deaktiviert vorübergehend alle Tastenkürzel (z. B. wenn ein Programm dieselben Tastenkombinationen benötigt)</value></data>
+  <data name="Main_FailuresTitle" xml:space="preserve"><value>Einige Tastenkürzel sind nicht aktiv</value></data>
+  <data name="Main_FailuresMessage" xml:space="preserve"><value>Ihre Tastenkombination wird bereits von Windows oder einem anderen Programm verwendet. Zeigen Sie auf das Warnsymbol für Details und wählen Sie eine andere Kombination.</value></data>
+  <data name="Main_EmptyTitle" xml:space="preserve"><value>Noch keine Tastenkürzel</value></data>
+  <data name="Main_EmptyText" xml:space="preserve"><value>Erstellen Sie ein Tastenkürzel, um eine Anwendung, einen Ordner oder eine Website per Tastenkombination zu öffnen. Sie können auch eine Datei oder einen Ordner auf dieses Fenster ziehen.</value></data>
+  <data name="Sort_Tip" xml:space="preserve"><value>Reihenfolge der Tastenkürzel innerhalb jeder Gruppe</value></data>
+  <data name="Sort_Custom" xml:space="preserve"><value>Eigene Reihenfolge</value></data>
+  <data name="Sort_Name" xml:space="preserve"><value>Nach Name</value></data>
+  <data name="Sort_MostUsed" xml:space="preserve"><value>Am häufigsten verwendet</value></data>
+  <data name="Sort_Recent" xml:space="preserve"><value>Zuletzt verwendet</value></data>
+  <data name="Undo_Deleted" xml:space="preserve"><value>„{0}“ gelöscht</value></data>
+  <data name="Undo_Button" xml:space="preserve"><value>Rückgängig (Strg+Z)</value></data>
+  <data name="Usage_Never" xml:space="preserve"><value>Noch nie gestartet</value></data>
+  <data name="Usage_Text" xml:space="preserve"><value>{0}× gestartet · {1}</value></data>
+  <data name="Time_JustNow" xml:space="preserve"><value>gerade eben</value></data>
+  <data name="Time_Minutes" xml:space="preserve"><value>vor {0} Min.</value></data>
+  <data name="Time_Hours" xml:space="preserve"><value>vor {0} Std.</value></data>
+  <data name="Time_Days" xml:space="preserve"><value>vor {0} Tag(en)</value></data>
+  <data name="List_NoGroup" xml:space="preserve"><value>Ohne Gruppe</value></data>
+  <data name="Item_HotkeyTakenElsewhere" xml:space="preserve"><value>Diese Tastenkombination wird bereits von Windows oder einem anderen Programm verwendet: Das Tastenkürzel ist nicht aktiv.</value></data>
+  <data name="Item_HotkeyRegistrationError" xml:space="preserve"><value>Das Tastenkürzel konnte nicht aktiviert werden: {0}</value></data>
+  <data name="Item_TargetNotFound" xml:space="preserve"><value>Das Ziel wurde nicht gefunden.</value></data>
+  <data name="Item_CopyName" xml:space="preserve"><value>{0} (Kopie)</value></data>
+  <data name="Item_EnableConflictTitle" xml:space="preserve"><value>Tastenkürzel bereits belegt</value></data>
+  <data name="Item_EnableConflict" xml:space="preserve"><value>Diese Tastenkombination wird bereits von „{0}“ verwendet. Ändern Sie zuerst eines der beiden Tastenkürzel.</value></data>
+  <data name="Item_RunsAsAdmin" xml:space="preserve"><value>Wird als Administrator ausgeführt</value></data>
+  <data name="Item_MenuOnly" xml:space="preserve"><value>ohne Tastenkürzel</value></data>
+  <data name="Item_MenuOnlyTip" xml:space="preserve"><value>Nur über die Menüs verfügbar</value></data>
+  <data name="Item_EnabledTip" xml:space="preserve"><value>Dieses Tastenkürzel aktivieren / deaktivieren</value></data>
+  <data name="Item_Launch" xml:space="preserve"><value>Jetzt starten</value></data>
+  <data name="Item_Edit" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="Item_More" xml:space="preserve"><value>Weitere Aktionen</value></data>
+  <data name="Item_Duplicate" xml:space="preserve"><value>Duplizieren</value></data>
+  <data name="Item_MoveUp" xml:space="preserve"><value>Nach oben</value></data>
+  <data name="Item_MoveDown" xml:space="preserve"><value>Nach unten</value></data>
+  <data name="Item_Delete" xml:space="preserve"><value>Löschen</value></data>
+  <data name="Group_Rename" xml:space="preserve"><value>Gruppe umbenennen</value></data>
+  <data name="Group_MoveUp" xml:space="preserve"><value>Gruppe nach oben</value></data>
+  <data name="Group_MoveDown" xml:space="preserve"><value>Gruppe nach unten</value></data>
+  <data name="Group_RenameTitle" xml:space="preserve"><value>Gruppe umbenennen</value></data>
+  <data name="Group_RenameLabel" xml:space="preserve"><value>Neuer Name</value></data>
+  <data name="Group_MergeMessage" xml:space="preserve"><value>Eine Gruppe „{1}“ existiert bereits. Die Tastenkürzel von „{0}“ dorthin verschieben?</value></data>
+  <data name="Group_Merge" xml:space="preserve"><value>Zusammenführen</value></data>
+  <data name="QuickLauncher_Name" xml:space="preserve"><value>Schnellstarter</value></data>
+  <data name="QuickLauncher_Title" xml:space="preserve"><value>Schnellstarter</value></data>
+  <data name="QuickLauncher_Description" xml:space="preserve"><value>Ein Suchfeld, um jedes Tastenkürzel durch Eintippen weniger Buchstaben zu starten, ohne sich die Kombination zu merken</value></data>
+  <data name="QuickLauncher_Failed" xml:space="preserve"><value>Diese Tastenkombination wird bereits von Windows oder einem anderen Programm verwendet: Wählen Sie eine andere.</value></data>
+  <data name="QuickLauncher_HotkeyTitle" xml:space="preserve"><value>Tastenkürzel des Schnellstarters</value></data>
+  <data name="QuickLauncher_HotkeyHelp" xml:space="preserve"><value>Drücken Sie die neue Tastenkombination.</value></data>
+  <data name="QuickLauncher_Placeholder" xml:space="preserve"><value>Tippen, um ein Tastenkürzel zu suchen…</value></data>
+  <data name="QuickLauncher_Recent" xml:space="preserve"><value>Zuletzt verwendet</value></data>
+  <data name="QuickLauncher_ResultCount" xml:space="preserve"><value>{0} Treffer</value></data>
+  <data name="QuickLauncher_NoResult" xml:space="preserve"><value>Kein Tastenkürzel entspricht Ihrer Suche.</value></data>
+  <data name="QuickLauncher_Hints" xml:space="preserve"><value>↑ ↓  auswählen     ↵  starten     Esc  schließen</value></data>
+  <data name="QuickLauncher_OpenTip" xml:space="preserve"><value>Schnellstarter öffnen</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Sprache</value></data>
+  <data name="Settings_LanguageDescription" xml:space="preserve"><value>Sprache der Anwendung</value></data>
+  <data name="Settings_LanguageSystem" xml:space="preserve"><value>Windows-Sprache</value></data>
+  <data name="Settings_Theme" xml:space="preserve"><value>Design</value></data>
+  <data name="Settings_ThemeDescription" xml:space="preserve"><value>Helles oder dunkles Erscheinungsbild</value></data>
+  <data name="Settings_ThemeSystem" xml:space="preserve"><value>Windows-Einstellung</value></data>
+  <data name="Settings_ThemeLight" xml:space="preserve"><value>Hell</value></data>
+  <data name="Settings_ThemeDark" xml:space="preserve"><value>Dunkel</value></data>
+  <data name="Settings_StartWithWindows" xml:space="preserve"><value>Mit Windows starten</value></data>
+  <data name="Settings_StartWithWindowsDescription" xml:space="preserve"><value>Startet HotkeyLauncher bei der Anmeldung im Infobereich</value></data>
+  <data name="Settings_KeyboardShape" xml:space="preserve"><value>Bildschirmtastatur</value></data>
+  <data name="Settings_KeyboardShapeDescription" xml:space="preserve"><value>Form der im Tastenkürzel-Editor gezeichneten Tastatur</value></data>
+  <data name="Settings_KeyboardAuto" xml:space="preserve"><value>Automatisch</value></data>
+  <data name="Settings_KeyboardIso" xml:space="preserve"><value>Europäisch (ISO)</value></data>
+  <data name="Settings_KeyboardAnsi" xml:space="preserve"><value>Amerikanisch (ANSI)</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>Nach Updates suchen</value></data>
+  <data name="Settings_UpdatesDescription" xml:space="preserve"><value>Fragt einmal täglich bei GitHub nach einer neuen Version (sonst wird nichts gesendet)</value></data>
+  <data name="Settings_File" xml:space="preserve"><value>Einstellungsdatei</value></data>
+  <data name="Settings_FileDescription" xml:space="preserve"><value>Das Protokoll und die automatischen Sicherungen (letzte 3 Sitzungen) liegen im selben Ordner.</value></data>
+  <data name="Settings_OpenLog" xml:space="preserve"><value>Protokoll</value></data>
+  <data name="Settings_OpenFolder" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="Settings_Advanced" xml:space="preserve"><value>Erweitert</value></data>
+  <data name="Settings_AdvancedDescription" xml:space="preserve"><value>Selten verwendete Optionen</value></data>
+  <data name="Settings_ImportRapidApp" xml:space="preserve"><value>Aus RapidApp importieren</value></data>
+  <data name="Settings_ImportRapidAppDescription" xml:space="preserve"><value>Importiert die Tastenkürzel von RapidApp, dem Vorgänger von HotkeyLauncher (Datei RapidApp.ini).</value></data>
+  <data name="Settings_ImportButton" xml:space="preserve"><value>Importieren…</value></data>
+  <data name="Transfer_Title" xml:space="preserve"><value>Exportieren / importieren</value></data>
+  <data name="Transfer_Description" xml:space="preserve"><value>Speichern Sie Ihre Tastenkürzel in einer Datei, um sie auf einen anderen Computer zu kopieren oder zu teilen</value></data>
+  <data name="Transfer_Export" xml:space="preserve"><value>Exportieren…</value></data>
+  <data name="Transfer_Import" xml:space="preserve"><value>Importieren…</value></data>
+  <data name="Transfer_ExportTitle" xml:space="preserve"><value>Tastenkürzel exportieren</value></data>
+  <data name="Transfer_ImportTitle" xml:space="preserve"><value>Tastenkürzel importieren</value></data>
+  <data name="Transfer_FileType" xml:space="preserve"><value>HotkeyLauncher-Tastenkürzel</value></data>
+  <data name="Transfer_ExportDone" xml:space="preserve"><value>{0} Tastenkürzel exportiert nach:
+{1}</value></data>
+  <data name="Import_DialogTitle" xml:space="preserve"><value>Wählen Sie die Datei RapidApp.ini</value></data>
+  <data name="Import_Title" xml:space="preserve"><value>Aus RapidApp importieren</value></data>
+  <data name="Import_ReadError" xml:space="preserve"><value>Die Datei konnte nicht gelesen werden:
+{0}</value></data>
+  <data name="Import_Nothing" xml:space="preserve"><value>In dieser Datei wurde kein Tastenkürzel gefunden.</value></data>
+  <data name="Import_ExistingQuestion" xml:space="preserve"><value>{0} Tastenkürzel gefunden. Sie haben bereits {1} Tastenkürzel: die importierten hinzufügen oder ersetzen?</value></data>
+  <data name="Import_Add" xml:space="preserve"><value>Hinzufügen</value></data>
+  <data name="Import_Replace" xml:space="preserve"><value>Ersetzen</value></data>
+  <data name="Import_Done" xml:space="preserve"><value>{0} Tastenkürzel importiert.</value></data>
+  <data name="Import_DoneConflicts" xml:space="preserve"><value>{0} davon verwenden eine bereits belegte Tastenkombination: Sie wurden deaktiviert.</value></data>
+  <data name="Import_DoneIncomplete" xml:space="preserve"><value>{0} davon haben keine gültige Tastenkombination: Sie wurden deaktiviert, bearbeiten Sie sie, um eine zu wählen.</value></data>
+  <data name="Update_Title" xml:space="preserve"><value>Updates</value></data>
+  <data name="Update_AvailableTitle" xml:space="preserve"><value>Neue Version verfügbar</value></data>
+  <data name="Update_AvailableText" xml:space="preserve"><value>HotkeyLauncher {0} ist verfügbar.</value></data>
+  <data name="Update_UpToDate" xml:space="preserve"><value>Sie verwenden die neueste Version ({0}).</value></data>
+  <data name="Update_Error" xml:space="preserve"><value>Die Prüfung ist fehlgeschlagen:
+{0}</value></data>
+  <data name="Update_Download" xml:space="preserve"><value>Herunterladen</value></data>
+  <data name="Update_CheckNow" xml:space="preserve"><value>Nach Updates suchen</value></data>
+  <data name="About_Version" xml:space="preserve"><value>Version</value></data>
+  <data name="About_Description" xml:space="preserve"><value>Starten Sie Ihre Anwendungen, Ordner und Lieblings-Websites blitzschnell mit globalen Tastenkürzeln.</value></data>
+  <data name="About_AuthorLabel" xml:space="preserve"><value>Erstellt von</value></data>
+  <data name="About_HistoryBefore" xml:space="preserve"><value>Nachfolger von</value></data>
+  <data name="About_HistoryAfter" xml:space="preserve"><value> (Delphi, 2003 – 2005).</value></data>
+  <data name="About_Exit" xml:space="preserve"><value>HotkeyLauncher beenden</value></data>
+  <data name="About_License" xml:space="preserve"><value>Freie Open-Source-Software – MIT-Lizenz</value></data>
+  <data name="Editor_TitleNew" xml:space="preserve"><value>Neues Tastenkürzel</value></data>
+  <data name="Editor_TitleEdit" xml:space="preserve"><value>Tastenkürzel bearbeiten</value></data>
+  <data name="Editor_SectionTarget" xml:space="preserve"><value>Was gestartet wird</value></data>
+  <data name="Editor_TargetPlaceholder" xml:space="preserve"><value>Programm, Skript, Dokument, Ordner oder Webadresse (https://…)</value></data>
+  <data name="Editor_BrowseFile" xml:space="preserve"><value>Datei…</value></data>
+  <data name="Editor_BrowseFolder" xml:space="preserve"><value>Ordner…</value></data>
+  <data name="Editor_BrowseFileTitle" xml:space="preserve"><value>Programm oder Dokument auswählen</value></data>
+  <data name="Editor_BrowseFolderTitle" xml:space="preserve"><value>Ordner auswählen</value></data>
+  <data name="Editor_FilterPrograms" xml:space="preserve"><value>Programme, Skripte und Verknüpfungen</value></data>
+  <data name="Editor_FilterAll" xml:space="preserve"><value>Alle Dateien</value></data>
+  <data name="Target_Hint" xml:space="preserve"><value>Tipp: Sie können auch eine Datei oder einen Ordner auf dieses Fenster ziehen.</value></data>
+  <data name="Target_Application" xml:space="preserve"><value>Programm</value></data>
+  <data name="Target_Script" xml:space="preserve"><value>Skript</value></data>
+  <data name="Target_File" xml:space="preserve"><value>Dokument (wird mit dem zugeordneten Programm geöffnet)</value></data>
+  <data name="Target_Folder" xml:space="preserve"><value>Ordner</value></data>
+  <data name="Target_Url" xml:space="preserve"><value>Webadresse oder Link</value></data>
+  <data name="Target_Command" xml:space="preserve"><value>Auf diesem Computer gefundener Befehl</value></data>
+  <data name="Target_NotFound" xml:space="preserve"><value>Das Ziel wurde nicht gefunden (es befindet sich evtl. auf einem nicht verbundenen Laufwerk).</value></data>
+  <data name="Editor_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Editor_Group" xml:space="preserve"><value>Gruppe (optional)</value></data>
+  <data name="Editor_GroupTip" xml:space="preserve"><value>Gruppen ordnen die Liste und das Menü des Infobereich-Symbols</value></data>
+  <data name="Editor_SectionHotkey" xml:space="preserve"><value>Tastenkürzel</value></data>
+  <data name="Editor_CapturePlaceholder" xml:space="preserve"><value>Hier klicken und dann die Tastenkombination drücken</value></data>
+  <data name="Editor_CaptureActive" xml:space="preserve"><value>Bereit…</value></data>
+  <data name="Editor_ClearHotkey" xml:space="preserve"><value>Tastenkombination entfernen</value></data>
+  <data name="Editor_Suggestions" xml:space="preserve"><value>Freie Kombinationen:</value></data>
+  <data name="Editor_KeyboardHelp" xml:space="preserve"><value>Oder mit der Maus zusammenstellen: Klicken Sie auf die Umschalttasten (Strg, Alt, Umschalt, Win) und dann auf eine Taste. Die Farben zeigen die freien Tasten.</value></data>
+  <data name="Editor_ShowNumpad" xml:space="preserve"><value>Ziffernblock</value></data>
+  <data name="Editor_ShowNumpadTip" xml:space="preserve"><value>Ziffernblocktasten funktionieren nur bei aktivierter Num-Taste</value></data>
+  <data name="Legend_Free" xml:space="preserve"><value>Frei</value></data>
+  <data name="Legend_Selected" xml:space="preserve"><value>Ihre Wahl</value></data>
+  <data name="Legend_UsedByShortcut" xml:space="preserve"><value>Von einem anderen Ihrer Tastenkürzel belegt</value></data>
+  <data name="Legend_Taken" xml:space="preserve"><value>Von Windows oder einem anderen Programm belegt</value></data>
+  <data name="Editor_KeyUsedBy" xml:space="preserve"><value>Belegt von „{0}“</value></data>
+  <data name="Editor_KeyReserved" xml:space="preserve"><value>Von Windows reserviert</value></data>
+  <data name="Editor_KeyTaken" xml:space="preserve"><value>Von einem anderen Programm belegt</value></data>
+  <data name="Editor_StatusNone" xml:space="preserve"><value>Keine Tastenkombination: Das Tastenkürzel ist nur über die Menüs und den Schnellstarter verfügbar.</value></data>
+  <data name="Editor_StatusNeedsModifier" xml:space="preserve"><value>Fügen Sie mindestens eine Umschalttaste hinzu (Strg, Alt, Umschalt oder Win). Nur F13 bis F24 können allein verwendet werden.</value></data>
+  <data name="Editor_StatusUsedBy" xml:space="preserve"><value>Bereits belegt von „{0}“.</value></data>
+  <data name="Editor_StatusReserved" xml:space="preserve"><value>Diese Kombination ist von Windows reserviert: Sie wird wahrscheinlich nicht funktionieren.</value></data>
+  <data name="Editor_StatusTaken" xml:space="preserve"><value>Diese Kombination wird bereits von einem anderen Programm verwendet: Sie funktioniert nicht, solange dieses Programm läuft.</value></data>
+  <data name="Editor_StatusAvailable" xml:space="preserve"><value>Diese Kombination ist frei.</value></data>
+  <data name="Editor_WarningTaken" xml:space="preserve"><value>Die Tastenkombination ist derzeit nicht verfügbar.</value></data>
+  <data name="Editor_SectionAdvanced" xml:space="preserve"><value>Erweiterte Optionen</value></data>
+  <data name="Editor_Arguments" xml:space="preserve"><value>Befehlszeilenargumente</value></data>
+  <data name="Editor_ArgumentsPlaceholder" xml:space="preserve"><value>Optional</value></data>
+  <data name="Editor_WorkingDirectory" xml:space="preserve"><value>Ausführen in</value></data>
+  <data name="Editor_WorkingDirectoryPlaceholder" xml:space="preserve"><value>Standard: der Ordner des Programms</value></data>
+  <data name="Editor_WindowState" xml:space="preserve"><value>Fenster</value></data>
+  <data name="Editor_WindowNormal" xml:space="preserve"><value>Normal</value></data>
+  <data name="Editor_WindowMaximized" xml:space="preserve"><value>Maximiert</value></data>
+  <data name="Editor_WindowMinimized" xml:space="preserve"><value>Minimiert</value></data>
+  <data name="Editor_Monitor" xml:space="preserve"><value>Bildschirm</value></data>
+  <data name="Editor_MonitorDefault" xml:space="preserve"><value>Von Windows gewählt</value></data>
+  <data name="Editor_MonitorMain" xml:space="preserve"><value>Hauptbildschirm</value></data>
+  <data name="Editor_MonitorNumber" xml:space="preserve"><value>Bildschirm {0}</value></data>
+  <data name="Editor_Placement" xml:space="preserve"><value>Position</value></data>
+  <data name="Editor_PlacementDefault" xml:space="preserve"><value>Wie vom Programm vorgesehen</value></data>
+  <data name="Editor_PlacementCenter" xml:space="preserve"><value>Zentriert</value></data>
+  <data name="Editor_PlacementLeft" xml:space="preserve"><value>Linke Hälfte</value></data>
+  <data name="Editor_PlacementRight" xml:space="preserve"><value>Rechte Hälfte</value></data>
+  <data name="Editor_PlacementTop" xml:space="preserve"><value>Obere Hälfte</value></data>
+  <data name="Editor_PlacementBottom" xml:space="preserve"><value>Untere Hälfte</value></data>
+  <data name="Editor_IfRunning" xml:space="preserve"><value>Falls bereits gestartet</value></data>
+  <data name="Editor_IfRunningNew" xml:space="preserve"><value>Neue Instanz starten</value></data>
+  <data name="Editor_IfRunningFront" xml:space="preserve"><value>Fenster in den Vordergrund holen</value></data>
+  <data name="Editor_IfRunningTip" xml:space="preserve"><value>Nur für Programme verfügbar</value></data>
+  <data name="Editor_RunAsAdmin" xml:space="preserve"><value>Als Administrator ausführen</value></data>
+  <data name="Editor_RunAsAdminTip" xml:space="preserve"><value>Windows fragt bei jedem Start nach einer Bestätigung (UAC)</value></data>
+  <data name="Editor_RunHidden" xml:space="preserve"><value>Ausgeblendet ausführen</value></data>
+  <data name="Editor_RunHiddenTip" xml:space="preserve"><value>Es wird kein Fenster angezeigt: nützlich für Skripte und Hintergrundbefehle</value></data>
+  <data name="Editor_Test" xml:space="preserve"><value>Testen</value></data>
+  <data name="Editor_TestTip" xml:space="preserve"><value>Jetzt mit diesen Einstellungen starten</value></data>
+  <data name="Validation_NameMissing" xml:space="preserve"><value>Geben Sie einen Namen ein.</value></data>
+  <data name="Validation_TargetMissing" xml:space="preserve"><value>Wählen Sie, was gestartet werden soll.</value></data>
+  <data name="Validation_HotkeyAlreadyUsed" xml:space="preserve"><value>Diese Tastenkombination wird bereits von einem anderen Ihrer Tastenkürzel verwendet.</value></data>
+  <data name="Validation_WorkingDirectoryNotFound" xml:space="preserve"><value>Der Ordner „Ausführen in“ wurde nicht gefunden.</value></data>
+  <data name="QuickLauncher_ChangeHotkeyTip" xml:space="preserve"><value>Tastenkombination des Schnellstarters ändern</value></data>
+  <data name="Usage_Tip" xml:space="preserve"><value>Anzahl der Starts und letzter Start</value></data>
+  <data name="QuickLauncher_DefaultChosen" xml:space="preserve"><value>Drücken Sie {0}, um den Schnellstarter zu öffnen (im Hauptfenster änderbar).</value></data>
+  <data name="Editor_BannerHint" xml:space="preserve"><value>Wählen Sie, was gestartet werden soll, und dann eine Tastenkombination.</value></data>
+</root>

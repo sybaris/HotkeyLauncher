@@ -1,0 +1,229 @@
+key	en	fr	es	de
+Key_Ctrl	Ctrl	Ctrl	Ctrl	Strg
+Key_Alt	Alt	Alt	Alt	Alt
+Key_Shift	Shift	Maj	Mayús	Umschalt
+Key_Win	Win	Win	Win	Win
+Common_Cancel	Cancel	Annuler	Cancelar	Abbrechen
+Common_Ok	OK	OK	Aceptar	OK
+Common_Save	Save	Enregistrer	Guardar	Speichern
+Common_Change	Change…	Modifier…	Cambiar…	Ändern…
+Tray_Disabled	shortcuts disabled	raccourcis désactivés	atajos desactivados	Tastenkürzel deaktiviert
+Tray_NoShortcut	(no shortcut yet)	(aucun raccourci pour l'instant)	(todavía no hay atajos)	(noch keine Tastenkürzel)
+Tray_Search	Search…	Rechercher…	Buscar…	Suchen…
+Tray_NoResult	(no result)	(aucun résultat)	(sin resultados)	(keine Treffer)
+Tray_Open	Open HotkeyLauncher	Ouvrir HotkeyLauncher	Abrir HotkeyLauncher	HotkeyLauncher öffnen
+Tray_HotkeysActive	Shortcuts enabled	Raccourcis actifs	Atajos activados	Tastenkürzel aktiv
+Tray_Exit	Exit	Quitter	Salir	Beenden
+Tray_RegistrationFailures	{0} shortcut(s) could not be enabled: the key combination is already used by Windows or another program.	{0} raccourci(s) n'ont pas pu être activés : la combinaison est déjà utilisée par Windows ou un autre programme.	No se pudieron activar {0} atajo(s): la combinación ya la usa Windows u otro programa.	{0} Tastenkürzel konnten nicht aktiviert werden: Die Tastenkombination wird bereits von Windows oder einem anderen Programm verwendet.
+Tray_StillRunning	HotkeyLauncher is still running here. Your shortcuts remain active. Right-click the icon to exit.	HotkeyLauncher continue de fonctionner ici. Vos raccourcis restent actifs. Clic droit sur l'icône pour quitter.	HotkeyLauncher sigue funcionando aquí. Sus atajos siguen activos. Haga clic derecho en el icono para salir.	HotkeyLauncher läuft hier weiter. Ihre Tastenkürzel bleiben aktiv. Zum Beenden mit der rechten Maustaste auf das Symbol klicken.
+Error_SaveTitle	Unable to save the settings	Impossible d'enregistrer les paramètres	No se pudo guardar la configuración	Die Einstellungen konnten nicht gespeichert werden
+Error_SettingsCorrupted	The settings file could not be read:\n{0}\n\nIt has been renamed to:\n{1}\n\nHotkeyLauncher starts with empty settings.	Le fichier de paramètres n'a pas pu être lu :\n{0}\n\nIl a été renommé en :\n{1}\n\nHotkeyLauncher démarre avec des paramètres vides.	No se pudo leer el archivo de configuración:\n{0}\n\nSe ha renombrado a:\n{1}\n\nHotkeyLauncher se inicia con una configuración vacía.	Die Einstellungsdatei konnte nicht gelesen werden:\n{0}\n\nSie wurde umbenannt in:\n{1}\n\nHotkeyLauncher startet mit leeren Einstellungen.
+Error_Unexpected	An unexpected error occurred:\n{0}	Une erreur inattendue s'est produite :\n{0}	Se ha producido un error inesperado:\n{0}	Ein unerwarteter Fehler ist aufgetreten:\n{0}
+Launch_ErrorTitle	Unable to launch "{0}"	Impossible de lancer « {0} »	No se puede iniciar «{0}»	„{0}“ kann nicht gestartet werden
+CommandLine_Help	HotkeyLauncher – launch applications, folders and web sites with keyboard shortcuts.\n\nUsage: HotkeyLauncher [options]\n\n  (no option)    Open the main window\n  /setup         Open the main window (also for an already running instance)\n  --tray         Start hidden in the notification area\n  /?, --help     Display this help	HotkeyLauncher – lancez applications, dossiers et sites web avec des raccourcis clavier.\n\nUtilisation : HotkeyLauncher [options]\n\n  (sans option)  Ouvre la fenêtre principale\n  /setup         Ouvre la fenêtre principale (y compris d'une instance déjà lancée)\n  --tray         Démarre masqué dans la zone de notification\n  /?, --help     Affiche cette aide	HotkeyLauncher – abra aplicaciones, carpetas y sitios web con atajos de teclado.\n\nUso: HotkeyLauncher [opciones]\n\n  (sin opción)   Abre la ventana principal\n  /setup         Abre la ventana principal (también de una instancia ya iniciada)\n  --tray         Se inicia oculto en el área de notificación\n  /?, --help     Muestra esta ayuda	HotkeyLauncher – Anwendungen, Ordner und Websites per Tastenkürzel starten.\n\nVerwendung: HotkeyLauncher [Optionen]\n\n  (keine Option) Öffnet das Hauptfenster\n  /setup         Öffnet das Hauptfenster (auch einer bereits laufenden Instanz)\n  --tray         Startet ausgeblendet im Infobereich\n  /?, --help     Zeigt diese Hilfe an
+Header_Subtitle	Your applications, folders and web sites at your fingertips	Vos applications, dossiers et sites à portée de clavier	Sus aplicaciones, carpetas y sitios web al alcance del teclado	Ihre Anwendungen, Ordner und Websites auf Tastendruck
+Header_Shortcuts	{0} shortcut(s)	{0} raccourci(s)	{0} atajo(s)	{0} Tastenkürzel
+Header_Groups	{0} group(s)	{0} groupe(s)	{0} grupo(s)	{0} Gruppe(n)
+Header_Active	Active	Actifs	Activos	Aktiv
+Header_Paused	Paused	En pause	En pausa	Pausiert
+Main_TabShortcuts	Shortcuts	Raccourcis	Atajos	Tastenkürzel
+Main_TabSettings	Settings	Paramètres	Configuración	Einstellungen
+Main_TabAbout	About	À propos	Acerca de	Info
+Main_Add	Add	Ajouter	Añadir	Hinzufügen
+Main_AddFirst	Add a shortcut	Ajouter un raccourci	Añadir un atajo	Tastenkürzel hinzufügen
+Main_Search	Search…	Rechercher…	Buscar…	Suchen…
+Main_HotkeysActive	Shortcuts enabled	Raccourcis actifs	Atajos activados	Tastenkürzel aktiv
+Main_HotkeysActiveTip	Temporarily disable all the shortcuts (e.g. when a program needs the same key combinations)	Désactive temporairement tous les raccourcis (par exemple quand un programme a besoin des mêmes combinaisons)	Desactiva temporalmente todos los atajos (por ejemplo, cuando un programa necesita las mismas combinaciones)	Deaktiviert vorübergehend alle Tastenkürzel (z. B. wenn ein Programm dieselben Tastenkombinationen benötigt)
+Main_FailuresTitle	Some shortcuts are not active	Certains raccourcis ne sont pas actifs	Algunos atajos no están activos	Einige Tastenkürzel sind nicht aktiv
+Main_FailuresMessage	Their key combination is already used by Windows or another program. Hover the warning icon for details, then choose another combination.	Leur combinaison est déjà utilisée par Windows ou un autre programme. Survolez l'icône d'avertissement pour le détail, puis choisissez une autre combinaison.	Su combinación ya la usa Windows u otro programa. Pase el ratón sobre el icono de advertencia para ver los detalles y elija otra combinación.	Ihre Tastenkombination wird bereits von Windows oder einem anderen Programm verwendet. Zeigen Sie auf das Warnsymbol für Details und wählen Sie eine andere Kombination.
+Main_EmptyTitle	No shortcut yet	Aucun raccourci pour l'instant	Todavía no hay atajos	Noch keine Tastenkürzel
+Main_EmptyText	Create a shortcut to launch an application, open a folder or a web site with a key combination. You can also drop a file or a folder on this window.	Créez un raccourci pour lancer une application, ouvrir un dossier ou un site web avec une combinaison de touches. Vous pouvez aussi déposer un fichier ou un dossier sur cette fenêtre.	Cree un atajo para iniciar una aplicación, abrir una carpeta o un sitio web con una combinación de teclas. También puede soltar un archivo o una carpeta en esta ventana.	Erstellen Sie ein Tastenkürzel, um eine Anwendung, einen Ordner oder eine Website per Tastenkombination zu öffnen. Sie können auch eine Datei oder einen Ordner auf dieses Fenster ziehen.
+Sort_Tip	Order of the shortcuts inside each group	Ordre des raccourcis dans chaque groupe	Orden de los atajos dentro de cada grupo	Reihenfolge der Tastenkürzel innerhalb jeder Gruppe
+Sort_Custom	Custom order	Ordre personnalisé	Orden personalizado	Eigene Reihenfolge
+Sort_Name	By name	Par nom	Por nombre	Nach Name
+Sort_MostUsed	Most used	Les plus utilisés	Los más usados	Am häufigsten verwendet
+Sort_Recent	Recently used	Utilisés récemment	Usados recientemente	Zuletzt verwendet
+Undo_Deleted	"{0}" deleted	« {0} » supprimé	«{0}» eliminado	„{0}“ gelöscht
+Undo_Button	Undo (Ctrl+Z)	Annuler (Ctrl+Z)	Deshacer (Ctrl+Z)	Rückgängig (Strg+Z)
+Usage_Never	Never launched	Jamais lancé	Nunca iniciado	Noch nie gestartet
+Usage_Text	{0} launch(es) · {1}	{0} lancement(s) · {1}	{0} inicio(s) · {1}	{0}× gestartet · {1}
+Time_JustNow	just now	à l'instant	ahora mismo	gerade eben
+Time_Minutes	{0} min ago	il y a {0} min	hace {0} min	vor {0} Min.
+Time_Hours	{0} h ago	il y a {0} h	hace {0} h	vor {0} Std.
+Time_Days	{0} day(s) ago	il y a {0} j	hace {0} día(s)	vor {0} Tag(en)
+List_NoGroup	No group	Sans groupe	Sin grupo	Ohne Gruppe
+Item_HotkeyTakenElsewhere	This key combination is already used by Windows or another program: the shortcut is not active.	Cette combinaison est déjà utilisée par Windows ou un autre programme : le raccourci n'est pas actif.	Esta combinación ya la usa Windows u otro programa: el atajo no está activo.	Diese Tastenkombination wird bereits von Windows oder einem anderen Programm verwendet: Das Tastenkürzel ist nicht aktiv.
+Item_HotkeyRegistrationError	The shortcut could not be enabled: {0}	Le raccourci n'a pas pu être activé : {0}	No se pudo activar el atajo: {0}	Das Tastenkürzel konnte nicht aktiviert werden: {0}
+Item_TargetNotFound	The target cannot be found.	La cible est introuvable.	No se encuentra el destino.	Das Ziel wurde nicht gefunden.
+Item_CopyName	{0} (copy)	{0} (copie)	{0} (copia)	{0} (Kopie)
+Item_EnableConflictTitle	Shortcut already used	Raccourci déjà utilisé	Atajo ya en uso	Tastenkürzel bereits belegt
+Item_EnableConflict	This key combination is already used by "{0}". Change one of the two shortcuts first.	Cette combinaison est déjà utilisée par « {0} ». Modifiez d'abord l'un des 2 raccourcis.	Esta combinación ya la usa «{0}». Modifique primero uno de los 2 atajos.	Diese Tastenkombination wird bereits von „{0}“ verwendet. Ändern Sie zuerst eines der beiden Tastenkürzel.
+Item_RunsAsAdmin	Runs as administrator	S'exécute en administrateur	Se ejecuta como administrador	Wird als Administrator ausgeführt
+Item_MenuOnly	no shortcut	sans raccourci	sin atajo	ohne Tastenkürzel
+Item_MenuOnlyTip	Available from the menus only	Disponible uniquement depuis les menus	Disponible solo desde los menús	Nur über die Menüs verfügbar
+Item_EnabledTip	Enable / disable this shortcut	Activer / désactiver ce raccourci	Activar / desactivar este atajo	Dieses Tastenkürzel aktivieren / deaktivieren
+Item_Launch	Launch now	Lancer maintenant	Iniciar ahora	Jetzt starten
+Item_Edit	Edit	Modifier	Modificar	Bearbeiten
+Item_More	More actions	Plus d'actions	Más acciones	Weitere Aktionen
+Item_Duplicate	Duplicate	Dupliquer	Duplicar	Duplizieren
+Item_MoveUp	Move up	Monter	Subir	Nach oben
+Item_MoveDown	Move down	Descendre	Bajar	Nach unten
+Item_Delete	Delete	Supprimer	Eliminar	Löschen
+Group_Rename	Rename the group	Renommer le groupe	Cambiar el nombre del grupo	Gruppe umbenennen
+Group_MoveUp	Move the group up	Monter le groupe	Subir el grupo	Gruppe nach oben
+Group_MoveDown	Move the group down	Descendre le groupe	Bajar el grupo	Gruppe nach unten
+Group_RenameTitle	Rename the group	Renommer le groupe	Cambiar el nombre del grupo	Gruppe umbenennen
+Group_RenameLabel	New name	Nouveau nom	Nuevo nombre	Neuer Name
+Group_MergeMessage	A group named "{1}" already exists. Move the shortcuts of "{0}" into it?	Un groupe « {1} » existe déjà. Y déplacer les raccourcis de « {0} » ?	Ya existe un grupo «{1}». ¿Mover a él los atajos de «{0}»?	Eine Gruppe „{1}“ existiert bereits. Die Tastenkürzel von „{0}“ dorthin verschieben?
+Group_Merge	Merge	Fusionner	Combinar	Zusammenführen
+QuickLauncher_Name	Quick launcher	Lanceur rapide	Lanzador rápido	Schnellstarter
+QuickLauncher_Title	Quick launcher	Lanceur rapide	Lanzador rápido	Schnellstarter
+QuickLauncher_Description	A search box to launch any shortcut by typing a few letters, without remembering its key combination	Une zone de recherche pour lancer n'importe quel raccourci en tapant quelques lettres, sans retenir sa combinaison	Un cuadro de búsqueda para iniciar cualquier atajo escribiendo unas letras, sin recordar su combinación	Ein Suchfeld, um jedes Tastenkürzel durch Eintippen weniger Buchstaben zu starten, ohne sich die Kombination zu merken
+QuickLauncher_Failed	This key combination is already used by Windows or another program: choose another one.	Cette combinaison est déjà utilisée par Windows ou un autre programme : choisissez-en une autre.	Esta combinación ya la usa Windows u otro programa: elija otra.	Diese Tastenkombination wird bereits von Windows oder einem anderen Programm verwendet: Wählen Sie eine andere.
+QuickLauncher_HotkeyTitle	Quick launcher shortcut	Raccourci du lanceur rapide	Atajo del lanzador rápido	Tastenkürzel des Schnellstarters
+QuickLauncher_HotkeyHelp	Press the new key combination.	Appuyez sur la nouvelle combinaison de touches.	Pulse la nueva combinación de teclas.	Drücken Sie die neue Tastenkombination.
+QuickLauncher_Placeholder	Type to search a shortcut…	Tapez pour rechercher un raccourci…	Escriba para buscar un atajo…	Tippen, um ein Tastenkürzel zu suchen…
+QuickLauncher_Recent	Recently used	Utilisés récemment	Usados recientemente	Zuletzt verwendet
+QuickLauncher_ResultCount	{0} result(s)	{0} résultat(s)	{0} resultado(s)	{0} Treffer
+QuickLauncher_NoResult	No shortcut matches your search.	Aucun raccourci ne correspond à votre recherche.	Ningún atajo coincide con su búsqueda.	Kein Tastenkürzel entspricht Ihrer Suche.
+QuickLauncher_Hints	↑ ↓  select     ↵  launch     Esc  close	↑ ↓  sélectionner     ↵  lancer     Échap  fermer	↑ ↓  seleccionar     ↵  iniciar     Esc  cerrar	↑ ↓  auswählen     ↵  starten     Esc  schließen
+QuickLauncher_OpenTip	Open the quick launcher	Ouvrir le lanceur rapide	Abrir el lanzador rápido	Schnellstarter öffnen
+Settings_Language	Language	Langue	Idioma	Sprache
+Settings_LanguageDescription	Language of the application	Langue de l'application	Idioma de la aplicación	Sprache der Anwendung
+Settings_LanguageSystem	Windows language	Langue de Windows	Idioma de Windows	Windows-Sprache
+Settings_Theme	Theme	Thème	Tema	Design
+Settings_ThemeDescription	Light or dark appearance	Apparence claire ou sombre	Apariencia clara u oscura	Helles oder dunkles Erscheinungsbild
+Settings_ThemeSystem	Windows setting	Paramètre de Windows	Configuración de Windows	Windows-Einstellung
+Settings_ThemeLight	Light	Clair	Claro	Hell
+Settings_ThemeDark	Dark	Sombre	Oscuro	Dunkel
+Settings_StartWithWindows	Start with Windows	Démarrer avec Windows	Iniciar con Windows	Mit Windows starten
+Settings_StartWithWindowsDescription	Start HotkeyLauncher in the notification area when you sign in	Lance HotkeyLauncher dans la zone de notification à l'ouverture de session	Inicia HotkeyLauncher en el área de notificación al iniciar sesión	Startet HotkeyLauncher bei der Anmeldung im Infobereich
+Settings_KeyboardShape	On-screen keyboard	Clavier visuel	Teclado en pantalla	Bildschirmtastatur
+Settings_KeyboardShapeDescription	Shape of the keyboard drawn in the shortcut editor	Forme du clavier dessiné dans l'éditeur de raccourci	Forma del teclado dibujado en el editor de atajos	Form der im Tastenkürzel-Editor gezeichneten Tastatur
+Settings_KeyboardAuto	Automatic	Automatique	Automática	Automatisch
+Settings_KeyboardIso	European (ISO)	Européen (ISO)	Europeo (ISO)	Europäisch (ISO)
+Settings_KeyboardAnsi	American (ANSI)	Américain (ANSI)	Americano (ANSI)	Amerikanisch (ANSI)
+Settings_Updates	Check for updates	Rechercher les mises à jour	Buscar actualizaciones	Nach Updates suchen
+Settings_UpdatesDescription	Once a day, asks GitHub whether a new version is available (nothing else is sent)	Une fois par jour, demande à GitHub si une nouvelle version est disponible (rien d'autre n'est envoyé)	Una vez al día, pregunta a GitHub si hay una nueva versión (no se envía nada más)	Fragt einmal täglich bei GitHub nach einer neuen Version (sonst wird nichts gesendet)
+Settings_File	Settings file	Fichier de paramètres	Archivo de configuración	Einstellungsdatei
+Settings_FileDescription	The log and the automatic backups (last 3 sessions) are in the same folder.	Le journal et les sauvegardes automatiques (3 dernières sessions) se trouvent dans le même dossier.	El registro y las copias de seguridad automáticas (3 últimas sesiones) están en la misma carpeta.	Das Protokoll und die automatischen Sicherungen (letzte 3 Sitzungen) liegen im selben Ordner.
+Settings_OpenLog	Log	Journal	Registro	Protokoll
+Settings_OpenFolder	Open the folder	Ouvrir le dossier	Abrir la carpeta	Ordner öffnen
+Settings_Advanced	Advanced	Avancé	Avanzado	Erweitert
+Settings_AdvancedDescription	Rarely used options	Options rarement utilisées	Opciones poco utilizadas	Selten verwendete Optionen
+Settings_ImportRapidApp	Import from RapidApp	Importer depuis RapidApp	Importar desde RapidApp	Aus RapidApp importieren
+Settings_ImportRapidAppDescription	Imports the shortcuts of RapidApp, the ancestor of HotkeyLauncher (RapidApp.ini file).	Importe les raccourcis de RapidApp, l'ancêtre de HotkeyLauncher (fichier RapidApp.ini).	Importa los atajos de RapidApp, el antecesor de HotkeyLauncher (archivo RapidApp.ini).	Importiert die Tastenkürzel von RapidApp, dem Vorgänger von HotkeyLauncher (Datei RapidApp.ini).
+Settings_ImportButton	Import…	Importer…	Importar…	Importieren…
+Transfer_Title	Export / import	Exporter / importer	Exportar / importar	Exportieren / importieren
+Transfer_Description	Save your shortcuts in a file to copy them to another computer or share them	Enregistrez vos raccourcis dans un fichier pour les copier sur un autre ordinateur ou les partager	Guarde sus atajos en un archivo para copiarlos a otro equipo o compartirlos	Speichern Sie Ihre Tastenkürzel in einer Datei, um sie auf einen anderen Computer zu kopieren oder zu teilen
+Transfer_Export	Export…	Exporter…	Exportar…	Exportieren…
+Transfer_Import	Import…	Importer…	Importar…	Importieren…
+Transfer_ExportTitle	Export the shortcuts	Exporter les raccourcis	Exportar los atajos	Tastenkürzel exportieren
+Transfer_ImportTitle	Import shortcuts	Importer des raccourcis	Importar atajos	Tastenkürzel importieren
+Transfer_FileType	HotkeyLauncher shortcuts	Raccourcis HotkeyLauncher	Atajos de HotkeyLauncher	HotkeyLauncher-Tastenkürzel
+Transfer_ExportDone	{0} shortcut(s) exported to:\n{1}	{0} raccourci(s) exporté(s) dans :\n{1}	{0} atajo(s) exportado(s) a:\n{1}	{0} Tastenkürzel exportiert nach:\n{1}
+Import_DialogTitle	Select the RapidApp.ini file	Sélectionnez le fichier RapidApp.ini	Seleccione el archivo RapidApp.ini	Wählen Sie die Datei RapidApp.ini
+Import_Title	Import from RapidApp	Importer depuis RapidApp	Importar desde RapidApp	Aus RapidApp importieren
+Import_ReadError	The file could not be read:\n{0}	Le fichier n'a pas pu être lu :\n{0}	No se pudo leer el archivo:\n{0}	Die Datei konnte nicht gelesen werden:\n{0}
+Import_Nothing	No shortcut was found in this file.	Aucun raccourci n'a été trouvé dans ce fichier.	No se encontró ningún atajo en este archivo.	In dieser Datei wurde kein Tastenkürzel gefunden.
+Import_ExistingQuestion	{0} shortcut(s) found. You already have {1} shortcut(s): add the imported ones to them, or replace them?	{0} raccourci(s) trouvé(s). Vous avez déjà {1} raccourci(s) : ajouter ceux importés, ou les remplacer ?	Se encontraron {0} atajo(s). Ya tiene {1} atajo(s): ¿añadir los importados o reemplazarlos?	{0} Tastenkürzel gefunden. Sie haben bereits {1} Tastenkürzel: die importierten hinzufügen oder ersetzen?
+Import_Add	Add	Ajouter	Añadir	Hinzufügen
+Import_Replace	Replace	Remplacer	Reemplazar	Ersetzen
+Import_Done	{0} shortcut(s) imported.	{0} raccourci(s) importé(s).	{0} atajo(s) importado(s).	{0} Tastenkürzel importiert.
+Import_DoneConflicts	{0} of them use a key combination already taken by another shortcut: they have been disabled.	{0} d'entre eux utilisent une combinaison déjà prise par un autre raccourci : ils ont été désactivés.	{0} de ellos usan una combinación ya ocupada por otro atajo: se han desactivado.	{0} davon verwenden eine bereits belegte Tastenkombination: Sie wurden deaktiviert.
+Import_DoneIncomplete	{0} of them have no valid key combination: they have been disabled, edit them to choose one.	{0} d'entre eux n'ont pas de combinaison valide : ils ont été désactivés, modifiez-les pour en choisir une.	{0} de ellos no tienen una combinación válida: se han desactivado, modifíquelos para elegir una.	{0} davon haben keine gültige Tastenkombination: Sie wurden deaktiviert, bearbeiten Sie sie, um eine zu wählen.
+Update_Title	Updates	Mises à jour	Actualizaciones	Updates
+Update_AvailableTitle	New version available	Nouvelle version disponible	Nueva versión disponible	Neue Version verfügbar
+Update_AvailableText	HotkeyLauncher {0} is available.	HotkeyLauncher {0} est disponible.	HotkeyLauncher {0} está disponible.	HotkeyLauncher {0} ist verfügbar.
+Update_UpToDate	You are using the latest version ({0}).	Vous utilisez la dernière version ({0}).	Está usando la última versión ({0}).	Sie verwenden die neueste Version ({0}).
+Update_Error	The check failed:\n{0}	La vérification a échoué :\n{0}	La comprobación ha fallado:\n{0}	Die Prüfung ist fehlgeschlagen:\n{0}
+Update_Download	Download	Télécharger	Descargar	Herunterladen
+Update_CheckNow	Check for updates	Rechercher les mises à jour	Buscar actualizaciones	Nach Updates suchen
+About_Version	Version	Version	Versión	Version
+About_Description	Launch your applications, folders and favorite web sites in a blink, with global keyboard shortcuts.	Lancez vos applications, dossiers et sites favoris en un éclair, avec des raccourcis clavier globaux.	Abra sus aplicaciones, carpetas y sitios web favoritos en un instante, con atajos de teclado globales.	Starten Sie Ihre Anwendungen, Ordner und Lieblings-Websites blitzschnell mit globalen Tastenkürzeln.
+About_AuthorLabel	Created by	Créé par	Creado por	Erstellt von
+About_HistoryBefore	Successor of 	Successeur de 	Sucesor de 	Nachfolger von
+About_HistoryAfter	 (Delphi, 2003 – 2005).	 (Delphi, 2003 – 2005).	 (Delphi, 2003 – 2005).	 (Delphi, 2003 – 2005).
+About_Exit	Exit HotkeyLauncher	Quitter HotkeyLauncher	Salir de HotkeyLauncher	HotkeyLauncher beenden
+About_License	Free and open source software – MIT license	Logiciel libre et open source – licence MIT	Software libre y de código abierto – licencia MIT	Freie Open-Source-Software – MIT-Lizenz
+Editor_TitleNew	New shortcut	Nouveau raccourci	Nuevo atajo	Neues Tastenkürzel
+Editor_TitleEdit	Edit the shortcut	Modifier le raccourci	Modificar el atajo	Tastenkürzel bearbeiten
+Editor_SectionTarget	What to launch	Quoi lancer	Qué iniciar	Was gestartet wird
+Editor_TargetPlaceholder	Program, script, document, folder or web address (https://…)	Programme, script, document, dossier ou adresse web (https://…)	Programa, script, documento, carpeta o dirección web (https://…)	Programm, Skript, Dokument, Ordner oder Webadresse (https://…)
+Editor_BrowseFile	File…	Fichier…	Archivo…	Datei…
+Editor_BrowseFolder	Folder…	Dossier…	Carpeta…	Ordner…
+Editor_BrowseFileTitle	Choose a program or a document	Choisissez un programme ou un document	Elija un programa o un documento	Programm oder Dokument auswählen
+Editor_BrowseFolderTitle	Choose a folder	Choisissez un dossier	Elija una carpeta	Ordner auswählen
+Editor_FilterPrograms	Programs, scripts and shortcuts	Programmes, scripts et raccourcis	Programas, scripts y accesos directos	Programme, Skripte und Verknüpfungen
+Editor_FilterAll	All files	Tous les fichiers	Todos los archivos	Alle Dateien
+Target_Hint	Tip: you can also drop a file or a folder on this window.	Astuce : vous pouvez aussi déposer un fichier ou un dossier sur cette fenêtre.	Consejo: también puede soltar un archivo o una carpeta en esta ventana.	Tipp: Sie können auch eine Datei oder einen Ordner auf dieses Fenster ziehen.
+Target_Application	Program	Programme	Programa	Programm
+Target_Script	Script	Script	Script	Skript
+Target_File	Document (opened with its associated program)	Document (ouvert avec son programme associé)	Documento (se abre con su programa asociado)	Dokument (wird mit dem zugeordneten Programm geöffnet)
+Target_Folder	Folder	Dossier	Carpeta	Ordner
+Target_Url	Web address or link	Adresse web ou lien	Dirección web o enlace	Webadresse oder Link
+Target_Command	Command found on this computer	Commande trouvée sur cet ordinateur	Comando encontrado en este equipo	Auf diesem Computer gefundener Befehl
+Target_NotFound	The target cannot be found (it may be on a drive that is not connected).	La cible est introuvable (elle se trouve peut-être sur un lecteur non connecté).	No se encuentra el destino (puede estar en una unidad no conectada).	Das Ziel wurde nicht gefunden (es befindet sich evtl. auf einem nicht verbundenen Laufwerk).
+Editor_Name	Name	Nom	Nombre	Name
+Editor_Group	Group (optional)	Groupe (facultatif)	Grupo (opcional)	Gruppe (optional)
+Editor_GroupTip	Groups organize the list and the notification-area menu	Les groupes organisent la liste et le menu de l'icône de notification	Los grupos organizan la lista y el menú del icono de notificación	Gruppen ordnen die Liste und das Menü des Infobereich-Symbols
+Editor_SectionHotkey	Keyboard shortcut	Raccourci clavier	Atajo de teclado	Tastenkürzel
+Editor_CapturePlaceholder	Click here, then press the key combination	Cliquez ici, puis appuyez sur la combinaison de touches	Haga clic aquí y pulse la combinación de teclas	Hier klicken und dann die Tastenkombination drücken
+Editor_CaptureActive	Listening…	À l'écoute…	Escuchando…	Bereit…
+Editor_ClearHotkey	Remove the key combination	Supprimer la combinaison	Quitar la combinación	Tastenkombination entfernen
+Editor_Suggestions	Free combinations:	Combinaisons libres :	Combinaciones libres:	Freie Kombinationen:
+Editor_KeyboardHelp	Or build it with the mouse: click the modifier keys (Ctrl, Alt, Shift, Win), then a key. Colors show which keys are free.	Ou composez-la à la souris : cliquez sur les touches de modification (Ctrl, Alt, Maj, Win), puis sur une touche. Les couleurs indiquent les touches libres.	O compóngala con el ratón: haga clic en las teclas modificadoras (Ctrl, Alt, Mayús, Win) y luego en una tecla. Los colores indican las teclas libres.	Oder mit der Maus zusammenstellen: Klicken Sie auf die Umschalttasten (Strg, Alt, Umschalt, Win) und dann auf eine Taste. Die Farben zeigen die freien Tasten.
+Editor_ShowNumpad	Numeric keypad	Pavé numérique	Teclado numérico	Ziffernblock
+Editor_ShowNumpadTip	Numeric keypad keys work only while Num Lock is on	Les touches du pavé numérique ne fonctionnent que si le verrouillage numérique est activé	Las teclas del teclado numérico solo funcionan con Bloq Num activado	Ziffernblocktasten funktionieren nur bei aktivierter Num-Taste
+Legend_Free	Free	Libre	Libre	Frei
+Legend_Selected	Your choice	Votre choix	Su elección	Ihre Wahl
+Legend_UsedByShortcut	Used by another of your shortcuts	Utilisée par un autre de vos raccourcis	Usada por otro de sus atajos	Von einem anderen Ihrer Tastenkürzel belegt
+Legend_Taken	Used by Windows or another program	Utilisée par Windows ou un autre programme	Usada por Windows u otro programa	Von Windows oder einem anderen Programm belegt
+Editor_KeyUsedBy	Used by "{0}"	Utilisée par « {0} »	Usada por «{0}»	Belegt von „{0}“
+Editor_KeyReserved	Reserved by Windows	Réservée par Windows	Reservada por Windows	Von Windows reserviert
+Editor_KeyTaken	Used by another program	Utilisée par un autre programme	Usada por otro programa	Von einem anderen Programm belegt
+Editor_StatusNone	No key combination: the shortcut will only be available from the menus and the quick launcher.	Aucune combinaison : le raccourci sera uniquement disponible depuis les menus et le lanceur rapide.	Sin combinación: el atajo solo estará disponible desde los menús y el lanzador rápido.	Keine Tastenkombination: Das Tastenkürzel ist nur über die Menüs und den Schnellstarter verfügbar.
+Editor_StatusNeedsModifier	Add at least one modifier key (Ctrl, Alt, Shift or Win). Only F13 to F24 can be used alone.	Ajoutez au moins une touche de modification (Ctrl, Alt, Maj ou Win). Seules les touches F13 à F24 peuvent être utilisées seules.	Añada al menos una tecla modificadora (Ctrl, Alt, Mayús o Win). Solo F13 a F24 pueden usarse solas.	Fügen Sie mindestens eine Umschalttaste hinzu (Strg, Alt, Umschalt oder Win). Nur F13 bis F24 können allein verwendet werden.
+Editor_StatusUsedBy	Already used by "{0}".	Déjà utilisée par « {0} ».	Ya la usa «{0}».	Bereits belegt von „{0}“.
+Editor_StatusReserved	This combination is reserved by Windows: it will probably not work.	Cette combinaison est réservée par Windows : elle ne fonctionnera probablement pas.	Esta combinación está reservada por Windows: probablemente no funcionará.	Diese Kombination ist von Windows reserviert: Sie wird wahrscheinlich nicht funktionieren.
+Editor_StatusTaken	This combination is already used by another program: it will not work while that program is running.	Cette combinaison est déjà utilisée par un autre programme : elle ne fonctionnera pas tant qu'il sera lancé.	Esta combinación ya la usa otro programa: no funcionará mientras ese programa esté en ejecución.	Diese Kombination wird bereits von einem anderen Programm verwendet: Sie funktioniert nicht, solange dieses Programm läuft.
+Editor_StatusAvailable	This combination is free.	Cette combinaison est libre.	Esta combinación está libre.	Diese Kombination ist frei.
+Editor_WarningTaken	The key combination is not available right now.	La combinaison n'est pas disponible actuellement.	La combinación no está disponible en este momento.	Die Tastenkombination ist derzeit nicht verfügbar.
+Editor_SectionAdvanced	Advanced options	Options avancées	Opciones avanzadas	Erweiterte Optionen
+Editor_Arguments	Command-line arguments	Arguments de la ligne de commande	Argumentos de la línea de comandos	Befehlszeilenargumente
+Editor_ArgumentsPlaceholder	Optional	Facultatif	Opcional	Optional
+Editor_WorkingDirectory	Start in folder	Dossier de démarrage	Carpeta de inicio	Ausführen in
+Editor_WorkingDirectoryPlaceholder	Default: the folder of the program	Par défaut : le dossier du programme	Por defecto: la carpeta del programa	Standard: der Ordner des Programms
+Editor_WindowState	Window	Fenêtre	Ventana	Fenster
+Editor_WindowNormal	Normal	Normale	Normal	Normal
+Editor_WindowMaximized	Maximized	Agrandie	Maximizada	Maximiert
+Editor_WindowMinimized	Minimized	Réduite	Minimizada	Minimiert
+Editor_Monitor	Screen	Écran	Pantalla	Bildschirm
+Editor_MonitorDefault	Windows decides	Au choix de Windows	Lo decide Windows	Von Windows gewählt
+Editor_MonitorMain	Main screen	Écran principal	Pantalla principal	Hauptbildschirm
+Editor_MonitorNumber	Screen {0}	Écran {0}	Pantalla {0}	Bildschirm {0}
+Editor_Placement	Position	Position	Posición	Position
+Editor_PlacementDefault	As the program wishes	Au choix du programme	Como decida el programa	Wie vom Programm vorgesehen
+Editor_PlacementCenter	Centered	Centrée	Centrada	Zentriert
+Editor_PlacementLeft	Left half	Moitié gauche	Mitad izquierda	Linke Hälfte
+Editor_PlacementRight	Right half	Moitié droite	Mitad derecha	Rechte Hälfte
+Editor_PlacementTop	Top half	Moitié haute	Mitad superior	Obere Hälfte
+Editor_PlacementBottom	Bottom half	Moitié basse	Mitad inferior	Untere Hälfte
+Editor_IfRunning	If already running	Si déjà lancé	Si ya está en ejecución	Falls bereits gestartet
+Editor_IfRunningNew	Launch a new instance	Lancer une nouvelle instance	Iniciar una nueva instancia	Neue Instanz starten
+Editor_IfRunningFront	Bring its window to the front	Mettre sa fenêtre au premier plan	Traer su ventana al frente	Fenster in den Vordergrund holen
+Editor_IfRunningTip	Available for programs only	Disponible uniquement pour les programmes	Disponible solo para programas	Nur für Programme verfügbar
+Editor_RunAsAdmin	Run as administrator	Exécuter en administrateur	Ejecutar como administrador	Als Administrator ausführen
+Editor_RunAsAdminTip	Windows will ask for confirmation (UAC) at each launch	Windows demandera une confirmation (UAC) à chaque lancement	Windows pedirá confirmación (UAC) en cada inicio	Windows fragt bei jedem Start nach einer Bestätigung (UAC)
+Editor_RunHidden	Run hidden	Exécuter masqué	Ejecutar oculto	Ausgeblendet ausführen
+Editor_RunHiddenTip	No window is shown: useful for scripts and background commands	Aucune fenêtre n'est affichée : utile pour les scripts et commandes en arrière-plan	No se muestra ninguna ventana: útil para scripts y comandos en segundo plano	Es wird kein Fenster angezeigt: nützlich für Skripte und Hintergrundbefehle
+Editor_Test	Test	Tester	Probar	Testen
+Editor_TestTip	Launch now with these settings	Lancer maintenant avec ces réglages	Iniciar ahora con esta configuración	Jetzt mit diesen Einstellungen starten
+Validation_NameMissing	Enter a name.	Saisissez un nom.	Escriba un nombre.	Geben Sie einen Namen ein.
+Validation_TargetMissing	Choose what to launch.	Choisissez quoi lancer.	Elija qué iniciar.	Wählen Sie, was gestartet werden soll.
+Validation_HotkeyAlreadyUsed	This key combination is already used by another of your shortcuts.	Cette combinaison est déjà utilisée par un autre de vos raccourcis.	Esta combinación ya la usa otro de sus atajos.	Diese Tastenkombination wird bereits von einem anderen Ihrer Tastenkürzel verwendet.
+Validation_WorkingDirectoryNotFound	The start-in folder cannot be found.	Le dossier de démarrage est introuvable.	No se encuentra la carpeta de inicio.	Der Ordner „Ausführen in“ wurde nicht gefunden.
+QuickLauncher_ChangeHotkeyTip	Change the quick launcher key combination	Modifier la combinaison du lanceur rapide	Cambiar la combinación del lanzador rápido	Tastenkombination des Schnellstarters ändern
+Usage_Tip	Number of launches and last launch	Nombre de lancements et dernier lancement	Número de inicios y último inicio	Anzahl der Starts und letzter Start
+QuickLauncher_DefaultChosen	Press {0} to open the quick launcher (can be changed in the main window).	Appuyez sur {0} pour ouvrir le lanceur rapide (modifiable dans la fenêtre principale).	Pulse {0} para abrir el lanzador rápido (se puede cambiar en la ventana principal).	Drücken Sie {0}, um den Schnellstarter zu öffnen (im Hauptfenster änderbar).
+Editor_BannerHint	Choose what to launch, then a key combination.	Choisissez quoi lancer, puis une combinaison de touches.	Elija qué iniciar y luego una combinación de teclas.	Wählen Sie, was gestartet werden soll, und dann eine Tastenkombination.

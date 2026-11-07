@@ -51,7 +51,7 @@
                     <StackPanel Grid.Column="1" Margin="14,0" VerticalAlignment="Center">
                         <TextBlock FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource OnBrandBrush}"
                                    Text="{Binding PreviewName}" TextTrimming="CharacterEllipsis" />
-                        <TextBlock Foreground="{StaticResource OnBrandSecondaryBrush}" Text="{Binding TargetKindText}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Foreground="{StaticResource OnBrandSecondaryBrush}" Text="{Binding BannerSubtitle}" TextTrimming="CharacterEllipsis" />
                     </StackPanel>
                     <Grid Grid.Column="2" Margin="0,0,150,0" VerticalAlignment="Center">
                         <ItemsControl ItemsPanel="{StaticResource HorizontalPanel}"
@@ -146,22 +146,51 @@
                                 <ui:Button Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Stretch" Command="{Binding BrowseWorkingDirectoryCommand}" Icon="{ui:SymbolIcon FolderOpen24}" />
                             </Grid>
 
+                            <!-- Window: state, screen, position -->
                             <Grid Margin="0,12,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="12" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
                                 <StackPanel>
                                     <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_WindowState}" />
-                                    <ComboBox DisplayMemberPath="Label"
-                                              ItemsSource="{Binding WindowStates}"
-                                              SelectedValue="{Binding WindowState}"
-                                              SelectedValuePath="Value" />
+                                    <ComboBox DisplayMemberPath="Label" ItemsSource="{Binding WindowStates}" SelectedValue="{Binding WindowState}" SelectedValuePath="Value" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
+                                    <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_Monitor}" />
+                                    <ComboBox DisplayMemberPath="Label" ItemsSource="{Binding MonitorOptions}" SelectedValue="{Binding Monitor}" SelectedValuePath="Value" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="2">
+                                    <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_Placement}" />
+                                    <ComboBox DisplayMemberPath="Label" ItemsSource="{Binding PlacementOptions}" SelectedValue="{Binding Placement}" SelectedValuePath="Value" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Grid.Column="2">
+                                    <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_IfRunning}" />
+                                    <ComboBox DisplayMemberPath="Label" ItemsSource="{Binding RunningOptions}" SelectedValue="{Binding IfRunning}" SelectedValuePath="Value"
+                                              IsEnabled="{Binding CanBringToFront}" ToolTip="{l:Tr Editor_IfRunningTip}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Elevation and hidden mode -->
+                            <Grid Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
                                     <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_RunAsAdmin}" />
-                                    <ui:ToggleSwitch Margin="0,6,0,0" IsChecked="{Binding RunAsAdministrator}" ToolTip="{l:Tr Editor_RunAsAdminTip}" />
+                                    <ui:ToggleSwitch Margin="0,4,0,0" IsChecked="{Binding RunAsAdministrator}" ToolTip="{l:Tr Editor_RunAsAdminTip}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_RunHidden}" />
+                                    <ui:ToggleSwitch Margin="0,4,0,0" IsChecked="{Binding RunHidden}" ToolTip="{l:Tr Editor_RunHiddenTip}" />
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
@@ -285,7 +314,14 @@
                         </WrapPanel>
 
                         <!-- On-screen keyboard -->
-                        <TextBlock Margin="2,16,0,8" Style="{StaticResource SecondaryText}" Text="{l:Tr Editor_KeyboardHelp}" />
+                        <Grid Margin="2,16,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" Style="{StaticResource SecondaryText}" Text="{l:Tr Editor_KeyboardHelp}" />
+                            <CheckBox Grid.Column="1" Margin="12,0,0,0" Content="{l:Tr Editor_ShowNumpad}" IsChecked="{Binding ShowNumpad}" ToolTip="{l:Tr Editor_ShowNumpadTip}" />
+                        </Grid>
                         <Border Margin="0,0,0,6" HorizontalAlignment="Left" Style="{StaticResource KeyboardCase}">
                             <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
                                 <StackPanel Orientation="Horizontal">
@@ -305,6 +341,22 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                     <ItemsControl Margin="14,0,0,0" ItemsSource="{Binding NavigationKeyboard}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ItemsControl ItemsPanel="{StaticResource HorizontalPanel}" ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Button Style="{StaticResource KeyboardKeyStyle}"
+                                                                    Command="{Binding DataContext.KeyClickedCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ItemsControl Margin="14,0,0,0" ItemsSource="{Binding NumpadKeyboard}"
+                                                  Visibility="{Binding ShowNumpad, Converter={StaticResource VisibleWhen}}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <ItemsControl ItemsPanel="{StaticResource HorizontalPanel}" ItemsSource="{Binding}">

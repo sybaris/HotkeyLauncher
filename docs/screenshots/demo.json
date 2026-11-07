@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "groups": [
+    "Apps",
+    "Folders",
+    "Web"
+  ],
+  "hotkeys": [
+    {
+      "id": "70098148-14a6-55de-a5e8-7ac6fc4fb37c",
+      "name": "Notepad",
+      "group": "Apps",
+      "target": "%WINDIR%\\System32\\notepad.exe",
+      "modifiers": "Control, Alt",
+      "virtualKey": 78,
+      "isEnabled": true,
+      "launchCount": 42,
+      "lastLaunchedUtc": "2026-11-07T23:12:54Z"
+    },
+    {
+      "id": "fdb3aebc-db82-549d-bfd0-7a95110c1cb2",
+      "name": "Calculator",
+      "group": "Apps",
+      "target": "%WINDIR%\\System32\\calc.exe",
+      "modifiers": "Control, Alt",
+      "virtualKey": 67,
+      "isEnabled": true,
+      "launchCount": 17,
+      "lastLaunchedUtc": "2026-11-07T21:17:54Z"
+    },
+    {
+      "id": "f08124ae-4abf-5301-9066-a8811110a835",
+      "name": "Command prompt",
+      "group": "Apps",
+      "target": "%WINDIR%\\System32\\cmd.exe",
+      "modifiers": "Control, Alt",
+      "virtualKey": 84,
+      "isEnabled": true,
+      "launchCount": 8,
+      "lastLaunchedUtc": "2026-11-06T23:17:54Z",
+      "ifRunning": "BringToFront"
+    },
+    {
+      "id": "036130e0-8594-5309-a4b4-47e26c97b736",
+      "name": "PowerShell (admin)",
+      "group": "Apps",
+      "target": "%WINDIR%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "modifiers": "Control, Alt",
+      "virtualKey": 80,
+      "isEnabled": true,
+      "launchCount": 5,
+      "lastLaunchedUtc": "2026-11-04T23:17:54Z",
+      "runAsAdministrator": true
+    },
+    {
+      "id": "8ec51960-8a9b-52a5-acff-8a41b180ee44",
+      "name": "Task manager",
+      "group": "Apps",
+      "target": "%WINDIR%\\System32\\Taskmgr.exe",
+      "modifiers": "Control, Alt",
+      "virtualKey": 77,
+      "isEnabled": true,
+      "launchCount": 2,
+      "lastLaunchedUtc": "2026-11-01T23:17:54Z"
+    },
+    {
+      "id": "0736ae00-66d8-5d69-8e61-50cea6515400",
+      "name": "Character map",
+      "group": "Apps",
+      "target": "%WINDIR%\\System32\\charmap.exe",
+      "modifiers": "Control, Alt",
+      "virtualKey": 72,
+      "isEnabled": true,
+      "launchCount": 0,
+      "lastLaunchedUtc": null
+    },
+    {
+      "id": "6f54b54a-6896-587d-907d-525d56bfa7b1",
+      "name": "Documents",
+      "group": "Folders",
+      "target": "%USERPROFILE%\\Documents",
+      "modifiers": "Control, Alt",
+      "virtualKey": 68,
+      "isEnabled": true,
+      "launchCount": 23,
+      "lastLaunchedUtc": "2026-11-07T18:17:54Z"
+    },
+    {
+      "id": "edb3a9f7-0318-58f5-b709-8e929559adb8",
+      "name": "Downloads",
+      "group": "Folders",
+      "target": "%USERPROFILE%\\Downloads",
+      "modifiers": "Control, Alt",
+      "virtualKey": 74,
+      "isEnabled": true,
+      "launchCount": 30,
+      "lastLaunchedUtc": "2026-11-07T22:37:54Z"
+    },
+    {
+      "id": "238b8e98-9b6a-50a8-94d6-83200f3082e1",
+      "name": "Program files",
+      "group": "Folders",
+      "target": "%ProgramFiles%",
+      "modifiers": "None",
+      "virtualKey": 0,
+      "isEnabled": true,
+      "launchCount": 0,
+      "lastLaunchedUtc": null
+    },
+    {
+      "id": "3abcbbe1-e157-58d0-8654-d36a0fa585bd",
+      "name": "HotkeyLauncher on GitHub",
+      "group": "Web",
+      "target": "https://github.com/sybaris/HotkeyLauncher",
+      "modifiers": "Control, Alt",
+      "virtualKey": 71,
+      "isEnabled": true,
+      "launchCount": 12,
+      "lastLaunchedUtc": "2026-11-05T23:17:54Z"
+    },
+    {
+      "id": "90a64eaf-d4c6-5afe-be55-40f2b61e864b",
+      "name": "Wikipedia",
+      "group": "Web",
+      "target": "https://www.wikipedia.org",
+      "modifiers": "Control, Alt",
+      "virtualKey": 87,
+      "isEnabled": true,
+      "launchCount": 3,
+      "lastLaunchedUtc": "2026-10-29T23:17:54Z"
+    },
+    {
+      "id": "b4d79349-b9a2-5df5-829a-987d5a31ec67",
+      "name": "Display settings",
+      "group": "Apps",
+      "target": "ms-settings:display",
+      "modifiers": "Control, Alt",
+      "virtualKey": 83,
+      "isEnabled": true,
+      "launchCount": 1,
+      "lastLaunchedUtc": "2026-10-18T23:17:54Z"
+    }
+  ],
+  "trayTipShown": true,
+  "quickLauncherEnabled": true,
+  "quickLauncherModifiers": "Alt, Win",
+  "quickLauncherKey": 32
+}

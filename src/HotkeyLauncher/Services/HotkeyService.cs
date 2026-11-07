@@ -29,11 +29,29 @@ public sealed class HotkeyService : IDisposable
 
     public event EventHandler<Guid>? HotkeyPressed;
 
-    /// <summary>Registers the enabled entries. Returns the entries that failed, with the Win32 error code.</summary>
-    public IReadOnlyDictionary<Guid, int> RegisterAll(IEnumerable<HotkeyEntry> entries)
+    /// <summary>The quick launcher hotkey was pressed.</summary>
+    public event EventHandler? QuickLauncherPressed;
+
+    /// <summary>Key of <see cref="RegisterAll"/> failures for the quick launcher hotkey.</summary>
+    public static readonly Guid QuickLauncherId = Guid.Empty;
+
+    private const int QuickLauncherHotkeyId = 0xB000;
+    private bool _quickLauncherRegistered;
+
+    /// <summary>
+    /// Registers the enabled entries (and the quick launcher hotkey, if any).
+    /// Returns the entries that failed, with the Win32 error code (<see cref="QuickLauncherId"/> for the quick launcher).
+    /// </summary>
+    public IReadOnlyDictionary<Guid, int> RegisterAll(IEnumerable<HotkeyEntry> entries, Hotkey? quickLauncher = null)
     {
         UnregisterAll();
         var failures = new Dictionary<Guid, int>();
+        if (quickLauncher is { IsComplete: true } ql)
+        {
+            _quickLauncherRegistered = RegisterHotKey(_source.Handle, QuickLauncherHotkeyId, (uint)ql.Modifiers | MOD_NOREPEAT, ql.VirtualKey);
+            if (!_quickLauncherRegistered) failures[QuickLauncherId] = Marshal.GetLastPInvokeError();
+        }
+
         var id = 1;
         foreach (var entry in entries.Where(e => e.IsEnabled && e.Hotkey.IsComplete))
         {
@@ -54,6 +72,8 @@ public sealed class HotkeyService : IDisposable
     {
         foreach (var id in _registered.Keys) UnregisterHotKey(_source.Handle, id);
         _registered.Clear();
+        if (_quickLauncherRegistered) UnregisterHotKey(_source.Handle, QuickLauncherHotkeyId);
+        _quickLauncherRegistered = false;
     }
 
     /// <summary>
@@ -77,7 +97,14 @@ public sealed class HotkeyService : IDisposable
 
     private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
     {
-        if (msg == WM_HOTKEY && _registered.TryGetValue(wParam.ToInt32(), out var entryId))
+        if (msg != WM_HOTKEY) return IntPtr.Zero;
+
+        if (wParam.ToInt32() == QuickLauncherHotkeyId)
+        {
+            handled = true;
+            QuickLauncherPressed?.Invoke(this, EventArgs.Empty);
+        }
+        else if (_registered.TryGetValue(wParam.ToInt32(), out var entryId))
         {
             handled = true;
             HotkeyPressed?.Invoke(this, entryId);

@@ -10,7 +10,7 @@ public static class SettingsMerger
     /// Adds imported entries to the settings (or replaces them). An imported hotkey already used by
     /// another enabled entry is kept but disabled, so nothing is silently lost.
     /// </summary>
-    public static MergeResult Merge(AppSettings settings, RapidAppImportResult import, bool replace)
+    public static MergeResult Merge(AppSettings settings, ImportResult import, bool replace)
     {
         if (replace)
         {

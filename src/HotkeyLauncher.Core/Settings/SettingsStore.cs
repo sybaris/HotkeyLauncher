@@ -22,7 +22,17 @@ public sealed class SettingsStore(string filePath)
         Converters = { new JsonStringEnumConverter() },
     };
 
+    /// <summary>Number of automatic backups kept.</summary>
+    public const int BackupCount = 3;
+
+    private bool _backupDone;
+
     public string FilePath { get; } = filePath;
+
+    public string Directory => Path.GetDirectoryName(FilePath)!;
+
+    /// <summary>Automatic backups: the settings file as it was at the start of the last sessions.</summary>
+    public string BackupDirectory => Path.Combine(Directory, "backups");
 
     public bool Exists => File.Exists(FilePath);
 
@@ -46,7 +56,9 @@ public sealed class SettingsStore(string filePath)
 
         try
         {
-            var settings = JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(FilePath), JsonOptions) ?? new AppSettings();
+            // An empty file (e.g. created by a package manager) means "no settings yet"
+            var json = File.ReadAllText(FilePath);
+            var settings = string.IsNullOrWhiteSpace(json) ? new AppSettings() : JsonSerializer.Deserialize<AppSettings>(json, JsonOptions) ?? new AppSettings();
             settings.Normalize();
             return settings;
         }
@@ -60,7 +72,8 @@ public sealed class SettingsStore(string filePath)
     public void Save(AppSettings settings)
     {
         settings.Normalize();
-        Directory.CreateDirectory(Path.GetDirectoryName(FilePath)!);
+        System.IO.Directory.CreateDirectory(Directory);
+        BackupOncePerSession();
         var tempPath = FilePath + ".tmp";
         File.WriteAllText(tempPath, JsonSerializer.Serialize(settings, JsonOptions));
         File.Move(tempPath, FilePath, overwrite: true);
@@ -72,6 +85,29 @@ public sealed class SettingsStore(string filePath)
         var backup = $"{FilePath}.corrupted-{DateTime.Now:yyyyMMdd-HHmmss}";
         File.Move(FilePath, backup);
         return backup;
+    }
+
+    /// <summary>
+    /// Before the first save of each session, copies the current file to backups/ and keeps only the
+    /// <see cref="BackupCount"/> most recent copies.
+    /// </summary>
+    private void BackupOncePerSession()
+    {
+        if (_backupDone || !Exists) return;
+        _backupDone = true;
+        try
+        {
+            System.IO.Directory.CreateDirectory(BackupDirectory);
+            File.Copy(FilePath, Path.Combine(BackupDirectory, $"settings-{DateTime.Now:yyyyMMdd-HHmmss}.json"), overwrite: true);
+            foreach (var old in System.IO.Directory.GetFiles(BackupDirectory, "settings-*.json").OrderDescending().Skip(BackupCount))
+            {
+                File.Delete(old);
+            }
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            Log.Warning($"Settings backup failed: {ex.Message}");
+        }
     }
 
     private static bool IsDirectoryWritable(string directory)

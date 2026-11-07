@@ -10,6 +10,13 @@ using static HotkeyLauncher.Localization.Localizer;
 
 namespace HotkeyLauncher.ViewModels;
 
+public enum DropPosition
+{
+    None,
+    Before,
+    After,
+}
+
 /// <summary>One line of the shortcut list.</summary>
 public sealed partial class HotkeyItemViewModel : ObservableObject
 {
@@ -53,9 +60,32 @@ public sealed partial class HotkeyItemViewModel : ObservableObject
     [ObservableProperty]
     public partial string? Warning { get; private set; }
 
-    public void Update(HotkeyEntry entry, int? registrationError)
+    /// <summary>Insertion marker shown while another shortcut is dragged over this one.</summary>
+    [ObservableProperty]
+    public partial DropPosition DropIndicator { get; set; }
+
+    // ---- Sorting (see MainViewModel.ApplySort) ----
+
+    public int GroupOrder { get; private set; }
+
+    /// <summary>Position in the custom order.</summary>
+    public int Order { get; private set; }
+
+    public int LaunchCount => Entry.LaunchCount;
+
+    public DateTime LastLaunched => Entry.LastLaunchedUtc ?? DateTime.MinValue;
+
+    /// <summary>"12 launches · 2 h ago".</summary>
+    public string UsageText => Entry.LaunchCount == 0
+        ? T("Usage_Never")
+        : F("Usage_Text", Entry.LaunchCount, RelativeTime(Entry.LastLaunchedUtc));
+
+    public void Update(HotkeyEntry entry, int? registrationError, int groupOrder, int order)
     {
         Entry = entry;
+        GroupOrder = groupOrder;
+        Order = order;
+        DropIndicator = DropPosition.None;
         Warning = registrationError switch
         {
             1409 => T("Item_HotkeyTakenElsewhere"), // ERROR_HOTKEY_ALREADY_REGISTERED
@@ -72,6 +102,17 @@ public sealed partial class HotkeyItemViewModel : ObservableObject
         || Entry.Target.Contains(search, StringComparison.CurrentCultureIgnoreCase)
         || KeyNames.Format(Entry.Hotkey).Contains(search, StringComparison.CurrentCultureIgnoreCase);
 
+    private static string RelativeTime(DateTime? utc)
+    {
+        if (utc == null) return string.Empty;
+        var elapsed = DateTime.UtcNow - utc.Value;
+        if (elapsed < TimeSpan.FromMinutes(1)) return T("Time_JustNow");
+        if (elapsed < TimeSpan.FromHours(1)) return F("Time_Minutes", (int)elapsed.TotalMinutes);
+        if (elapsed < TimeSpan.FromDays(1)) return F("Time_Hours", (int)elapsed.TotalHours);
+        if (elapsed < TimeSpan.FromDays(30)) return F("Time_Days", (int)elapsed.TotalDays);
+        return utc.Value.ToLocalTime().ToString("d", Localization.Localizer.Instance.Culture);
+    }
+
     [RelayCommand]
     private void Edit() => _owner.Edit(this);
 
@@ -82,7 +123,7 @@ public sealed partial class HotkeyItemViewModel : ObservableObject
     private void Duplicate() => _owner.Duplicate(this);
 
     [RelayCommand]
-    private Task Delete() => _owner.DeleteAsync(this);
+    private void Delete() => _owner.Delete(this);
 
     [RelayCommand]
     private void MoveUp() => _owner.Move(this, -1);
