@@ -16,6 +16,12 @@ public partial class MainWindow : FluentWindow
 
     private MainViewModel ViewModel => (MainViewModel)DataContext;
 
+    private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+    {
+        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true })?.Dispose();
+        e.Handled = true;
+    }
+
     private void MoreButton_Click(object sender, RoutedEventArgs e)
     {
         if (sender is FrameworkElement { ContextMenu: { } menu } button)

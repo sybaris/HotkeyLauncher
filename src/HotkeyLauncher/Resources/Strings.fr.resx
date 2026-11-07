@@ -107,7 +107,6 @@ Utilisation : HotkeyLauncher [options]
   <data name="Import_DoneIncomplete" xml:space="preserve"><value>{0} d'entre eux n'ont pas de combinaison valide : ils ont été désactivés, modifiez-les pour en choisir une.</value></data>
   <data name="About_Version" xml:space="preserve"><value>Version</value></data>
   <data name="About_Description" xml:space="preserve"><value>Lancez vos applications, dossiers et sites favoris en un éclair, avec des raccourcis clavier globaux.</value></data>
-  <data name="About_History" xml:space="preserve"><value>Successeur de RapidApp (Delphi, 2003 – 2005).</value></data>
   <data name="About_Exit" xml:space="preserve"><value>Quitter HotkeyLauncher</value></data>
   <data name="About_License" xml:space="preserve"><value>Logiciel libre et open source – licence MIT</value></data>
   <data name="Editor_TitleNew" xml:space="preserve"><value>Nouveau raccourci</value></data>
@@ -173,4 +172,6 @@ Utilisation : HotkeyLauncher [options]
   <data name="Header_Active" xml:space="preserve"><value>Actifs</value></data>
   <data name="Header_Paused" xml:space="preserve"><value>En pause</value></data>
   <data name="About_AuthorLabel" xml:space="preserve"><value>Créé par</value></data>
+  <data name="About_HistoryBefore" xml:space="preserve"><value>Successeur de </value></data>
+  <data name="About_HistoryAfter" xml:space="preserve"><value> (Delphi, 2003 – 2005).</value></data>
 </root>

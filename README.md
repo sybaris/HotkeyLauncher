@@ -69,7 +69,7 @@ Closing the window keeps HotkeyLauncher running in the notification area. Use *E
 
 ## History
 
-HotkeyLauncher is the successor of **RapidApp**, a hotkey launcher written in Delphi between 2003 and 2005. RapidApp users can import their `RapidApp.ini` from *Settings → Advanced → Import from RapidApp*.
+HotkeyLauncher is the successor of **[RapidApp](https://sourceforge.net/projects/rapidapp/)**, a hotkey launcher written in Delphi between 2003 and 2005. RapidApp users can import their `RapidApp.ini` from *Settings → Advanced → Import from RapidApp*.
 
 ## Building
 
@@ -138,4 +138,4 @@ Téléchargez la dernière version sur la [page des releases](https://github.com
 
 ### Anciens utilisateurs de RapidApp
 
-HotkeyLauncher succède à **RapidApp** (Delphi, 2003 – 2005). Vos raccourcis s'importent depuis *Paramètres → Avancé → Importer depuis RapidApp*, en sélectionnant votre fichier `RapidApp.ini`.
+HotkeyLauncher succède à **[RapidApp](https://sourceforge.net/projects/rapidapp/)** (Delphi, 2003 – 2005). Vos raccourcis s'importent depuis *Paramètres → Avancé → Importer depuis RapidApp*, en sélectionnant votre fichier `RapidApp.ini`.

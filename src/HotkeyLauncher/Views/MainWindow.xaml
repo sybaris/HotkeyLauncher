@@ -466,7 +466,10 @@
                                     <Border Style="{StaticResource SectionIconBadge}">
                                         <ui:SymbolIcon Foreground="White" FontSize="16" Symbol="History24" />
                                     </Border>
-                                    <TextBlock VerticalAlignment="Center" Style="{StaticResource SecondaryText}" FontSize="13" Text="{l:Tr About_History}" />
+                                    <TextBlock VerticalAlignment="Center" Style="{StaticResource SecondaryText}" FontSize="13">
+                                        <Run Text="{l:Tr About_HistoryBefore}" /><Hyperlink NavigateUri="https://sourceforge.net/projects/rapidapp/" RequestNavigate="Hyperlink_RequestNavigate"
+                                                   ToolTip="https://sourceforge.net/projects/rapidapp/">RapidApp</Hyperlink><Run Text="{l:Tr About_HistoryAfter}" />
+                                    </TextBlock>
                                 </StackPanel>
                                 <StackPanel Margin="0,14,0,0" Orientation="Horizontal">
                                     <Border Style="{StaticResource SectionIconBadge}">
