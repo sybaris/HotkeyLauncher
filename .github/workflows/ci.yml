@@ -1,0 +1,41 @@
+name: CI
+
+# Build and test every push and pull request on main.
+# The portable build is attached to the run as an artifact, handy to test a change before a release.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build
+        run: dotnet build -c Release
+
+      - name: Test
+        run: dotnet test -c Release --no-build --logger "trx;LogFileName=results.trx"
+
+      - name: Publish portable build (win-x64)
+        run: >
+          dotnet publish src/HotkeyLauncher/HotkeyLauncher.csproj -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true
+          -p:DebugType=none -o publish
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HotkeyLauncher-win-x64-portable-${{ github.sha }}
+          path: publish/
+          retention-days: 14

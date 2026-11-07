@@ -1,0 +1,489 @@
+<ui:FluentWindow x:Class="HotkeyLauncher.Views.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:l="clr-namespace:HotkeyLauncher.Localization"
+                 xmlns:vm="clr-namespace:HotkeyLauncher.ViewModels"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance vm:MainViewModel}"
+                 Title="HotkeyLauncher"
+                 Width="1000"
+                 Height="700"
+                 MinWidth="780"
+                 MinHeight="480"
+                 Icon="/Assets/app.ico"
+                 WindowStartupLocation="CenterScreen"
+                 ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica"
+                 WindowCornerPreference="Round"
+                 AllowDrop="True"
+                 DragOver="Window_DragOver"
+                 Drop="Window_Drop">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0" Title="HotkeyLauncher">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon Source="/Assets/app.ico" />
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
+
+        <!-- ============ Brand banner ============ -->
+        <Border Grid.Row="1" Margin="16,2,16,4" Style="{StaticResource BrandBanner}">
+            <Grid>
+                <!-- Decoration: big translucent bolts and circles -->
+                <Canvas IsHitTestVisible="False">
+                    <!-- Kept away from the rounded corners (the clipping is rectangular) -->
+                    <Ellipse Canvas.Left="70" Canvas.Top="-110" Width="180" Height="180" Fill="#14FFFFFF" />
+                    <Ellipse Canvas.Right="140" Canvas.Top="40" Width="90" Height="90" Fill="#10FFFFFF" />
+                </Canvas>
+                <Path Width="150" Height="150" Margin="0,-30,150,-40" HorizontalAlignment="Right" VerticalAlignment="Center"
+                      Data="{StaticResource BoltGeometry}" Fill="#1FFFFFFF" Stretch="Uniform" IsHitTestVisible="False" />
+                <Path Width="60" Height="60" Margin="0,0,60,-10" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                      Data="{StaticResource BoltGeometry}" Fill="#14FFFFFF" Stretch="Uniform" IsHitTestVisible="False" />
+
+                <Grid Margin="20,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="58" Height="58" CornerRadius="14" Background="#33FFFFFF">
+                        <Image Width="46" Height="46" Source="/Assets/app.ico" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="16,0" VerticalAlignment="Center">
+                        <TextBlock FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource OnBrandBrush}" Text="HotkeyLauncher" />
+                        <TextBlock FontSize="13" Foreground="{StaticResource OnBrandSecondaryBrush}" Text="{l:Tr Header_Subtitle}" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Border Style="{StaticResource BannerChip}">
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Margin="0,0,6,0" FontSize="15" Foreground="{StaticResource OnBrandBrush}" Symbol="Keyboard24" />
+                                <TextBlock Foreground="{StaticResource OnBrandBrush}" FontWeight="SemiBold" Text="{Binding ShortcutCountText}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource BannerChip}">
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Margin="0,0,6,0" FontSize="15" Foreground="{StaticResource OnBrandBrush}" Symbol="Folder24" />
+                                <TextBlock Foreground="{StaticResource OnBrandBrush}" FontWeight="SemiBold" Text="{Binding GroupCountText}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource BannerChip}">
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse Width="9" Height="9" Margin="0,0,7,0" VerticalAlignment="Center">
+                                    <Ellipse.Style>
+                                        <Style TargetType="Ellipse">
+                                            <Setter Property="Fill" Value="#FFB4B4" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding HotkeysActive}" Value="True">
+                                                    <Setter Property="Fill" Value="#7CFFB2" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Ellipse.Style>
+                                </Ellipse>
+                                <TextBlock Foreground="{StaticResource OnBrandBrush}" FontWeight="SemiBold" Text="{Binding StatusText}" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <TabControl Grid.Row="2" Margin="12,4,12,12">
+
+            <!-- ============ Shortcuts ============ -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Margin="0,0,6,0" Symbol="Keyboard24" />
+                        <TextBlock Text="{l:Tr Main_TabShortcuts}" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid Margin="4,12,4,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Toolbar -->
+                    <DockPanel Grid.Row="0" LastChildFill="False">
+                        <ui:Button DockPanel.Dock="Left"
+                                   Appearance="Primary"
+                                   Command="{Binding AddCommand}"
+                                   Content="{l:Tr Main_Add}"
+                                   Icon="{ui:SymbolIcon Add24}" />
+                        <ui:TextBox Width="280"
+                                    Margin="12,0,0,0"
+                                    DockPanel.Dock="Left"
+                                    Icon="{ui:SymbolIcon Search24}"
+                                    PlaceholderText="{l:Tr Main_Search}"
+                                    ClearButtonEnabled="True"
+                                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <ui:ToggleSwitch DockPanel.Dock="Right"
+                                         VerticalAlignment="Center"
+                                         Content="{l:Tr Main_HotkeysActive}"
+                                         ToolTip="{l:Tr Main_HotkeysActiveTip}"
+                                         IsChecked="{Binding HotkeysActive}" />
+                    </DockPanel>
+
+                    <ui:InfoBar Grid.Row="1"
+                                Margin="0,12,0,0"
+                                IsClosable="False"
+                                IsOpen="{Binding HasFailures, Mode=OneWay}"
+                                Visibility="{Binding HasFailures, Converter={StaticResource VisibleWhen}}"
+                                Severity="Warning"
+                                Title="{l:Tr Main_FailuresTitle}"
+                                Message="{l:Tr Main_FailuresMessage}" />
+
+                    <!-- Empty state -->
+                    <StackPanel Grid.Row="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding IsEmpty, Converter={StaticResource VisibleWhen}}">
+                        <Grid Width="140" Height="140" HorizontalAlignment="Center">
+                            <Ellipse Fill="{StaticResource BrandSoftBrush}" />
+                            <Ellipse Margin="22" Fill="{StaticResource BrandGradientBrush}" />
+                            <Path Margin="44" Data="{StaticResource BoltGeometry}" Fill="White" Stretch="Uniform" />
+                        </Grid>
+                        <TextBlock Margin="0,20,0,4"
+                                   HorizontalAlignment="Center"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Text="{l:Tr Main_EmptyTitle}" />
+                        <TextBlock MaxWidth="420"
+                                   HorizontalAlignment="Center"
+                                   Style="{StaticResource SecondaryText}"
+                                   TextAlignment="Center"
+                                   Text="{l:Tr Main_EmptyText}" />
+                        <ui:Button Margin="0,16,0,0"
+                                   HorizontalAlignment="Center"
+                                   Appearance="Primary"
+                                   Command="{Binding AddCommand}"
+                                   Content="{l:Tr Main_AddFirst}"
+                                   Icon="{ui:SymbolIcon Add24}" />
+                    </StackPanel>
+
+                    <!-- Shortcut list, grouped -->
+                    <ScrollViewer Grid.Row="2"
+                                  Margin="0,12,0,0"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto"
+                                  Visibility="{Binding IsEmpty, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}">
+                    <ItemsControl x:Name="ShortcutList" ItemsSource="{Binding ItemsView}">
+                        <ItemsControl.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Margin="8,16,8,4">
+                                            <StackPanel DockPanel.Dock="Right"
+                                                        Orientation="Horizontal"
+                                                        Visibility="{Binding Name, Converter={StaticResource VisibleWhen}}">
+                                                <ui:Button Appearance="Transparent"
+                                                           Padding="6"
+                                                           Icon="{ui:SymbolIcon Rename24}"
+                                                           ToolTip="{l:Tr Group_Rename}"
+                                                           Command="{Binding DataContext.RenameGroupCommand, ElementName=ShortcutList}"
+                                                           CommandParameter="{Binding Name}" />
+                                                <ui:Button Appearance="Transparent"
+                                                           Padding="6"
+                                                           Icon="{ui:SymbolIcon ArrowUp24}"
+                                                           ToolTip="{l:Tr Group_MoveUp}"
+                                                           Command="{Binding DataContext.MoveGroupUpCommand, ElementName=ShortcutList}"
+                                                           CommandParameter="{Binding Name}" />
+                                                <ui:Button Appearance="Transparent"
+                                                           Padding="6"
+                                                           Icon="{ui:SymbolIcon ArrowDown24}"
+                                                           ToolTip="{l:Tr Group_MoveDown}"
+                                                           Command="{Binding DataContext.MoveGroupDownCommand, ElementName=ShortcutList}"
+                                                           CommandParameter="{Binding Name}" />
+                                            </StackPanel>
+                                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                                <Border Width="4" Height="20" Margin="0,0,10,0" CornerRadius="2" Background="{StaticResource BrandVerticalGradientBrush}" />
+                                                <TextBlock FontSize="15"
+                                                           FontWeight="SemiBold"
+                                                           Text="{Binding Name, Converter={StaticResource GroupName}}" />
+                                                <TextBlock Margin="8,0,0,0"
+                                                           VerticalAlignment="Center"
+                                                           Style="{StaticResource SecondaryText}"
+                                                           Text="{Binding ItemCount, StringFormat=({0})}" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ItemsControl.GroupStyle>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:HotkeyItemViewModel}">
+                                <Border Margin="0,3,6,3" Padding="12,10" CornerRadius="10" BorderThickness="1">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+                                            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                                    <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Border.InputBindings>
+                                        <MouseBinding Command="{Binding EditCommand}" MouseAction="LeftDoubleClick" />
+                                    </Border.InputBindings>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="32" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Program icon on a tinted tile -->
+                                        <Border Grid.Column="0"
+                                                Width="46"
+                                                Height="46"
+                                                HorizontalAlignment="Left"
+                                                CornerRadius="10"
+                                                Background="{StaticResource BrandSoftBrush}">
+                                            <Image Width="32" Height="32" Source="{Binding Icon}" />
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="14"
+                                                           FontWeight="SemiBold"
+                                                           Text="{Binding Name}"
+                                                           TextTrimming="CharacterEllipsis" />
+                                                <ui:SymbolIcon Margin="6,0,0,0"
+                                                               FontSize="14"
+                                                               Symbol="Shield24"
+                                                               ToolTip="{l:Tr Item_RunsAsAdmin}"
+                                                               Visibility="{Binding RunsAsAdministrator, Converter={StaticResource VisibleWhen}}" />
+                                            </StackPanel>
+                                            <TextBlock Margin="0,2,0,0"
+                                                       Style="{StaticResource SecondaryText}"
+                                                       Text="{Binding Target}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       TextWrapping="NoWrap"
+                                                       ToolTip="{Binding Target}" />
+                                        </StackPanel>
+
+                                        <Grid Grid.Column="2" Margin="12,0" VerticalAlignment="Center">
+                                            <ItemsControl ItemsPanel="{StaticResource HorizontalPanel}"
+                                                          ItemTemplate="{StaticResource KeyCapTemplate}"
+                                                          ItemsSource="{Binding HotkeyParts}"
+                                                          Visibility="{Binding HasHotkey, Converter={StaticResource VisibleWhen}}" />
+                                            <TextBlock Style="{StaticResource SecondaryText}"
+                                                       FontStyle="Italic"
+                                                       Text="{l:Tr Item_MenuOnly}"
+                                                       ToolTip="{l:Tr Item_MenuOnlyTip}"
+                                                       Visibility="{Binding HasHotkey, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}" />
+                                        </Grid>
+
+                                        <ui:SymbolIcon Grid.Column="3"
+                                                       FontSize="20"
+                                                       Symbol="Warning24"
+                                                       Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                                       ToolTip="{Binding Warning}"
+                                                       Visibility="{Binding Warning, Converter={StaticResource VisibleWhen}}" />
+
+                                        <ui:ToggleSwitch Grid.Column="4"
+                                                         Margin="4,0,8,0"
+                                                         VerticalAlignment="Center"
+                                                         IsChecked="{Binding IsEnabled}"
+                                                         ToolTip="{l:Tr Item_EnabledTip}" />
+
+                                        <StackPanel Grid.Column="5" Orientation="Horizontal">
+                                            <ui:Button Appearance="Transparent"
+                                                       Padding="8"
+                                                       Command="{Binding LaunchCommand}"
+                                                       Icon="{ui:SymbolIcon Play24}"
+                                                       ToolTip="{l:Tr Item_Launch}" />
+                                            <ui:Button Appearance="Transparent"
+                                                       Padding="8"
+                                                       Command="{Binding EditCommand}"
+                                                       Icon="{ui:SymbolIcon Edit24}"
+                                                       ToolTip="{l:Tr Item_Edit}" />
+                                            <ui:Button Appearance="Transparent"
+                                                       Padding="8"
+                                                       Click="MoreButton_Click"
+                                                       Icon="{ui:SymbolIcon MoreHorizontal24}"
+                                                       ToolTip="{l:Tr Item_More}">
+                                                <ui:Button.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Command="{Binding DuplicateCommand}" Header="{l:Tr Item_Duplicate}" Icon="{ui:SymbolIcon Copy24}" />
+                                                        <MenuItem Command="{Binding MoveUpCommand}" Header="{l:Tr Item_MoveUp}" Icon="{ui:SymbolIcon ArrowUp24}" />
+                                                        <MenuItem Command="{Binding MoveDownCommand}" Header="{l:Tr Item_MoveDown}" Icon="{ui:SymbolIcon ArrowDown24}" />
+                                                        <Separator />
+                                                        <MenuItem Command="{Binding DeleteCommand}" Header="{l:Tr Item_Delete}" Icon="{ui:SymbolIcon Delete24}" />
+                                                    </ContextMenu>
+                                                </ui:Button.ContextMenu>
+                                            </ui:Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+            <!-- ============ Settings ============ -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Margin="0,0,6,0" Symbol="Settings24" />
+                        <TextBlock Text="{l:Tr Main_TabSettings}" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel MaxWidth="820" Margin="4,12,4,12">
+                        <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon LocalLanguage24}">
+                            <ui:CardControl.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr Settings_Language}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Settings_LanguageDescription}" />
+                                </StackPanel>
+                            </ui:CardControl.Header>
+                            <ComboBox MinWidth="200"
+                                      DisplayMemberPath="Label"
+                                      ItemsSource="{Binding LanguageOptions}"
+                                      SelectedValue="{Binding SelectedLanguage}"
+                                      SelectedValuePath="Value" />
+                        </ui:CardControl>
+
+                        <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon DarkTheme24}">
+                            <ui:CardControl.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr Settings_Theme}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Settings_ThemeDescription}" />
+                                </StackPanel>
+                            </ui:CardControl.Header>
+                            <ComboBox MinWidth="200"
+                                      DisplayMemberPath="Label"
+                                      ItemsSource="{Binding ThemeOptions}"
+                                      SelectedValue="{Binding SelectedTheme}"
+                                      SelectedValuePath="Value" />
+                        </ui:CardControl>
+
+                        <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon Rocket24}">
+                            <ui:CardControl.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr Settings_StartWithWindows}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Settings_StartWithWindowsDescription}" />
+                                </StackPanel>
+                            </ui:CardControl.Header>
+                            <ui:ToggleSwitch IsChecked="{Binding StartWithWindows}" />
+                        </ui:CardControl>
+
+                        <ui:CardControl Margin="0,0,0,6" Icon="{ui:SymbolIcon DocumentSettings20}">
+                            <ui:CardControl.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr Settings_File}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{Binding SettingsFilePath}" />
+                                </StackPanel>
+                            </ui:CardControl.Header>
+                            <ui:Button Command="{Binding OpenSettingsFolderCommand}" Content="{l:Tr Settings_OpenFolder}" Icon="{ui:SymbolIcon FolderOpen24}" />
+                        </ui:CardControl>
+
+                        <!-- Advanced: discreet on purpose (rarely used) -->
+                        <ui:CardExpander Margin="0,0,0,6" Icon="{ui:SymbolIcon Wrench24}">
+                            <ui:CardExpander.Header>
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="{l:Tr Settings_Advanced}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Settings_AdvancedDescription}" />
+                                </StackPanel>
+                            </ui:CardExpander.Header>
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="0,0,16,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{l:Tr Settings_ImportRapidApp}" />
+                                    <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Settings_ImportRapidAppDescription}" />
+                                </StackPanel>
+                                <ui:Button Grid.Column="1"
+                                           Command="{Binding ImportRapidAppCommand}"
+                                           Content="{l:Tr Settings_ImportButton}"
+                                           Icon="{ui:SymbolIcon ArrowImport24}" />
+                            </Grid>
+                        </ui:CardExpander>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ============ About ============ -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Margin="0,0,6,0" Symbol="Info24" />
+                        <TextBlock Text="{l:Tr Main_TabAbout}" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel MaxWidth="600" Margin="0,24" HorizontalAlignment="Center">
+                        <Grid Width="150" Height="150" HorizontalAlignment="Center">
+                            <Ellipse Fill="{StaticResource BrandSoftBrush}" />
+                            <Image Width="112" Height="112" Source="/Assets/app.ico" />
+                        </Grid>
+                        <TextBlock Margin="0,12,0,0" HorizontalAlignment="Center" FontSize="30" FontWeight="SemiBold" Text="HotkeyLauncher" />
+                        <Border Margin="0,6,0,0" Padding="12,3" HorizontalAlignment="Center" CornerRadius="12" Background="{StaticResource BrandGradientBrush}">
+                            <TextBlock Foreground="{StaticResource OnBrandBrush}" FontWeight="SemiBold">
+                                <Run Text="{l:Tr About_Version}" />
+                                <Run Text="{Binding Version, Mode=OneTime}" />
+                            </TextBlock>
+                        </Border>
+                        <TextBlock Margin="0,18,0,0" HorizontalAlignment="Center" FontSize="14" TextAlignment="Center" TextWrapping="Wrap" Text="{l:Tr About_Description}" />
+
+                        <Border Margin="0,24,0,0" Style="{StaticResource Card}">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Style="{StaticResource SectionIconBadge}">
+                                        <ui:SymbolIcon Foreground="White" FontSize="16" Symbol="Person24" />
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr About_AuthorLabel}" />
+                                        <TextBlock FontSize="15" FontWeight="SemiBold" Text="Jean-Pierre Planas" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0,14,0,0" Orientation="Horizontal">
+                                    <Border Style="{StaticResource SectionIconBadge}">
+                                        <ui:SymbolIcon Foreground="White" FontSize="16" Symbol="History24" />
+                                    </Border>
+                                    <TextBlock VerticalAlignment="Center" Style="{StaticResource SecondaryText}" FontSize="13" Text="{l:Tr About_History}" />
+                                </StackPanel>
+                                <StackPanel Margin="0,14,0,0" Orientation="Horizontal">
+                                    <Border Style="{StaticResource SectionIconBadge}">
+                                        <ui:SymbolIcon Foreground="White" FontSize="16" Symbol="Code24" />
+                                    </Border>
+                                    <TextBlock VerticalAlignment="Center" Style="{StaticResource SecondaryText}" FontSize="13" Text="{l:Tr About_License}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel Margin="0,24,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
+                            <ui:Button Appearance="Primary" Command="{Binding OpenWebsiteCommand}" Content="GitHub" Icon="{ui:SymbolIcon Open24}" />
+                            <ui:Button Margin="8,0,0,0" Command="{Binding ExitCommand}" Content="{l:Tr About_Exit}" Icon="{ui:SymbolIcon Power24}" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</ui:FluentWindow>

@@ -1,0 +1,74 @@
+name: Release
+
+# Publishing a release = pushing a version tag:
+#   git tag v1.0.0
+#   git push origin v1.0.0
+# A tag with a suffix (v1.1.0-beta.1) creates a pre-release.
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Test
+        run: dotnet test -c Release
+
+      - name: Publish the portable packages
+        shell: pwsh
+        run: |
+          $version = '${{ github.ref_name }}'.TrimStart('v')
+          New-Item -ItemType Directory -Force artifacts | Out-Null
+          foreach ($rid in 'win-x64', 'win-arm64') {
+            # portable = self-contained, runs everywhere; light = needs the .NET 10 Desktop Runtime
+            foreach ($variant in 'portable', 'light') {
+              $selfContained = if ($variant -eq 'portable') { 'true' } else { 'false' }
+              $out = "publish/$rid-$variant"
+              dotnet publish src/HotkeyLauncher/HotkeyLauncher.csproj -c Release -r $rid `
+                --self-contained $selfContained `
+                -p:PublishSingleFile=true `
+                -p:IncludeNativeLibrariesForSelfExtract=true `
+                -p:EnableCompressionInSingleFile=$selfContained `
+                -p:DebugType=none `
+                -p:Version=$version `
+                -o $out
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+              Copy-Item README.md, LICENSE -Destination $out
+              Compress-Archive -Path "$out/*" -DestinationPath "artifacts/HotkeyLauncher-$version-$rid-$variant.zip"
+            }
+          }
+          Get-ChildItem artifacts | Format-Table Name, Length
+
+      - name: Create the GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = '${{ github.ref_name }}'
+          $notes = @'
+          ## Download / Téléchargement
+
+          | File | For |
+          |------|-----|
+          | `HotkeyLauncher-*-win-x64-portable.zip` | **Recommended.** Windows 10/11 64-bit, nothing to install |
+          | `HotkeyLauncher-*-win-x64-light.zip` | Smaller, requires the [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) |
+          | `HotkeyLauncher-*-win-arm64-*.zip` | Windows on ARM (Snapdragon…) |
+
+          Unzip anywhere and run `HotkeyLauncher.exe`. Settings are stored next to the executable.
+          Décompressez où vous voulez et lancez `HotkeyLauncher.exe`. Les paramètres sont enregistrés à côté de l'exécutable.
+
+          '@
+          $files = (Get-ChildItem artifacts/*.zip).FullName
+          $options = @('--title', "HotkeyLauncher $tag", '--notes', $notes, '--generate-notes')
+          if ($tag.Contains('-')) { $options += '--prerelease' }
+          gh release create $tag @files @options

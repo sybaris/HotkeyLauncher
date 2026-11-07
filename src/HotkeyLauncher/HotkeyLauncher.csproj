@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <!-- WinForms is only used for the notification-area icon and its menus -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyTitle>HotkeyLauncher</AssemblyTitle>
+    <Description>Launch applications, folders and URLs with global keyboard shortcuts.</Description>
+    <!-- WFO0003: DPI awareness stays in app.manifest because this is a WPF application (WinForms only hosts the tray icon) -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+  </PropertyGroup>
+
+  <!-- Avoid WPF / WinForms type-name clashes: no implicit WinForms usings -->
+  <ItemGroup>
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+    <Using Include="System.IO" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="WPF-UI" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HotkeyLauncher.Core\HotkeyLauncher.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
+    <EmbeddedResource Include="Assets\tray.ico" LogicalName="HotkeyLauncher.tray.ico" />
+    <EmbeddedResource Include="Assets\tray-disabled.ico" LogicalName="HotkeyLauncher.tray-disabled.ico" />
+  </ItemGroup>
+
+</Project>

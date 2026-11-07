@@ -1,0 +1,92 @@
+using System.ComponentModel;
+using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using HotkeyLauncher.Core;
+using HotkeyLauncher.Core.Launching;
+using HotkeyLauncher.Core.Models;
+using HotkeyLauncher.Services;
+using static HotkeyLauncher.Localization.Localizer;
+
+namespace HotkeyLauncher.ViewModels;
+
+/// <summary>One line of the shortcut list.</summary>
+public sealed partial class HotkeyItemViewModel : ObservableObject
+{
+    private readonly MainViewModel _owner;
+
+    public HotkeyItemViewModel(MainViewModel owner, HotkeyEntry entry)
+    {
+        _owner = owner;
+        Entry = entry;
+    }
+
+    public HotkeyEntry Entry { get; private set; }
+
+    public string Name => Entry.Name;
+
+    /// <summary>Grouping key of the list (an empty group is displayed as "No group").</summary>
+    public string Group => Entry.Group;
+
+    public string Target => string.IsNullOrWhiteSpace(Entry.Arguments) ? Entry.Target : $"{Entry.Target}  {Entry.Arguments}";
+
+    public ImageSource? Icon => IconService.GetImage(Entry.Target);
+
+    public IReadOnlyList<string> HotkeyParts => KeyNames.Parts(Entry.Hotkey);
+
+    public bool HasHotkey => !Entry.Hotkey.IsEmpty;
+
+    public bool RunsAsAdministrator => Entry.RunAsAdministrator;
+
+    public bool IsEnabled
+    {
+        get => Entry.IsEnabled;
+        set
+        {
+            if (Entry.IsEnabled == value) return;
+            _owner.SetEnabled(this, value);
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>Problem to show next to the line (hotkey already used, target missing...), or null.</summary>
+    [ObservableProperty]
+    public partial string? Warning { get; private set; }
+
+    public void Update(HotkeyEntry entry, int? registrationError)
+    {
+        Entry = entry;
+        Warning = registrationError switch
+        {
+            1409 => T("Item_HotkeyTakenElsewhere"), // ERROR_HOTKEY_ALREADY_REGISTERED
+            int code => F("Item_HotkeyRegistrationError", new Win32Exception(code).Message),
+            null when TargetResolver.Classify(entry.Target) == TargetKind.NotFound => T("Item_TargetNotFound"),
+            _ => null,
+        };
+        OnPropertyChanged(string.Empty);
+    }
+
+    public bool Matches(string search) =>
+        Entry.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase)
+        || Entry.Group.Contains(search, StringComparison.CurrentCultureIgnoreCase)
+        || Entry.Target.Contains(search, StringComparison.CurrentCultureIgnoreCase)
+        || KeyNames.Format(Entry.Hotkey).Contains(search, StringComparison.CurrentCultureIgnoreCase);
+
+    [RelayCommand]
+    private void Edit() => _owner.Edit(this);
+
+    [RelayCommand]
+    private void Launch() => _owner.Launch(this);
+
+    [RelayCommand]
+    private void Duplicate() => _owner.Duplicate(this);
+
+    [RelayCommand]
+    private Task Delete() => _owner.DeleteAsync(this);
+
+    [RelayCommand]
+    private void MoveUp() => _owner.Move(this, -1);
+
+    [RelayCommand]
+    private void MoveDown() => _owner.Move(this, +1);
+}

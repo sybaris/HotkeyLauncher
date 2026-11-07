@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HotkeyLauncher.Core/HotkeyLauncher.Core.csproj" />
+    <Project Path="src/HotkeyLauncher/HotkeyLauncher.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HotkeyLauncher.Core.Tests/HotkeyLauncher.Core.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,376 @@
+<ui:FluentWindow x:Class="HotkeyLauncher.Views.HotkeyEditorWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:l="clr-namespace:HotkeyLauncher.Localization"
+                 xmlns:vm="clr-namespace:HotkeyLauncher.ViewModels"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance vm:EditorViewModel}"
+                 Title="{Binding Title}"
+                 Width="1220"
+                 MinWidth="760"
+                 SizeToContent="Height"
+                 ShowInTaskbar="False"
+                 WindowStartupLocation="CenterScreen"
+                 ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica"
+                 WindowCornerPreference="Round"
+                 AllowDrop="True"
+                 PreviewDragOver="Window_PreviewDragOver"
+                 PreviewDrop="Window_PreviewDrop">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0" Title="{Binding Title}" ShowMaximize="False" ShowMinimize="False" />
+
+        <!-- ===== Live preview banner ===== -->
+        <Border Grid.Row="1" Margin="20,0,20,4" Style="{StaticResource BrandBanner}">
+            <Grid>
+                <Path Width="120" Height="120" Margin="0,-24,40,-30" HorizontalAlignment="Right"
+                      Data="{StaticResource BoltGeometry}" Fill="#1FFFFFFF" Stretch="Uniform" IsHitTestVisible="False" />
+                <Grid Margin="18,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="54" Height="54" CornerRadius="12" Background="#33FFFFFF">
+                        <Grid>
+                            <Path Margin="14" Data="{StaticResource BoltGeometry}" Fill="White" Stretch="Uniform"
+                                  Visibility="{Binding TargetIcon, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}" />
+                            <Image Width="36" Height="36" Source="{Binding TargetIcon}" />
+                        </Grid>
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="14,0" VerticalAlignment="Center">
+                        <TextBlock FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource OnBrandBrush}"
+                                   Text="{Binding PreviewName}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Foreground="{StaticResource OnBrandSecondaryBrush}" Text="{Binding TargetKindText}" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                    <Grid Grid.Column="2" Margin="0,0,150,0" VerticalAlignment="Center">
+                        <ItemsControl ItemsPanel="{StaticResource HorizontalPanel}"
+                                      ItemTemplate="{StaticResource BannerKeyCapTemplate}"
+                                      ItemsSource="{Binding HotkeyParts}"
+                                      Visibility="{Binding HasHotkey, Converter={StaticResource VisibleWhen}}" />
+                        <Border Style="{StaticResource BannerChip}"
+                                Visibility="{Binding HasHotkey, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}">
+                            <TextBlock Foreground="{StaticResource OnBrandBrush}" Text="{l:Tr Item_MenuOnly}" />
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid Margin="20,8,20,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="380" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- ================= Left column ================= -->
+                <StackPanel Grid.Column="0">
+
+                    <!-- What to launch -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+                                <Border Style="{StaticResource SectionIconBadge}">
+                                    <ui:SymbolIcon Foreground="White" FontSize="16" Symbol="Target24" />
+                                </Border>
+                                <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Text="{l:Tr Editor_SectionTarget}" />
+                            </StackPanel>
+
+                            <ui:TextBox x:Name="TargetBox"
+                                        PlaceholderText="{l:Tr Editor_TargetPlaceholder}"
+                                        Text="{Binding Target, UpdateSourceTrigger=PropertyChanged}" />
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ui:Button HorizontalAlignment="Stretch" Command="{Binding BrowseFileCommand}" Content="{l:Tr Editor_BrowseFile}" Icon="{ui:SymbolIcon Document24}" />
+                                <ui:Button Grid.Column="2" HorizontalAlignment="Stretch" Command="{Binding BrowseFolderCommand}" Content="{l:Tr Editor_BrowseFolder}" Icon="{ui:SymbolIcon Folder24}" />
+                            </Grid>
+                            <TextBlock Margin="2,8,0,0" Text="{Binding TargetKindText}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsTargetWarning}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <TextBlock Margin="0,14,0,4" Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_Name}" />
+                            <ui:TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock Margin="0,12,0,4" Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_Group}" />
+                            <ComboBox IsEditable="True"
+                                      ItemsSource="{Binding Groups}"
+                                      Text="{Binding Group, UpdateSourceTrigger=PropertyChanged}"
+                                      ToolTip="{l:Tr Editor_GroupTip}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Advanced options (always visible: the window has room for them) -->
+                    <Border Margin="0,12,0,0" Style="{StaticResource Card}">
+                        <StackPanel>
+                            <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+                                <Border Style="{StaticResource SectionIconBadge}">
+                                    <ui:SymbolIcon Foreground="White" FontSize="16" Symbol="Options24" />
+                                </Border>
+                                <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Text="{l:Tr Editor_SectionAdvanced}" />
+                            </StackPanel>
+
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_Arguments}" />
+                            <ui:TextBox PlaceholderText="{l:Tr Editor_ArgumentsPlaceholder}" Text="{Binding Arguments, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock Margin="0,12,0,4" Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_WorkingDirectory}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ui:TextBox PlaceholderText="{l:Tr Editor_WorkingDirectoryPlaceholder}" Text="{Binding WorkingDirectory, UpdateSourceTrigger=PropertyChanged}" />
+                                <ui:Button Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Stretch" Command="{Binding BrowseWorkingDirectoryCommand}" Icon="{ui:SymbolIcon FolderOpen24}" />
+                            </Grid>
+
+                            <Grid Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_WindowState}" />
+                                    <ComboBox DisplayMemberPath="Label"
+                                              ItemsSource="{Binding WindowStates}"
+                                              SelectedValue="{Binding WindowState}"
+                                              SelectedValuePath="Value" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Style="{StaticResource FieldLabel}" Text="{l:Tr Editor_RunAsAdmin}" />
+                                    <ui:ToggleSwitch Margin="0,6,0,0" IsChecked="{Binding RunAsAdministrator}" ToolTip="{l:Tr Editor_RunAsAdminTip}" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ================= Right column: the hotkey ================= -->
+                <Border Grid.Column="2" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+                            <Border Style="{StaticResource SectionIconBadge}">
+                                <ui:SymbolIcon Foreground="White" FontSize="16" Symbol="Keyboard24" />
+                            </Border>
+                            <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Text="{l:Tr Editor_SectionHotkey}" />
+                        </StackPanel>
+
+                        <!-- Capture box: click then type the combination -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="CaptureBox"
+                                    MinHeight="54"
+                                    Padding="12,6"
+                                    Cursor="IBeam"
+                                    Focusable="True"
+                                    FocusVisualStyle="{x:Null}"
+                                    CornerRadius="8"
+                                    BorderThickness="2"
+                                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                    MouseLeftButtonDown="CaptureBox_MouseLeftButtonDown"
+                                    PreviewKeyDown="CaptureBox_PreviewKeyDown">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                                <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid VerticalAlignment="Center">
+                                    <ItemsControl ItemsPanel="{StaticResource HorizontalPanel}"
+                                                  ItemTemplate="{StaticResource LargeKeyCapTemplate}"
+                                                  ItemsSource="{Binding HotkeyParts}"
+                                                  Visibility="{Binding HasHotkey, Converter={StaticResource VisibleWhen}}" />
+                                    <TextBlock VerticalAlignment="Center"
+                                               Style="{StaticResource SecondaryText}"
+                                               FontSize="13"
+                                               Text="{l:Tr Editor_CapturePlaceholder}"
+                                               Visibility="{Binding HasHotkey, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}" />
+                                    <Border HorizontalAlignment="Right" VerticalAlignment="Center" Padding="8,2" CornerRadius="10"
+                                            Background="{StaticResource BrandGradientBrush}"
+                                            Visibility="{Binding IsKeyboardFocused, ElementName=CaptureBox, Converter={StaticResource VisibleWhen}}">
+                                        <TextBlock FontSize="12" Foreground="White" Text="{l:Tr Editor_CaptureActive}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                            <ui:Button Grid.Column="1"
+                                       Margin="8,0,0,0"
+                                       VerticalAlignment="Stretch"
+                                       Command="{Binding ClearHotkeyCommand}"
+                                       Icon="{ui:SymbolIcon Dismiss24}"
+                                       ToolTip="{l:Tr Editor_ClearHotkey}" />
+                        </Grid>
+
+                        <!-- Status -->
+                        <StackPanel Margin="2,10,0,0" Orientation="Horizontal">
+                            <!-- The color is set on a container (styling SymbolIcon itself would replace its WPF-UI style) -->
+                            <ContentControl Margin="0,0,6,0" Focusable="False" VerticalAlignment="Center">
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HotkeyStatus}" Value="Available">
+                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding HotkeyStatus}" Value="UsedByShortcut">
+                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding HotkeyStatus}" Value="NeedsModifier">
+                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding HotkeyStatus}" Value="Taken">
+                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding HotkeyStatus}" Value="ReservedByWindows">
+                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                                <ui:SymbolIcon FontSize="18" Symbol="{Binding StatusSymbol}" />
+                            </ContentControl>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding HotkeyStatusText}" TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <!-- Suggestions of free combinations -->
+                        <WrapPanel Margin="0,8,0,0" Visibility="{Binding Suggestions.Count, Converter={StaticResource VisibleWhen}}">
+                            <TextBlock Margin="2,0,8,0" VerticalAlignment="Center" Style="{StaticResource SecondaryText}" Text="{l:Tr Editor_Suggestions}" />
+                            <ItemsControl ItemsSource="{Binding Suggestions}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ui:Button Margin="0,2,6,2"
+                                                   Padding="10,4"
+                                                   FontSize="12"
+                                                   Content="{Binding Text}"
+                                                   Icon="{ui:SymbolIcon Flash24}"
+                                                   Command="{Binding DataContext.ApplySuggestionCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                   CommandParameter="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </WrapPanel>
+
+                        <!-- On-screen keyboard -->
+                        <TextBlock Margin="2,16,0,8" Style="{StaticResource SecondaryText}" Text="{l:Tr Editor_KeyboardHelp}" />
+                        <Border Margin="0,0,0,6" HorizontalAlignment="Left" Style="{StaticResource KeyboardCase}">
+                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                <StackPanel Orientation="Horizontal">
+                                    <ItemsControl ItemsSource="{Binding MainKeyboard}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ItemsControl ItemsPanel="{StaticResource HorizontalPanel}" ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Button Style="{StaticResource KeyboardKeyStyle}"
+                                                                    Command="{Binding DataContext.KeyClickedCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ItemsControl Margin="14,0,0,0" ItemsSource="{Binding NavigationKeyboard}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ItemsControl ItemsPanel="{StaticResource HorizontalPanel}" ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Button Style="{StaticResource KeyboardKeyStyle}"
+                                                                    Command="{Binding DataContext.KeyClickedCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Viewbox>
+                        </Border>
+
+                        <!-- Legend -->
+                        <WrapPanel Margin="2,10,0,0">
+                            <StackPanel Margin="0,0,18,4" Orientation="Horizontal">
+                                <Border Style="{StaticResource LegendSwatch}" Background="{DynamicResource SolidBackgroundFillColorQuarternaryBrush}" BorderBrush="{DynamicResource ControlStrongStrokeColorDefaultBrush}" />
+                                <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Legend_Free}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,18,4" Orientation="Horizontal">
+                                <Border Style="{StaticResource LegendSwatch}" Background="{DynamicResource AccentFillColorDefaultBrush}" BorderBrush="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Legend_Selected}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,18,4" Orientation="Horizontal">
+                                <Border Style="{StaticResource LegendSwatch}" Background="{DynamicResource SystemFillColorCautionBackgroundBrush}" BorderBrush="{DynamicResource SystemFillColorCautionBrush}" />
+                                <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Legend_UsedByShortcut}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,18,4" Orientation="Horizontal">
+                                <Border Style="{StaticResource LegendSwatch}" Background="{DynamicResource SystemFillColorCriticalBackgroundBrush}" BorderBrush="{DynamicResource SystemFillColorCriticalBrush}" />
+                                <TextBlock Style="{StaticResource SecondaryText}" Text="{l:Tr Legend_Taken}" />
+                            </StackPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- ===== Footer ===== -->
+        <Border Grid.Row="3"
+                Padding="20,12"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:Button Command="{Binding TestCommand}" Content="{l:Tr Editor_Test}" Icon="{ui:SymbolIcon Play24}" ToolTip="{l:Tr Editor_TestTip}" />
+                <StackPanel Grid.Column="1" Margin="16,0" VerticalAlignment="Center">
+                    <TextBlock Foreground="{DynamicResource SystemFillColorCriticalBrush}" Text="{Binding ErrorText}" TextWrapping="Wrap"
+                               Visibility="{Binding ErrorText, Converter={StaticResource VisibleWhen}}" />
+                    <TextBlock Foreground="{DynamicResource SystemFillColorCautionBrush}" Text="{Binding WarningText}" TextWrapping="Wrap"
+                               Visibility="{Binding WarningText, Converter={StaticResource VisibleWhen}}" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <ui:Button MinWidth="110" Content="{l:Tr Common_Cancel}" IsCancel="True" />
+                    <ui:Button MinWidth="110" Margin="8,0,0,0" Appearance="Primary" Command="{Binding SaveCommand}" Content="{l:Tr Common_Save}" IsEnabled="{Binding CanSave}" Icon="{ui:SymbolIcon Save24}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</ui:FluentWindow>
