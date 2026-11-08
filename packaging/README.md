@@ -1,41 +1,77 @@
 # Packaging
 
-HotkeyLauncher is a portable application: the packages below simply download the release zip and unzip it.
-Each GitHub release contains a `SHA256SUMS.txt` file and a ready-to-use Scoop manifest (`hotkeylauncher.json`).
+HotkeyLauncher is a portable application: the packages below simply download the self-contained release zip.
+The package name is `hotkeylauncher` everywhere; the winget identifier is `Sybaris.HotkeyLauncher`.
 
-## Scoop
+| Channel | Users install with | Settings are stored in |
+|---------|--------------------|------------------------|
+| Scoop | `scoop bucket add sybaris https://github.com/sybaris/scoop-bucket` then `scoop install hotkeylauncher` | Scoop's `persist` folder (kept across updates) |
+| winget | `winget install Sybaris.HotkeyLauncher` | `%APPDATA%\HotkeyLauncher` |
+| Chocolatey | `choco install hotkeylauncher` | `%APPDATA%\HotkeyLauncher` |
 
-Scoop installs portable apps from "buckets" (git repositories of JSON manifests).
+The application detects a winget or Chocolatey folder (`SettingsStore.IsManagedByPackageManager`) and then stores
+its settings in `%APPDATA%`, because those folders are replaced by updates.
 
-1. Create a public repository, for example `sybaris/scoop-bucket`, with a `bucket/` folder.
-2. Copy the `hotkeylauncher.json` attached to the latest release into `bucket/`, commit and push.
-   (`scoop/hotkeylauncher.json` in this folder is the template it is generated from: its `checkver`/`autoupdate`
-   sections let `scoop` maintainers' tooling update it automatically.)
-3. Users then install with:
+## What the release workflow does
+
+For every stable tag (`v1.2.3`, not `v1.2.3-beta.1`), `.github/workflows/release.yml`:
+
+1. attaches to the GitHub release the zips, `SHA256SUMS.txt`, the Scoop manifest `hotkeylauncher.json` and the
+   Chocolatey package `hotkeylauncher.x.y.z.nupkg`;
+2. **pushes the Chocolatey package** if the `CHOCOLATEY_API_KEY` secret exists;
+3. **opens the winget pull request** if the `WINGET_TOKEN` secret exists.
+
+Without these secrets, the steps are skipped and the release is still created.
+The templates (`x.y.z`, `SHA256_X64`, `SHA256_ARM64` are replaced) are in `scoop/`, `winget/` and `chocolatey/`.
+
+## Scoop (one-time setup)
+
+Scoop installs apps from "buckets", git repositories of JSON manifests.
+
+1. Create the bucket from Scoop's template (it contains the *Excavator* workflow that updates manifests automatically
+   thanks to `checkver` / `autoupdate`):
 
    ```powershell
-   scoop bucket add sybaris https://github.com/sybaris/scoop-bucket
-   scoop install hotkeylauncher
+   gh repo create sybaris/scoop-bucket --public --template ScoopInstaller/BucketTemplate --clone
    ```
 
-Settings are kept across updates thanks to `persist` (the settings file, log and backups live in Scoop's `persist` folder).
+2. Put the `hotkeylauncher.json` attached to the latest release in `bucket/`, commit and push.
+3. In the bucket repository settings, *Actions → General → Workflow permissions*: choose *Read and write permissions*,
+   so that Excavator can commit new versions.
 
 ## winget
 
-winget packages are submitted by pull request to [microsoft/winget-pkgs](https://github.com/microsoft/winget-pkgs).
-HotkeyLauncher uses the *zip + portable* installer type: winget unzips it and adds `hotkeylauncher` to the PATH.
+The first version must be submitted once; the next ones are automatic with the `WINGET_TOKEN` secret.
 
-The easiest way is [wingetcreate](https://github.com/microsoft/winget-create):
+1. Create a *classic* personal access token on the account that will open the pull requests
+   (*Settings → Developer settings → Tokens (classic)*, scope `public_repo`).
+2. First submission (manifests filled the same way as the workflow does, in `packaging-out/winget/x.y.z`):
+
+   ```powershell
+   winget install Microsoft.WingetCreate
+   wingetcreate submit --token <token> packaging-out\winget\1.0.0
+   ```
+
+   Microsoft's bots validate the package (download, antivirus scan, installation) and a moderator merges the pull
+   request, usually within a few days.
+3. Add the token as the `WINGET_TOKEN` secret of the HotkeyLauncher repository
+   (*Settings → Secrets and variables → Actions*).
+
+## Chocolatey
+
+1. Create an account on [community.chocolatey.org](https://community.chocolatey.org/account/Register) and copy your
+   API key (*Account → API Keys*).
+2. Add it as the `CHOCOLATEY_API_KEY` secret of the HotkeyLauncher repository.
+3. For the current version, push the package once:
+
+   ```powershell
+   choco push hotkeylauncher.1.0.0.nupkg --source https://push.chocolatey.org/ --api-key <key>
+   ```
+
+Every version goes through automatic checks then, for the first versions of a package, a human moderation
+(from a few days to a few weeks). Testing the package locally before (administrator prompt):
 
 ```powershell
-winget install Microsoft.WingetCreate
-# First version: answers the questions interactively, then opens the pull request
-wingetcreate new https://github.com/sybaris/HotkeyLauncher/releases/download/v1.0.0/HotkeyLauncher-1.0.0-win-x64-portable.zip
-# Next versions
-wingetcreate update Sybaris.HotkeyLauncher --version 1.1.0 --urls https://github.com/sybaris/HotkeyLauncher/releases/download/v1.1.0/HotkeyLauncher-1.1.0-win-x64-portable.zip --submit
+choco install hotkeylauncher --source .\artifacts -y
+choco uninstall hotkeylauncher -y
 ```
-
-`winget/` contains a reference manifest (version 1.10 schema) showing the expected values; replace `x.y.z` and the
-SHA256 (from `SHA256SUMS.txt`) if you prefer writing it by hand.
-
-Users then install with `winget install Sybaris.HotkeyLauncher`.

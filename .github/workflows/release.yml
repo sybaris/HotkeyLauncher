@@ -49,7 +49,7 @@ jobs:
           }
           Get-ChildItem artifacts | Format-Table Name, Length
 
-      - name: Checksums and Scoop manifest
+      - name: Checksums and package manager manifests
         shell: pwsh
         run: |
           $version = '${{ github.ref_name }}'.TrimStart('v')
@@ -67,6 +67,30 @@ jobs:
             -replace 'SHA256_X64', $hashes["HotkeyLauncher-$version-win-x64-portable.zip"] `
             -replace 'SHA256_ARM64', $hashes["HotkeyLauncher-$version-win-arm64-portable.zip"] |
             Set-Content artifacts/hotkeylauncher.json -Encoding utf8NoBOM
+
+          function Fill([string] $text) {
+            $text -replace 'x\.y\.z', $version `
+              -replace 'SHA256_X64', $hashes["HotkeyLauncher-$version-win-x64-portable.zip"] `
+              -replace 'SHA256_ARM64', $hashes["HotkeyLauncher-$version-win-arm64-portable.zip"]
+          }
+
+          # winget manifests (submitted by the "Publish to winget" step)
+          $winget = "packaging-out/winget/$version"
+          New-Item -ItemType Directory -Force $winget | Out-Null
+          foreach ($file in Get-ChildItem packaging/winget/*.yaml) {
+            $lines = (Get-Content $file.FullName) | Where-Object { $_ -notmatch '^# Reference' }
+            Fill ($lines -join "`n") | Set-Content (Join-Path $winget $file.Name) -Encoding utf8NoBOM
+          }
+
+          # Chocolatey package (pushed by the "Publish to Chocolatey" step); stable versions only
+          if (-not $version.Contains('-')) {
+            Copy-Item packaging/chocolatey packaging-out/chocolatey -Recurse
+            foreach ($file in Get-ChildItem packaging-out/chocolatey -Recurse -File) {
+              Fill (Get-Content $file.FullName -Raw) | Set-Content $file.FullName -Encoding utf8NoBOM
+            }
+            choco pack packaging-out/chocolatey/hotkeylauncher.nuspec --outputdirectory artifacts
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
           Get-Content artifacts/SHA256SUMS.txt
 
       - name: Create the GitHub release
@@ -88,7 +112,33 @@ jobs:
           Décompressez où vous voulez et lancez `HotkeyLauncher.exe`. Les paramètres sont enregistrés à côté de l'exécutable.
 
           '@
-          $files = (Get-ChildItem artifacts/*.zip, artifacts/SHA256SUMS.txt, artifacts/hotkeylauncher.json).FullName
+          $files = (Get-ChildItem artifacts/*.zip, artifacts/*.nupkg, artifacts/SHA256SUMS.txt, artifacts/hotkeylauncher.json).FullName
           $options = @('--title', "HotkeyLauncher $tag", '--notes', $notes, '--generate-notes')
           if ($tag.Contains('-')) { $options += '--prerelease' }
           gh release create $tag @files @options
+
+      # Optional: needs the CHOCOLATEY_API_KEY secret (API key of the chocolatey.org account)
+      - name: Publish to Chocolatey
+        if: ${{ !contains(github.ref_name, '-') }}
+        shell: pwsh
+        env:
+          CHOCOLATEY_API_KEY: ${{ secrets.CHOCOLATEY_API_KEY }}
+        run: |
+          if (-not $env:CHOCOLATEY_API_KEY) { Write-Host 'CHOCOLATEY_API_KEY secret not set: skipped'; exit 0 }
+          $nupkg = (Get-ChildItem artifacts/*.nupkg).FullName
+          choco push $nupkg --source https://push.chocolatey.org/ --api-key $env:CHOCOLATEY_API_KEY
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      # Optional: needs the WINGET_TOKEN secret (classic GitHub token of the account that opens the pull
+      # request on microsoft/winget-pkgs, scope "public_repo")
+      - name: Publish to winget
+        if: ${{ !contains(github.ref_name, '-') }}
+        shell: pwsh
+        env:
+          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        run: |
+          if (-not $env:WINGET_TOKEN) { Write-Host 'WINGET_TOKEN secret not set: skipped'; exit 0 }
+          $version = '${{ github.ref_name }}'.TrimStart('v')
+          Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+          ./wingetcreate.exe submit --token $env:WINGET_TOKEN --prtitle "New version: Sybaris.HotkeyLauncher version $version" "packaging-out/winget/$version"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

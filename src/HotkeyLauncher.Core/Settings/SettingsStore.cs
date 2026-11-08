@@ -41,7 +41,7 @@ public sealed class SettingsStore(string filePath)
     {
         var exeDirectory = AppContext.BaseDirectory;
         var portablePath = Path.Combine(exeDirectory, FileName);
-        if (File.Exists(portablePath) || IsDirectoryWritable(exeDirectory))
+        if (File.Exists(portablePath) || (!IsManagedByPackageManager(exeDirectory) && IsDirectoryWritable(exeDirectory)))
         {
             return new SettingsStore(portablePath);
         }
@@ -108,6 +108,21 @@ public sealed class SettingsStore(string filePath)
         {
             Log.Warning($"Settings backup failed: {ex.Message}");
         }
+    }
+
+    /// <summary>
+    /// True for a folder installed by winget or Chocolatey: such a folder is replaced or removed by updates and
+    /// uninstallation, so the settings go to %APPDATA% instead. (Scoop keeps them next to the executable through
+    /// its "persist" feature.)
+    /// </summary>
+    public static bool IsManagedByPackageManager(string directory)
+    {
+        var path = Path.TrimEndingDirectorySeparator(directory) + Path.DirectorySeparatorChar;
+        if (path.Contains(@"\WinGet\Packages\", StringComparison.OrdinalIgnoreCase)) return true;
+        if (path.Contains(@"\chocolatey\lib\", StringComparison.OrdinalIgnoreCase)) return true;
+        var chocolatey = Environment.GetEnvironmentVariable("ChocolateyInstall");
+        return !string.IsNullOrEmpty(chocolatey)
+               && path.StartsWith(Path.Combine(chocolatey, "lib") + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsDirectoryWritable(string directory)

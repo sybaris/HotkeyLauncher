@@ -294,3 +294,15 @@ public class DemoSettingsTests
         Assert.DoesNotContain(settings.Hotkeys, h => h.Target.Contains(@"\Users\", StringComparison.OrdinalIgnoreCase));
     }
 }
+
+public class PackageManagerLocationTests
+{
+    [Theory]
+    [InlineData(@"C:\Users\x\AppData\Local\Microsoft\WinGet\Packages\Sybaris.HotkeyLauncher_Microsoft.Winget.Source_8wekyb3d8bbwe\", true)]
+    [InlineData(@"C:\Program Files\WinGet\Packages\Sybaris.HotkeyLauncher_Microsoft.Winget.Source_8wekyb3d8bbwe", true)]
+    [InlineData(@"C:\ProgramData\chocolatey\lib\hotkeylauncher\tools\", true)]
+    [InlineData(@"C:\Users\x\scoop\apps\hotkeylauncher\current\", false)]
+    [InlineData(@"C:\Tools\HotkeyLauncher\", false)]
+    public void Package_manager_folders_are_detected(string directory, bool expected) =>
+        Assert.Equal(expected, SettingsStore.IsManagedByPackageManager(directory));
+}

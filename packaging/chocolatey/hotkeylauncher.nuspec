@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Template filled by the release workflow (x.y.z, release notes). See packaging/README.md. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>hotkeylauncher</id>
+    <version>x.y.z</version>
+    <title>HotkeyLauncher</title>
+    <authors>Jean-Pierre Planas</authors>
+    <owners>sybaris</owners>
+    <projectUrl>https://github.com/sybaris/HotkeyLauncher</projectUrl>
+    <packageSourceUrl>https://github.com/sybaris/HotkeyLauncher/tree/main/packaging/chocolatey</packageSourceUrl>
+    <projectSourceUrl>https://github.com/sybaris/HotkeyLauncher</projectSourceUrl>
+    <docsUrl>https://github.com/sybaris/HotkeyLauncher#readme</docsUrl>
+    <bugTrackerUrl>https://github.com/sybaris/HotkeyLauncher/issues</bugTrackerUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/sybaris/HotkeyLauncher@main/docs/logo.png</iconUrl>
+    <licenseUrl>https://github.com/sybaris/HotkeyLauncher/blob/main/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>© Jean-Pierre Planas</copyright>
+    <tags>hotkey hotkeys shortcut keyboard launcher productivity portable foss</tags>
+    <summary>Launch applications, folders and web sites with global keyboard shortcuts.</summary>
+    <description><![CDATA[HotkeyLauncher launches programs, scripts, documents, folders and web sites with global keyboard shortcuts.
+
+## Features
+- Global shortcuts (e.g. `Ctrl + Alt + N` opens Notepad from anywhere)
+- Programs with arguments, scripts (`.ps1`, `.bat`, `.cmd`), documents, folders, web sites and links
+- Run as administrator, run hidden, bring an already running window to the front, window position and screen
+- Quick launcher: press `Win + Alt + Space`, type a few letters, press Enter
+- Notification-area menu with search, groups, drag & drop, usage statistics
+- On-screen keyboard showing which key combinations are free (follows your keyboard layout)
+- Export / import, automatic backups, light / dark theme
+- Interface in English, French, Spanish and German
+
+Settings are stored in `%APPDATA%\HotkeyLauncher`, so they are kept across upgrades.
+
+Successor of [RapidApp](https://sourceforge.net/projects/rapidapp/).
+]]></description>
+    <releaseNotes>https://github.com/sybaris/HotkeyLauncher/releases/tag/vx.y.z</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

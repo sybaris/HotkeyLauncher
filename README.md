@@ -66,7 +66,15 @@ Unzip the archive in any folder (for instance `C:\Tools\HotkeyLauncher`) and run
 
 > The executable is not signed: on first launch Windows SmartScreen may display a warning. Click *More info* → *Run anyway*.
 
-Package managers: see [packaging/README.md](packaging/README.md) (Scoop bucket, winget).
+Or with a package manager:
+
+```powershell
+winget install Sybaris.HotkeyLauncher
+choco install hotkeylauncher
+scoop bucket add sybaris https://github.com/sybaris/scoop-bucket; scoop install hotkeylauncher
+```
+
+(See [packaging/README.md](packaging/README.md). With winget and Chocolatey the settings are stored in `%APPDATA%\HotkeyLauncher`.)
 
 ## Usage
 
@@ -164,6 +172,8 @@ To add a language: add a column, then declare it in `Localizer.Languages` and in
 ### Installation
 
 Téléchargez la dernière version sur la [page des releases](https://github.com/sybaris/HotkeyLauncher/releases/latest) (fichier `win-x64-portable.zip` recommandé), décompressez-la dans un dossier de votre choix et lancez `HotkeyLauncher.exe`.
+
+Ou avec un gestionnaire de paquets : `winget install Sybaris.HotkeyLauncher`, `choco install hotkeylauncher`, ou `scoop bucket add sybaris https://github.com/sybaris/scoop-bucket` puis `scoop install hotkeylauncher`.
 
 > L'exécutable n'est pas signé : au premier lancement, Windows SmartScreen peut afficher un avertissement. Cliquez sur *Informations complémentaires* → *Exécuter quand même*.
 
