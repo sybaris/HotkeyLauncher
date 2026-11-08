@@ -35,9 +35,12 @@ Scoop installs apps from "buckets", git repositories of JSON manifests.
    gh repo create sybaris/scoop-bucket --public --template ScoopInstaller/BucketTemplate --clone
    ```
 
-2. Put the `hotkeylauncher.json` attached to the latest release in `bucket/`, commit and push.
-3. In the bucket repository settings, *Actions → General → Workflow permissions*: choose *Read and write permissions*,
-   so that Excavator can commit new versions.
+2. Put the `hotkeylauncher.json` attached to the latest release in `bucket/`, replace the placeholder in
+   `bin/auto-pr.ps1` by `sybaris/scoop-bucket:main`, commit and push.
+3. In the bucket repository settings, *Actions → General → Actions permissions*: *Allow all actions and reusable
+   workflows*. (The Excavator workflow declares `contents: write` itself: the default read-only workflow permissions
+   are fine.)
+4. Optional: add the `scoop-bucket` topic to the repository so that the bucket is listed on https://scoop.sh.
 
 ## winget
 
