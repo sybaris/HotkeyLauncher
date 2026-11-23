@@ -12,7 +12,7 @@
     <projectSourceUrl>https://github.com/sybaris/HotkeyLauncher</projectSourceUrl>
     <docsUrl>https://github.com/sybaris/HotkeyLauncher#readme</docsUrl>
     <bugTrackerUrl>https://github.com/sybaris/HotkeyLauncher/issues</bugTrackerUrl>
-    <iconUrl>https://cdn.jsdelivr.net/gh/sybaris/HotkeyLauncher@main/docs/logo.png</iconUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/sybaris/HotkeyLauncher@vx.y.z/docs/logo.png</iconUrl>
     <licenseUrl>https://github.com/sybaris/HotkeyLauncher/blob/main/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>© Jean-Pierre Planas</copyright>
